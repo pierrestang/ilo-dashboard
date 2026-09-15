@@ -4,6 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
+<script type="module">
+  // Pont vers le SDK Firebase modulaire (Auth + Firestore) — nécessaire car
+  // le composant ci-dessous s'exécute via new Function() (pas de support
+  // des imports ES) et parce que le SDK « compat » de cette version ne
+  // configure pas correctement son résolveur de popup en interne
+  // (auth/argument-error sur signInWithPopup). On expose ici l'API dont le
+  // composant a besoin sur window.__firebase.
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
+  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
+  import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
+  const app = initializeApp({
+    apiKey: 'AIzaSyBZK1xs0z_rzUtc-o8iqXN0dta-uKyqgnI',
+    authDomain: 'ilo-saas.firebaseapp.com',
+    projectId: 'ilo-saas',
+    storageBucket: 'ilo-saas.firebasestorage.app',
+    messagingSenderId: '360912316431',
+    appId: '1:360912316431:web:b4c0ff9e6a8ea982c59b7a'
+  });
+  window.__firebase = {
+    auth: getAuth(app), db: getFirestore(app),
+    GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, doc, getDoc, setDoc, serverTimestamp
+  };
+</script>
 </head>
 <body>
 <x-dc>
@@ -80,6 +103,39 @@ a:hover{color:var(--color-accent-400)}
       <sc-if value="{{ vueFiche }}" hint-placeholder-val="{{ false }}">
         <button onClick="{{ fermerFiche }}" title="Revenir au dashboard" aria-label="Revenir au dashboard" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-500);border-radius:9px;cursor:pointer" style-hover="color:var(--color-text);border-color:var(--color-neutral-700);background:rgba(255,255,255,.09)"><i class="ph ph-x" style="font-size:15px"></i></button>
       </sc-if>
+      <div style="position:relative">
+        <button onClick="{{ onCompteBouton }}" title="Compte et synchronisation" aria-label="Compte et synchronisation" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;padding:0;cursor:pointer;overflow:hidden;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-500)" style-hover="border-color:var(--color-neutral-700);color:var(--color-text)">
+          <sc-if value="{{ compteAvatarVisible }}" hint-placeholder-val="{{ false }}">
+            <img src="{{ compteAvatar }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+          </sc-if>
+          <sc-if value="{{ compteInitialeVisible }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size:12px;font-weight:600">{{ compteInitiale }}</span>
+          </sc-if>
+          <sc-if value="{{ !compteConnecte }}" hint-placeholder-val="{{ true }}">
+            <i class="ph ph-user-circle" style="font-size:17px"></i>
+          </sc-if>
+        </button>
+        <sc-if value="{{ compteOuvert }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ fermerCompte }}" style="position:fixed;inset:0;z-index:49"></div>
+          <div style="position:absolute;top:38px;right:0;z-index:50;width:280px;background:rgba(16,20,32,.96);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);box-shadow:0 20px 50px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;animation:fadeUp .16s ease both">
+            <sc-if value="{{ compteConnecte }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <div style="font-size:13px;font-weight:600;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteNom }}</div>
+                <div style="font-size:11.5px;color:var(--color-neutral-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteEmail }}</div>
+              </div>
+              <div style="font-size:11.5px;color:var(--color-neutral-400)">{{ compteEtatLabel }}</div>
+              <button onClick="{{ onCompteDeconnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-400);border-radius:9px;padding:7px 10px;font-family:inherit;font-size:12.5px;cursor:pointer" style-hover="color:var(--color-text);border-color:var(--color-neutral-700)"><i class="ph ph-sign-out" style="font-size:14px"></i>Se déconnecter</button>
+            </sc-if>
+            <sc-if value="{{ !compteConnecte }}" hint-placeholder-val="{{ true }}">
+              <div style="font-size:13px;color:var(--color-text)">Connectez-vous avec Google pour enregistrer vos données et les retrouver sur tous vos appareils.</div>
+              <button onClick="{{ onCompteConnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;align-self:flex-start;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;border-radius:10px;padding:9px 14px;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer" style-hover="background:rgba(255,255,255,.18)"><i class="ph ph-google-logo" style="font-size:15px"></i>Se connecter avec Google</button>
+            </sc-if>
+            <sc-if value="{{ compteMessageVisible }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12px;color:#ffd9c2;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4)">{{ compteMessage }}</div>
+            </sc-if>
+          </div>
+        </sc-if>
+      </div>
     </header>
 
     <sc-if value="{{ vueDashboard }}" hint-placeholder-val="{{ true }}">
@@ -1073,6 +1129,13 @@ const STATUTS = {
   done: { label: 'Terminée', icon: 'ph-fill ph-check-circle', suivant: 'todo', aide: 'Terminée — visible dans Tâches terminées' }
 };
 
+// La config Firebase vit dans le pont <script type="module"> du <head>
+// (window.__firebase) — voir ce commentaire là-bas pour le pourquoi.
+// Champs de l'état synchronisés dans Firestore (les informations saisies) —
+// la disposition des widgets et le suivi de prospection restent locaux à
+// chaque appareil.
+const CHAMPS_CLOUD = ['taches', 'relances', 'mandatsSup', 'notes', 'visites', 'epingles', 'infos', 'infosM'];
+
 const CLE = 'agentimmo.taches.v3';
 const CLE_R = 'agentimmo.relances.v2';
 const CLE_M = 'agentimmo.mandats.v2';
@@ -1278,6 +1341,10 @@ class Component extends DCLogic {
     infosM: (() => { try { const o = JSON.parse(localStorage.getItem(CLE_INFOM)); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } })(),
     prospection: (() => { try { const o = JSON.parse(localStorage.getItem('agentimmo.prospection.v1')); return !!(o && o.active && o.date === jourLocal()); } catch (e) { return false; } })(),
     gcalEtat: 'inactif',
+    compteUtilisateur: null,
+    compteMenuOuvert: false,
+    compteMessage: '',
+    cloudEtat: 'inactif',
     libreF: (() => { try { const o = JSON.parse(localStorage.getItem(CLE_LIBF) || sessionStorage.getItem(CLE_LIBF)); return o && typeof o === 'object' && Object.keys(o).length >= 8 ? o : { ...POS_INIT_F }; } catch (e) { return { ...POS_INIT_F }; } })(),
     bougeIdF: null,
     prospJournal: (() => {
@@ -1346,6 +1413,7 @@ class Component extends DCLogic {
       effacerFichier(id);
       return { mandatsSup, vue: 'dash', mandatId: null };
     });
+    this._planifierSyncCloud();
   }
 
   creerMandat() {
@@ -1388,6 +1456,7 @@ class Component extends DCLogic {
       try { localStorage.setItem(CLE_M, JSON.stringify(mandatsSup)); } catch (e) {}
       return { mandatsSup, nouveau: null, vue: 'fiche', mandatId: mandat.id };
     });
+    this._planifierSyncCloud();
   }
 
   componentDidMount() {
@@ -1399,6 +1468,7 @@ class Component extends DCLogic {
     };
     window.addEventListener('resize', this._surResize);
     this.programmerMinuitProspection();
+    this._demarrerFirebase();
     try { const t = sessionStorage.getItem('agentimmo.gtoken'); if (t && this.clientGoogle) this.chargerAgenda(t); } catch (e) {}
     const lire = (cle, defaut) => {
       try {
@@ -1485,6 +1555,7 @@ class Component extends DCLogic {
       try { localStorage.setItem('agentimmo.epingles.v2', JSON.stringify(epingles)); } catch (e) {}
       return { epingles };
     });
+    this._planifierSyncCloud();
   }
 
   epinglerMandat(id) {
@@ -1546,6 +1617,7 @@ class Component extends DCLogic {
       try { localStorage.setItem(CLE_R, JSON.stringify(relances)); } catch (e) {}
       return { relances };
     });
+    this._planifierSyncCloud();
   }
 
   reporter(id, mode) {
@@ -1570,6 +1642,7 @@ class Component extends DCLogic {
       try { localStorage.setItem(CLE_V, JSON.stringify(visites)); } catch (e) {}
       return visites && { visites };
     });
+    this._planifierSyncCloud();
   }
 
   ajouterVisite(m) {
@@ -1587,6 +1660,7 @@ class Component extends DCLogic {
       try { localStorage.setItem(CLE_V, JSON.stringify(copie)); } catch (er) {}
       return { visites: copie };
     });
+    this._planifierSyncCloud();
   }
 
   promouvoirVisite(id) {
@@ -1606,6 +1680,7 @@ class Component extends DCLogic {
       try { localStorage.setItem(CLE_V, JSON.stringify(copie)); } catch (er) {}
       return { visites: copie };
     });
+    this._planifierSyncCloud();
   }
 
   ouvrirVisite(v) {
@@ -1628,6 +1703,7 @@ class Component extends DCLogic {
       try { localStorage.setItem(CLE_V, JSON.stringify(copie)); } catch (er) {}
       return { visites: copie };
     });
+    this._planifierSyncCloud();
     this.setState({ visiteEditee: null });
   }
 
@@ -1640,6 +1716,7 @@ class Component extends DCLogic {
       try { localStorage.setItem(CLE_V, JSON.stringify(copie)); } catch (er) {}
       return { visites: copie };
     });
+    this._planifierSyncCloud();
     this.setState({ visiteEditee: null });
   }
 
@@ -1650,6 +1727,7 @@ class Component extends DCLogic {
       try { localStorage.setItem(CLE_N, JSON.stringify(notes)); } catch (e) {}
       return { notes };
     });
+    this._planifierSyncCloud();
   }
 
   majNote(m, idx, cle, val) {
@@ -1977,6 +2055,117 @@ class Component extends DCLogic {
     if (this._surResize) window.removeEventListener('resize', this._surResize);
     clearTimeout(this._tMinuit);
     clearTimeout(this._tGcal);
+    clearTimeout(this._tCloud);
+    if (this._desabonnerAuth) this._desabonnerAuth();
+  }
+
+  // ─── Compte Google (Firebase) : identifie l'utilisateur et synchronise
+  // les informations saisies (tâches, mandats, relances, notes, visites,
+  // épinglés, infos libres) sur tous ses appareils via Firestore. Distinct
+  // de la connexion Google Agenda ci-dessous, qui ne demande qu'un accès
+  // en lecture au calendrier.
+
+  _initFirebase() {
+    return window.__firebase || null;
+  }
+
+  _demarrerFirebase(tentative) {
+    const fb = this._initFirebase();
+    if (!fb) {
+      if ((tentative || 0) < 30) setTimeout(() => this._demarrerFirebase((tentative || 0) + 1), 150);
+      return;
+    }
+    this._desabonnerAuth = fb.onAuthStateChanged(fb.auth, utilisateur => {
+      this._cloudChargee = false;
+      clearTimeout(this._tCloud);
+      if (utilisateur) {
+        this.setState({
+          compteUtilisateur: { uid: utilisateur.uid, nom: utilisateur.displayName || '', photo: utilisateur.photoURL || '', email: utilisateur.email || '' },
+          compteMessage: ''
+        });
+        this._chargerCloud(utilisateur.uid);
+      } else {
+        this.setState({ compteUtilisateur: null, cloudEtat: 'inactif' });
+      }
+    });
+  }
+
+  connecterCompte() {
+    const fb = this._initFirebase();
+    if (!fb) { this.setState({ compteMessage: 'La bibliothèque Google n’est pas encore chargée — réessayez dans un instant.' }); return; }
+    this.setState({ compteMessage: '' });
+    try {
+      const fournisseur = new fb.GoogleAuthProvider();
+      fb.signInWithPopup(fb.auth, fournisseur).catch(err => {
+        console.error('[compte] signInWithPopup a échoué', err);
+        const code = err && err.code;
+        const msg = code === 'auth/popup-closed-by-user' ? 'Fenêtre Google fermée avant la fin de la connexion.'
+          : code === 'auth/popup-blocked' ? 'La popup Google a été bloquée par le navigateur — autorisez les popups pour ce site.'
+          : code === 'auth/unauthorized-domain' ? 'Ce domaine n’est pas autorisé pour la connexion Google (à ajouter dans Firebase → Authentication → Paramètres → Domaines autorisés).'
+          : 'Connexion impossible [' + code + '] : ' + (err && err.message || err);
+        this.setState({ compteMessage: msg });
+      });
+    } catch (err) {
+      console.error('[compte] erreur synchrone', err);
+      this.setState({ compteMessage: 'Erreur : ' + (err && err.message || err) });
+    }
+  }
+
+  deconnecterCompte() {
+    const fb = this._initFirebase();
+    if (fb) fb.signOut(fb.auth);
+    this.setState({ compteMenuOuvert: false });
+  }
+
+  async _chargerCloud(uid) {
+    const fb = this._initFirebase();
+    if (!fb) return;
+    this.setState({ cloudEtat: 'chargement' });
+    try {
+      const ref = fb.doc(fb.db, 'utilisateurs', uid);
+      const snap = await fb.getDoc(ref);
+      if (snap.exists()) {
+        const d = snap.data() || {};
+        const maj = {};
+        if (Array.isArray(d.taches)) maj.taches = d.taches;
+        if (Array.isArray(d.relances)) maj.relances = d.relances;
+        if (Array.isArray(d.mandatsSup)) maj.mandatsSup = d.mandatsSup;
+        if (d.notes && typeof d.notes === 'object') maj.notes = d.notes;
+        if (d.visites && typeof d.visites === 'object') maj.visites = d.visites;
+        if (Array.isArray(d.epingles)) maj.epingles = d.epingles;
+        if (typeof d.infos === 'string') maj.infos = d.infos;
+        if (d.infosM && typeof d.infosM === 'object') maj.infosM = d.infosM;
+        this._cloudChargee = true;
+        this.setState({ ...maj, cloudEtat: 'ok' });
+      } else {
+        // premier appareil connecté : on envoie l'état local actuel comme base de départ
+        this._cloudChargee = true;
+        this._sauvegarderCloud();
+        this.setState({ cloudEtat: 'ok' });
+      }
+    } catch (e) {
+      this.setState({ cloudEtat: 'erreur' });
+    }
+  }
+
+  _planifierSyncCloud() {
+    if (!this.state.compteUtilisateur || !this._cloudChargee) return;
+    clearTimeout(this._tCloud);
+    this._tCloud = setTimeout(() => this._sauvegarderCloud(), 800);
+  }
+
+  _sauvegarderCloud() {
+    const fb = this._initFirebase();
+    const utilisateur = this.state.compteUtilisateur;
+    if (!fb || !utilisateur) return;
+    const donnees = {};
+    for (const champ of CHAMPS_CLOUD) donnees[champ] = this.state[champ];
+    donnees.majLe = fb.serverTimestamp();
+    this.setState({ cloudEtat: 'synchronisation' });
+    const ref = fb.doc(fb.db, 'utilisateurs', utilisateur.uid);
+    fb.setDoc(ref, donnees, { merge: true })
+      .then(() => this.setState({ cloudEtat: 'ok' }))
+      .catch(() => this.setState({ cloudEtat: 'erreur' }));
   }
 
   saisieDifferee(cle, texte, appliquer) {
@@ -2132,6 +2321,7 @@ class Component extends DCLogic {
   ecrireInfos(v) {
     this.setState({ infos: v });
     try { localStorage.setItem(CLE_INFO, v); } catch (e) {}
+    this._planifierSyncCloud();
   }
 
   ecrireInfosM(id, v) {
@@ -2140,6 +2330,7 @@ class Component extends DCLogic {
       try { localStorage.setItem(CLE_INFOM, JSON.stringify(infosM)); } catch (e) {}
       return { infosM };
     });
+    this._planifierSyncCloud();
   }
 
   sauverDispo(maj) {
@@ -2195,6 +2386,7 @@ class Component extends DCLogic {
       try { localStorage.setItem(CLE, JSON.stringify(taches)); } catch (e) {}
       return { taches };
     });
+    this._planifierSyncCloud();
   }
 
   cycler(id) {
@@ -3114,6 +3306,33 @@ class Component extends DCLogic {
       gcalBoutonVisible: this.state.gcalEtat !== 'sans_id',
       onGcalConnecter: () => this.connecterGoogle(),
       gcalMessageVisible: !!this.state.gcalMessage,
+      ...(() => {
+        const c = this.state.compteUtilisateur;
+        const etats = {
+          inactif: 'Vos données restent sur cet appareil uniquement.',
+          chargement: 'Récupération de vos données…',
+          synchronisation: 'Synchronisation…',
+          ok: 'Synchronisé sur tous vos appareils.',
+          erreur: 'Échec de synchronisation — nouvelle tentative au prochain changement.'
+        };
+        return {
+          compteConnecte: !!c,
+          compteAvatar: (c && c.photo) || '',
+          compteAvatarVisible: !!(c && c.photo),
+          compteInitialeVisible: !!(c && !c.photo),
+          compteInitiale: c ? ((c.nom || c.email || '?').trim()[0] || '?').toUpperCase() : '',
+          compteOuvert: !!this.state.compteMenuOuvert,
+          onCompteBouton: () => this.setState(s => ({ compteMenuOuvert: !s.compteMenuOuvert })),
+          fermerCompte: () => this.setState({ compteMenuOuvert: false }),
+          compteNom: c ? (c.nom || c.email || 'Compte Google') : '',
+          compteEmail: (c && c.email) || '',
+          compteEtatLabel: etats[this.state.cloudEtat] || '',
+          onCompteConnecter: () => this.connecterCompte(),
+          onCompteDeconnecter: () => this.deconnecterCompte(),
+          compteMessage: this.state.compteMessage || '',
+          compteMessageVisible: !!this.state.compteMessage
+        };
+      })(),
       noteVueOuverte: !!this.state.noteVue,
       noteVue: this.state.noteVue || { titre: '', texte: '', canal: '', date: '' },
       fermerNoteVue: () => this.setState({ noteVue: null }),
