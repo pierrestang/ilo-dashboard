@@ -73,7 +73,6 @@ html,body{margin:0;height:100%;overflow:hidden}
 a{color:var(--color-accent);text-decoration:none}
 a:hover{color:var(--color-accent-400)}
 </style>
-<script src="https://accounts.google.com/gsi/client" async="" defer=""></script>
 <template id="__bundler_thumbnail" data-bg-color="#122430">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"><rect width="120" height="120" fill="#122430"></rect><g fill="none" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M36 58 60 40l24 18"></path><path d="M42 58v22h36V58"></path></g></svg>
 </template>
@@ -1029,9 +1028,7 @@ a:hover{color:var(--color-accent-400)}
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
         <div style="font-size:13px;color:var(--color-text)">{{ gcalIntro }}</div>
-        <sc-if value="{{ gcalBoutonVisible }}" hint-placeholder-val="{{ true }}">
-          <button onClick="{{ onGcalConnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;align-self:flex-start;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;border-radius:10px;padding:9px 14px;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer" style-hover="background:rgba(255,255,255,.18)"><i class="ph ph-google-logo" style="font-size:15px"></i>Se connecter avec Google</button>
-        </sc-if>
+        <button onClick="{{ onGcalConnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;align-self:flex-start;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;border-radius:10px;padding:9px 14px;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer" style-hover="background:rgba(255,255,255,.18)"><i class="ph ph-google-logo" style="font-size:15px"></i>Se reconnecter avec Google</button>
         <sc-if value="{{ gcalMessageVisible }}" hint-placeholder-val="{{ false }}">
           <div style="font-size:12px;color:#ffd9c2;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4)">{{ gcalMessage }}</div>
         </sc-if>
@@ -1113,7 +1110,7 @@ a:hover{color:var(--color-accent-400)}
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#ee7a3c&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#ee7a3c&quot;,&quot;#efc264&quot;,&quot;#2f8fc4&quot;,&quot;#4aa870&quot;],&quot;section&quot;:&quot;Traitement visuel&quot;},&quot;densite&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Confort&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;Confort&quot;,&quot;Compact&quot;],&quot;section&quot;:&quot;Organisation&quot;},&quot;animations&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Interactions&quot;},&quot;googleClientId&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;44733566786-vpsk5t5q431vibg8dr4n5f4ruck9shs3.apps.googleusercontent.com&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Agenda Google&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#ee7a3c&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#ee7a3c&quot;,&quot;#efc264&quot;,&quot;#2f8fc4&quot;,&quot;#4aa870&quot;],&quot;section&quot;:&quot;Traitement visuel&quot;},&quot;densite&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Confort&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;Confort&quot;,&quot;Compact&quot;],&quot;section&quot;:&quot;Organisation&quot;},&quot;animations&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Interactions&quot;}}">
 const EUR = n => n.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g, ' ') + ' €';
 
 const MANDAT_VIDE = {
@@ -1487,7 +1484,7 @@ class Component extends DCLogic {
     window.addEventListener('resize', this._surResize);
     this.programmerMinuitProspection();
     this._demarrerFirebase();
-    try { const t = sessionStorage.getItem('agentimmo.gtoken'); if (t && this.clientGoogle) this.chargerAgenda(t); } catch (e) {}
+    try { const t = sessionStorage.getItem('agentimmo.gtoken'); if (t) this.chargerAgenda(t); } catch (e) {}
     const lire = (cle, defaut) => {
       try {
         const sauv = JSON.parse(localStorage.getItem(cle));
@@ -1931,57 +1928,14 @@ class Component extends DCLogic {
     return libre;
   }
 
-  get clientGoogle() {
-    return (this.props.googleClientId || '44733566786-vpsk5t5q431vibg8dr4n5f4ruck9shs3.apps.googleusercontent.com').trim();
-  }
-
-  // Client Google Identity Services (créé une fois, réutilisé) : ouvre une
-  // popup Google standard qui renvoie directement le jeton d'accès au
-  // callback — plus besoin de redirection ni de copier-coller d'URL.
-  _clientGis() {
-    if (!window.google || !window.google.accounts || !window.google.accounts.oauth2) return null;
-    if (this._gis && this._gisClientId === this.clientGoogle) return this._gis;
-    this._gisClientId = this.clientGoogle;
-    this._gis = window.google.accounts.oauth2.initTokenClient({
-      client_id: this.clientGoogle,
-      scope: 'https://www.googleapis.com/auth/calendar.readonly',
-      callback: reponse => {
-        if (!reponse || !reponse.access_token) {
-          this.setState({ gcalEtat: 'erreur', gcalMessage: 'Google n’a renvoyé aucun accès.', gcalPanneau: true });
-          return;
-        }
-        try { sessionStorage.setItem('agentimmo.gtoken', reponse.access_token); } catch (e) {}
-        this.setState({ gcalEtat: 'connexion', gcalMessage: '', gcalPanneau: false });
-        this.chargerAgenda(reponse.access_token);
-      },
-      error_callback: err => {
-        const code = err && err.type;
-        const msg = code === 'popup_closed' ? 'Fenêtre Google fermée avant la fin de la connexion.'
-          : code === 'popup_failed_to_open' ? 'La popup Google a été bloquée par le navigateur — autorisez les popups pour ce site et réessayez.'
-          : 'Connexion à Google impossible.';
-        this.setState({ gcalEtat: 'erreur', gcalMessage: msg, gcalPanneau: true });
-      }
-    });
-    return this._gis;
-  }
-
-  // silencieux=true : tentative de renouvellement sans afficher de popup
-  // (utilisée quand un jeton expiré fait échouer un appel API).
-  connecterGoogle(silencieux) {
-    if (!this.clientGoogle) { this.setState({ gcalEtat: 'sans_id', gcalMessage: 'Renseignez un identifiant client OAuth.', gcalPanneau: true }); return; }
-    const client = this._clientGis();
-    if (!client) {
-      this.setState({ gcalEtat: 'erreur', gcalMessage: 'La bibliothèque Google (accounts.google.com/gsi/client) n’est pas encore chargée — réessayez dans un instant.', gcalPanneau: true });
-      return;
-    }
-    if (!silencieux) this.setState({ gcalMessage: '' });
-    client.requestAccessToken(silencieux ? { prompt: '' } : { prompt: 'consent' });
-  }
-
+  // L'agenda se connecte uniquement via connecterCompte() (une seule
+  // fenêtre Google, un seul jeton, à la fois pour le compte et l'agenda) —
+  // il n'existe plus de flux Google séparé pour l'agenda seul.
   deconnecterGoogle() {
     const token = (() => { try { return sessionStorage.getItem('agentimmo.gtoken'); } catch (e) { return null; } })();
-    if (token && window.google && window.google.accounts && window.google.accounts.oauth2) {
-      try { window.google.accounts.oauth2.revoke(token, () => {}); } catch (e) {}
+    if (token) {
+      // révocation best-effort ; échoue silencieusement si le jeton est déjà expiré
+      fetch('https://oauth2.googleapis.com/revoke?token=' + encodeURIComponent(token), { method: 'POST' }).catch(() => {});
     }
     try { sessionStorage.removeItem('agentimmo.gtoken'); } catch (e) {}
     clearTimeout(this._tGcal);
@@ -2021,24 +1975,15 @@ class Component extends DCLogic {
           .filter(e => e.status !== 'cancelled' && e.eventType !== 'birthday')
           .filter(e => { const m = moi(e); return !m || m.responseStatus !== 'declined'; })
           .sort((a, b) => new Date(a.start.dateTime || a.start.date + 'T00:00:00') - new Date(b.start.dateTime || b.start.date + 'T00:00:00'));
-        this._gisRenouvelleEnCours = false;
         this.setState({ gcal: evts, gcalEtat: evts.length ? 'ok' : 'vide', gcalPanneau: false, gcalMessage: '' });
         clearTimeout(this._tGcal);
         this._tGcal = setTimeout(() => this.chargerAgenda(token), 300000);
       })
       .catch(err => {
         const st = err && err.status;
-        // jeton expiré : une seule tentative de renouvellement silencieux
-        // (sans popup) avant d'afficher le message de reconnexion.
-        if (st === 401 && !this._gisRenouvelleEnCours) {
-          this._gisRenouvelleEnCours = true;
-          this.connecterGoogle(true);
-          return;
-        }
-        this._gisRenouvelleEnCours = false;
         try { sessionStorage.removeItem('agentimmo.gtoken'); } catch (e) {}
         const detail = (err && err.detail) || '';
-        const msg = st === 401 ? 'Jeton refusé ou expiré — reconnectez votre agenda.'
+        const msg = st === 401 ? 'Accès à l’agenda expiré — reconnectez-vous depuis le menu de compte.'
           : st === 403 && /not been used|is disabled|accessNotConfigured/i.test(detail) ? 'L’API Google Calendar n’est pas activée sur votre projet Google Cloud (API et services → Bibliothèque → Google Calendar API → Activer).'
           : st === 403 ? 'Accès refusé par Google : ' + detail
           : st ? 'Erreur Google ' + st + (detail ? ' — ' + detail : '')
@@ -3338,11 +3283,8 @@ class Component extends DCLogic {
       dateAgenda: new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }),
       gcalPanneauOuvert: !!this.state.gcalPanneau,
       fermerGcalPanneau: () => this.setState({ gcalPanneau: false }),
-      gcalIntro: this.state.gcalEtat === 'sans_id'
-        ? 'Aucun identifiant client Google n’est configuré pour ce tableau de bord.'
-        : 'Connectez votre agenda Google pour afficher vos prochains rendez-vous en direct.',
-      gcalBoutonVisible: this.state.gcalEtat !== 'sans_id',
-      onGcalConnecter: () => this.connecterGoogle(),
+      gcalIntro: 'L’agenda se connecte automatiquement avec votre compte Google — reconnectez-vous depuis le menu de compte si besoin.',
+      onGcalConnecter: () => this.connecterCompte(),
       gcalMessageVisible: !!this.state.gcalMessage,
       ...(() => {
         const c = this.state.compteUtilisateur;
