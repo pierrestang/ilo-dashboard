@@ -2096,7 +2096,18 @@ class Component extends DCLogic {
     this.setState({ compteMessage: '' });
     try {
       const fournisseur = new fb.GoogleAuthProvider();
-      fb.signInWithPopup(fb.auth, fournisseur).catch(err => {
+      // Demande aussi l'accès en lecture à l'agenda dans la même fenêtre de
+      // connexion : un seul clic connecte à la fois le compte (synchronisation
+      // des données) et l'agenda Google, sans étape séparée.
+      fournisseur.addScope('https://www.googleapis.com/auth/calendar.readonly');
+      fb.signInWithPopup(fb.auth, fournisseur).then(resultat => {
+        const identifiants = fb.GoogleAuthProvider.credentialFromResult(resultat);
+        const jeton = identifiants && identifiants.accessToken;
+        if (jeton) {
+          try { sessionStorage.setItem('agentimmo.gtoken', jeton); } catch (e) {}
+          this.chargerAgenda(jeton);
+        }
+      }).catch(err => {
         console.error('[compte] signInWithPopup a échoué', err);
         const code = err && err.code;
         const msg = code === 'auth/popup-closed-by-user' ? 'Fenêtre Google fermée avant la fin de la connexion.'
@@ -2442,10 +2453,13 @@ class Component extends DCLogic {
   }
 
   get salut() {
-    if (!this._salut) {
+    const c = this.state.compteUtilisateur;
+    const prenom = (c && c.nom) ? c.nom.trim().split(/\s+/)[0] : 'Romain';
+    if (!this._salut || this._salutPrenom !== prenom) {
+      this._salutPrenom = prenom;
       const h = new Date().getHours();
       const moment = h < 9 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
-      this._salut = `${moment} Romain`;
+      this._salut = `${moment} ${prenom}`;
     }
     return this._salut;
   }
