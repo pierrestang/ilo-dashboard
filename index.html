@@ -84,7 +84,8 @@ a:hover{color:var(--color-accent-400)}
   <div aria-hidden="true" style="{{ ciel.nuages2 }}"></div>
   <div aria-hidden="true" style="{{ ciel.lueur }}"></div>
 
-
+  <sc-if value="{{ authPret }}" hint-placeholder-val="{{ false }}">
+  <sc-if value="{{ compteConnecte }}" hint-placeholder-val="{{ false }}">
   <main style="flex:1;min-width:0;display:flex;flex-direction:column;position:relative;z-index:1">
 
     <header style="flex:none;display:flex;align-items:center;gap:16px;padding:18px 26px 14px">
@@ -402,7 +403,6 @@ a:hover{color:var(--color-accent-400)}
             <div onPointerDown="{{ wRdv.onResize }}" title="Redimensionner" style="{{ wRdv.cornerStyle }}"></div>
             <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px">
               <h2 style="margin:0;flex:1;text-align:center;color:#ffffff;letter-spacing:-.02em;font-size:16px;font-weight:600;text-transform:none;white-space:nowrap">Prochain rendez-vous</h2>
-              <button onClick="{{ onConnecterGoogle }}" title="{{ gcalLabel }}" aria-label="{{ gcalLabel }}" style="position:absolute;right:14px;top:12px;z-index:3;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.12);color:#fff;border-radius:50%;padding:0;cursor:pointer" style-hover="background:rgba(255,255,255,.2)"><i class="ph ph-google-logo" style="font-size:13px"></i></button>
             </div>
             <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
               <span style="font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.72)">{{ dateAgenda }}</span>
@@ -1093,6 +1093,23 @@ a:hover{color:var(--color-accent-400)}
     </div>
   </div>
   </sc-if>
+  </sc-if>
+  <sc-if value="{{ !compteConnecte }}" hint-placeholder-val="{{ false }}">
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;padding:26px">
+    <div style="width:380px;max-width:100%;background:rgba(16,20,32,.94);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);box-shadow:0 30px 80px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:32px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;animation:fadeUp .18s ease both">
+      <div style="font-size:22px;font-weight:600;color:#ffffff;letter-spacing:-.02em">Agent Immo</div>
+      <div style="font-size:13.5px;color:var(--color-neutral-400);line-height:1.5">Connectez-vous avec votre compte Google pour accéder à votre tableau de bord et à vos données.</div>
+      <button onClick="{{ onCompteConnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;border-radius:10px;padding:11px 16px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;margin-top:6px" style-hover="background:rgba(255,255,255,.18)"><i class="ph ph-google-logo" style="font-size:17px"></i>Se connecter avec Google</button>
+      <sc-if value="{{ compteMessageVisible }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:12px;color:#ffd9c2;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4);width:100%;box-sizing:border-box">{{ compteMessage }}</div>
+      </sc-if>
+    </div>
+  </div>
+  </sc-if>
+  </sc-if>
+  <sc-if value="{{ !authPret }}" hint-placeholder-val="{{ true }}">
+  <div style="flex:1"></div>
+  </sc-if>
 </div>
 
 </x-dc>
@@ -1341,6 +1358,7 @@ class Component extends DCLogic {
     infosM: (() => { try { const o = JSON.parse(localStorage.getItem(CLE_INFOM)); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } })(),
     prospection: (() => { try { const o = JSON.parse(localStorage.getItem('agentimmo.prospection.v1')); return !!(o && o.active && o.date === jourLocal()); } catch (e) { return false; } })(),
     gcalEtat: 'inactif',
+    authPret: false,
     compteUtilisateur: null,
     compteMenuOuvert: false,
     compteMessage: '',
@@ -2072,7 +2090,10 @@ class Component extends DCLogic {
   _demarrerFirebase(tentative) {
     const fb = this._initFirebase();
     if (!fb) {
-      if ((tentative || 0) < 30) setTimeout(() => this._demarrerFirebase((tentative || 0) + 1), 150);
+      if ((tentative || 0) < 30) { setTimeout(() => this._demarrerFirebase((tentative || 0) + 1), 150); return; }
+      // la bibliothèque n'a pas pu charger : on affiche quand même l'écran de
+      // connexion plutôt que de bloquer indéfiniment sur un écran vide.
+      this.setState({ authPret: true });
       return;
     }
     this._desabonnerAuth = fb.onAuthStateChanged(fb.auth, utilisateur => {
@@ -2080,12 +2101,13 @@ class Component extends DCLogic {
       clearTimeout(this._tCloud);
       if (utilisateur) {
         this.setState({
+          authPret: true,
           compteUtilisateur: { uid: utilisateur.uid, nom: utilisateur.displayName || '', photo: utilisateur.photoURL || '', email: utilisateur.email || '' },
           compteMessage: ''
         });
         this._chargerCloud(utilisateur.uid);
       } else {
-        this.setState({ compteUtilisateur: null, cloudEtat: 'inactif' });
+        this.setState({ authPret: true, compteUtilisateur: null, cloudEtat: 'inactif' });
       }
     });
   }
@@ -2125,6 +2147,7 @@ class Component extends DCLogic {
   deconnecterCompte() {
     const fb = this._initFirebase();
     if (fb) fb.signOut(fb.auth);
+    this.deconnecterGoogle();
     this.setState({ compteMenuOuvert: false });
   }
 
@@ -2874,6 +2897,7 @@ class Component extends DCLogic {
     };
 
     return {
+      authPret: this.state.authPret,
       themeVars: [
         `--color-accent:${accent}`,
         '--color-bg:transparent', '--color-surface:rgba(255,255,255,.1)', '--color-text:#f7fafe', '--color-divider:rgba(255,255,255,.16)',
@@ -3534,25 +3558,9 @@ class Component extends DCLogic {
           return h < 24 ? 'dans ' + h + ' h' : d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
         };
         const barre = { barStyle: 'width:2px;height:13px;border-radius:2px;background:var(--color-neutral-700);display:inline-block;flex:none' };
-        const etats = {
-          inactif: this.clientGoogle ? 'Connecter mon agenda' : 'Agenda de démonstration',
-          sans_id: 'Identifiant Google manquant',
-          connexion: 'Connexion…',
-          erreur: 'Reconnecter Google',
-          coller: 'Coller l’URL de retour Google',
-          vide: 'Aucun rendez-vous à venir',
-          ok: 'Agenda Google connecté'
-        };
         const evts = this.state.gcal;
-        const base = {
-          gcalLabel: (etats[this.state.gcalEtat] || '') + (this.state.gcalMessage ? ' — ' + this.state.gcalMessage : ''),
-          gcalConnecte: this.state.gcalEtat === 'ok',
-          gcalActionVisible: this.state.gcalEtat !== 'ok',
-          onConnecterGoogle: () => (this.state.gcalEtat === 'ok' ? this.deconnecterGoogle() : this.connecterGoogle())
-        };
         if (!evts || !evts.length) {
           return {
-            ...base,
             rdv: { heure: '10h30', dans: 'dans 42 min', titre: 'Visite — 45 rue Sainte-Catherine', lieu: 'M. et Mme Ledoux · 2ᵉ visite' },
             suiteAgenda: [
         { heure: '12h15', titre: 'Déjeuner notaire — étude Bergerot' },
@@ -3576,7 +3584,6 @@ class Component extends DCLogic {
         const liste = (suite.length ? suite : horaires.filter(e => e !== p && dt(e) > maintenant)).slice(0, 3);
         const jourLabel = e => estAuj(e) ? '' : ' · ' + dt(e).toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric' });
         return {
-          ...base,
           rdv: {
             heure: p.start.dateTime ? hFmt(dt(p)) : 'Journée',
             dans: estAuj(p) ? ecartTexte(dt(p)) : dt(p).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }),
