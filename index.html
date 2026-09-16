@@ -12,7 +12,7 @@
   // (auth/argument-error sur signInWithPopup). On expose ici l'API dont le
   // composant a besoin sur window.__firebase.
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
-  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
+  import { getAuth, GoogleAuthProvider, signInWithCredential, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
   import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
   const app = initializeApp({
     apiKey: 'AIzaSyBZK1xs0z_rzUtc-o8iqXN0dta-uKyqgnI',
@@ -24,9 +24,10 @@
   });
   window.__firebase = {
     auth: getAuth(app), db: getFirestore(app),
-    GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, doc, getDoc, setDoc, serverTimestamp
+    GoogleAuthProvider, signInWithCredential, onAuthStateChanged, signOut, doc, getDoc, setDoc, serverTimestamp
   };
 </script>
+<script src="https://accounts.google.com/gsi/client" async="" defer=""></script>
 </head>
 <body>
 <x-dc>
@@ -35,7 +36,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="nocturne.css">
-<script src="_ds/nocturne-7676437d-1a73-4741-be13-3f260ca1354f/_ds_bundle.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
 <style>
@@ -1094,7 +1094,7 @@ a:hover{color:var(--color-accent-400)}
   <sc-if value="{{ !compteConnecte }}" hint-placeholder-val="{{ false }}">
   <div style="flex:1;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;padding:26px">
     <div style="width:380px;max-width:100%;background:rgba(16,20,32,.94);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);box-shadow:0 30px 80px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:32px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;animation:fadeUp .18s ease both">
-      <div style="font-size:22px;font-weight:600;color:#ffffff;letter-spacing:-.02em">Agent Immo</div>
+      <div style="font-size:22px;font-weight:600;color:#ffffff;letter-spacing:-.02em">ÎLO</div>
       <div style="font-size:13.5px;color:var(--color-neutral-400);line-height:1.5">Connectez-vous avec votre compte Google pour accéder à votre tableau de bord et à vos données.</div>
       <button onClick="{{ onCompteConnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;border-radius:10px;padding:11px 16px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;margin-top:6px" style-hover="background:rgba(255,255,255,.18)"><i class="ph ph-google-logo" style="font-size:17px"></i>Se connecter avec Google</button>
       <sc-if value="{{ compteMessageVisible }}" hint-placeholder-val="{{ false }}">
@@ -1149,6 +1149,14 @@ const STATUTS = {
 // la disposition des widgets et le suivi de prospection restent locaux à
 // chaque appareil.
 const CHAMPS_CLOUD = ['taches', 'relances', 'mandatsSup', 'notes', 'visites', 'epingles', 'infos', 'infosM'];
+
+// Client OAuth Google dédié à l'agenda (distinct de celui auto-créé par
+// Firebase Auth) — permet d'obtenir un jeton de renouvellement (refresh
+// token) via le flux "code", échangé côté serveur par les Cloud Functions
+// ci-dessous, pour ne plus jamais redemander de connexion après la première.
+const GOOGLE_CLIENT_ID_AGENDA = '360912316431-90fhlmptlbg31hl6a6208bjq2t2epkb0.apps.googleusercontent.com';
+const URL_ECHANGE_CODE = 'https://exchangeauthcode-360912316431.us-central1.run.app';
+const URL_RENOUVELLEMENT = 'https://refreshaccesstoken-360912316431.us-central1.run.app';
 
 const CLE = 'agentimmo.taches.v3';
 const CLE_R = 'agentimmo.relances.v2';
@@ -1484,7 +1492,6 @@ class Component extends DCLogic {
     window.addEventListener('resize', this._surResize);
     this.programmerMinuitProspection();
     this._demarrerFirebase();
-    try { const t = sessionStorage.getItem('agentimmo.gtoken'); if (t) this.chargerAgenda(t); } catch (e) {}
     const lire = (cle, defaut) => {
       try {
         const sauv = JSON.parse(localStorage.getItem(cle));
@@ -1977,10 +1984,19 @@ class Component extends DCLogic {
           .sort((a, b) => new Date(a.start.dateTime || a.start.date + 'T00:00:00') - new Date(b.start.dateTime || b.start.date + 'T00:00:00'));
         this.setState({ gcal: evts, gcalEtat: evts.length ? 'ok' : 'vide', gcalPanneau: false, gcalMessage: '' });
         clearTimeout(this._tGcal);
+        this._agendaRenouvelleEnCours = false;
         this._tGcal = setTimeout(() => this.chargerAgenda(token), 300000);
       })
       .catch(err => {
         const st = err && err.status;
+        // jeton expiré : une tentative de renouvellement silencieuse via la
+        // Cloud Function (aucune popup) avant d'afficher un message.
+        if (st === 401 && !this._agendaRenouvelleEnCours) {
+          this._agendaRenouvelleEnCours = true;
+          this._actualiserJetonAgenda();
+          return;
+        }
+        this._agendaRenouvelleEnCours = false;
         try { sessionStorage.removeItem('agentimmo.gtoken'); } catch (e) {}
         const detail = (err && err.detail) || '';
         const msg = st === 401 ? 'Accès à l’agenda expiré — reconnectez-vous depuis le menu de compte.'
@@ -2051,41 +2067,101 @@ class Component extends DCLogic {
           compteMessage: ''
         });
         this._chargerCloud(utilisateur.uid);
+        // Session restaurée automatiquement (pas de popup cette fois) : on
+        // récupère quand même un agenda à jour, en silence, via la Cloud
+        // Function de renouvellement plutôt que d'attendre une reconnexion.
+        let jetonExistant = null;
+        try { jetonExistant = sessionStorage.getItem('agentimmo.gtoken'); } catch (e) {}
+        if (jetonExistant) this.chargerAgenda(jetonExistant);
+        else this._actualiserJetonAgenda();
       } else {
         this.setState({ authPret: true, compteUtilisateur: null, cloudEtat: 'inactif' });
       }
     });
   }
 
+  // Popup unique (flux « code » Google Identity Services) : sert à la fois à
+  // la connexion du compte (via Firebase, après échange côté serveur) et à
+  // l'autorisation durable de l'agenda (refresh token stocké côté serveur —
+  // voir les Cloud Functions). Après cette unique fois, plus aucune popup
+  // n'est nécessaire : _actualiserJetonAgenda() renouvelle en silence.
   connecterCompte() {
-    const fb = this._initFirebase();
-    if (!fb) { this.setState({ compteMessage: 'La bibliothèque Google n’est pas encore chargée — réessayez dans un instant.' }); return; }
+    if (!window.google || !window.google.accounts || !window.google.accounts.oauth2) {
+      this.setState({ compteMessage: 'La bibliothèque Google n’est pas encore chargée — réessayez dans un instant.' });
+      return;
+    }
     this.setState({ compteMessage: '' });
     try {
-      const fournisseur = new fb.GoogleAuthProvider();
-      // Demande aussi l'accès en lecture à l'agenda dans la même fenêtre de
-      // connexion : un seul clic connecte à la fois le compte (synchronisation
-      // des données) et l'agenda Google, sans étape séparée.
-      fournisseur.addScope('https://www.googleapis.com/auth/calendar.readonly');
-      fb.signInWithPopup(fb.auth, fournisseur).then(resultat => {
-        const identifiants = fb.GoogleAuthProvider.credentialFromResult(resultat);
-        const jeton = identifiants && identifiants.accessToken;
-        if (jeton) {
-          try { sessionStorage.setItem('agentimmo.gtoken', jeton); } catch (e) {}
-          this.chargerAgenda(jeton);
+      const client = window.google.accounts.oauth2.initCodeClient({
+        client_id: GOOGLE_CLIENT_ID_AGENDA,
+        scope: 'openid email profile https://www.googleapis.com/auth/calendar.readonly',
+        ux_mode: 'popup',
+        prompt: 'consent',
+        callback: reponse => {
+          if (!reponse || !reponse.code) {
+            this.setState({ compteMessage: 'Connexion Google annulée ou impossible.' });
+            return;
+          }
+          this._traiterCodeGoogle(reponse.code);
+        },
+        error_callback: err => {
+          const code = err && err.type;
+          const msg = code === 'popup_closed' ? 'Fenêtre Google fermée avant la fin de la connexion.'
+            : code === 'popup_failed_to_open' ? 'La popup Google a été bloquée par le navigateur — autorisez les popups pour ce site.'
+            : 'Connexion à Google impossible.';
+          this.setState({ compteMessage: msg });
         }
-      }).catch(err => {
-        console.error('[compte] signInWithPopup a échoué', err);
-        const code = err && err.code;
-        const msg = code === 'auth/popup-closed-by-user' ? 'Fenêtre Google fermée avant la fin de la connexion.'
-          : code === 'auth/popup-blocked' ? 'La popup Google a été bloquée par le navigateur — autorisez les popups pour ce site.'
-          : code === 'auth/unauthorized-domain' ? 'Ce domaine n’est pas autorisé pour la connexion Google (à ajouter dans Firebase → Authentication → Paramètres → Domaines autorisés).'
-          : 'Connexion impossible [' + code + '] : ' + (err && err.message || err);
-        this.setState({ compteMessage: msg });
       });
+      client.requestCode();
     } catch (err) {
       console.error('[compte] erreur synchrone', err);
       this.setState({ compteMessage: 'Erreur : ' + (err && err.message || err) });
+    }
+  }
+
+  async _traiterCodeGoogle(code) {
+    const fb = this._initFirebase();
+    if (!fb) return;
+    try {
+      const reponse = await fetch(URL_ECHANGE_CODE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code })
+      });
+      const donnees = await reponse.json();
+      if (!reponse.ok || !donnees.idToken) {
+        this.setState({ compteMessage: donnees.erreur || 'Connexion impossible.' });
+        return;
+      }
+      const identifiants = fb.GoogleAuthProvider.credential(donnees.idToken, donnees.accessToken);
+      await fb.signInWithCredential(fb.auth, identifiants);
+      try { sessionStorage.setItem('agentimmo.gtoken', donnees.accessToken); } catch (e) {}
+      this.chargerAgenda(donnees.accessToken);
+    } catch (err) {
+      console.error('[compte] échange du code Google a échoué', err);
+      this.setState({ compteMessage: 'Connexion impossible : ' + (err && err.message || err) });
+    }
+  }
+
+  // Renouvelle silencieusement le jeton d'accès agenda via la Cloud
+  // Function (aucune popup) — utilisée au chargement pour une session déjà
+  // connectée, et quand le jeton en cours expire.
+  async _actualiserJetonAgenda() {
+    const fb = this._initFirebase();
+    if (!fb || !fb.auth.currentUser) return;
+    try {
+      const jetonFirebase = await fb.auth.currentUser.getIdToken();
+      const reponse = await fetch(URL_RENOUVELLEMENT, {
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + jetonFirebase }
+      });
+      const donnees = await reponse.json();
+      if (!reponse.ok || !donnees.accessToken) return;
+      try { sessionStorage.setItem('agentimmo.gtoken', donnees.accessToken); } catch (e) {}
+      this.chargerAgenda(donnees.accessToken);
+    } catch (e) {
+      // best-effort silencieux : l'agenda restera simplement sur ses
+      // dernières données (ou la démo) jusqu'au prochain essai.
     }
   }
 
@@ -2123,6 +2199,7 @@ class Component extends DCLogic {
         this.setState({ cloudEtat: 'ok' });
       }
     } catch (e) {
+      console.error('[cloud] échec chargement', e);
       this.setState({ cloudEtat: 'erreur' });
     }
   }
@@ -2144,7 +2221,10 @@ class Component extends DCLogic {
     const ref = fb.doc(fb.db, 'utilisateurs', utilisateur.uid);
     fb.setDoc(ref, donnees, { merge: true })
       .then(() => this.setState({ cloudEtat: 'ok' }))
-      .catch(() => this.setState({ cloudEtat: 'erreur' }));
+      .catch(e => {
+        console.error('[cloud] échec sauvegarde', e);
+        this.setState({ cloudEtat: 'erreur' });
+      });
   }
 
   saisieDifferee(cle, texte, appliquer) {
@@ -3501,6 +3581,12 @@ class Component extends DCLogic {
         };
         const barre = { barStyle: 'width:2px;height:13px;border-radius:2px;background:var(--color-neutral-700);display:inline-block;flex:none' };
         const evts = this.state.gcal;
+        if (evts === null && this.state.compteUtilisateur && this.state.gcalEtat !== 'erreur') {
+          return {
+            rdv: { heure: '—', dans: 'Chargement…', titre: 'Chargement de l’agenda…', lieu: '' },
+            suiteAgenda: []
+          };
+        }
         if (!evts || !evts.length) {
           return {
             rdv: { heure: '10h30', dans: 'dans 42 min', titre: 'Visite — 45 rue Sainte-Catherine', lieu: 'M. et Mme Ledoux · 2ᵉ visite' },
