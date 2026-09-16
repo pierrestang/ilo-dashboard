@@ -1504,7 +1504,7 @@ class Component extends DCLogic {
       const meta = (t.meta !== undefined ? t.meta : origine.meta) || '';
       if (meta) while (titre.endsWith(meta)) titre = titre.slice(0, -meta.length).trim();
       const base = { ...origine, ...t, titre: titre || origine.titre || 'Sans titre', meta, priorite: t.priorite || origine.priorite || 'moyenne' };
-      if ('key' in t) base.key = t.key || undefined;
+      if ('key' in t && !t.key) delete base.key;
       if (base.statut === 'wip') base.statut = 'todo';
       return base;
     };
@@ -2216,10 +2216,14 @@ class Component extends DCLogic {
     if (!fb || !utilisateur) return;
     const donnees = {};
     for (const champ of CHAMPS_CLOUD) donnees[champ] = this.state[champ];
-    donnees.majLe = fb.serverTimestamp();
+    // Firestore refuse toute valeur undefined, y compris imbriquée — on
+    // passe par un aller-retour JSON qui les élimine (avant d'ajouter le
+    // sentinel serverTimestamp, non sérialisable en JSON).
+    const propre = JSON.parse(JSON.stringify(donnees));
+    propre.majLe = fb.serverTimestamp();
     this.setState({ cloudEtat: 'synchronisation' });
     const ref = fb.doc(fb.db, 'utilisateurs', utilisateur.uid);
-    fb.setDoc(ref, donnees, { merge: true })
+    fb.setDoc(ref, propre, { merge: true })
       .then(() => this.setState({ cloudEtat: 'ok' }))
       .catch(e => {
         console.error('[cloud] échec sauvegarde', e);
