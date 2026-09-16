@@ -451,7 +451,7 @@ a:hover{color:var(--color-accent-400)}
             </div>
             <div style="display:flex;flex-direction:column;gap:8px">
               <sc-for list="{{ news }}" as="n" hint-placeholder-count="4">
-                <a href="#" style="display:block;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.05);color:var(--color-text);text-decoration:none" style-hover="border-color:var(--color-accent-700)">
+                <a href="{{ n.lien }}" target="_blank" rel="noopener noreferrer" style="display:block;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.05);color:var(--color-text);text-decoration:none" style-hover="border-color:var(--color-accent-700)">
                   <div style="font-size:12.5px;line-height:1.3;text-wrap:pretty;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ n.titre }}</div>
                   <div style="font-size:10.5px;font-weight:600;color:var(--color-neutral-500);margin-top:2px">{{ n.meta }}</div>
                 </a>
@@ -488,6 +488,9 @@ a:hover{color:var(--color-accent-400)}
             <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px">
               <h2 style="margin:0;color:#ffffff;letter-spacing:-.02em;font-size:16px;font-weight:600;text-transform:none;white-space:nowrap">Informations clés</h2>
               <div style="flex:1"></div>
+              <sc-if value="{{ fiche.modifiable }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ fiche.onModifier }}" title="Modifier le mandat" aria-label="Modifier le mandat" style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border:0;background:transparent;color:var(--color-neutral-500);border-radius:6px;cursor:pointer;padding:0" style-hover="color:var(--color-accent-300);background:rgba(255,255,255,.09)"><i class="ph ph-pencil-simple" style="font-size:13px"></i></button>
+              </sc-if>
             </div>
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
               <sc-for list="{{ fiche.infos }}" as="i" hint-placeholder-count="9">
@@ -510,6 +513,20 @@ a:hover{color:var(--color-accent-400)}
                   <span style="display:inline-flex;align-items:center;gap:5px;margin-top:1px;font-size:15px;font-weight:500;line-height:1.15;letter-spacing:-.01em;color:#ffffff"><i class="ph ph-file-pdf" style="font-size:15px"></i>PDF</span>
                 </button>
               </sc-if>
+            </div>
+            <div style="padding:7px 12px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.09);margin-top:8px">
+              <span style="display:block;font-size:10.5px;font-weight:600;color:var(--color-neutral-500)">Avancement</span>
+              <div style="display:flex;align-items:flex-start;justify-content:center;gap:6px;margin:8px 0 4px">
+                <div style="display:contents">
+                <sc-for list="{{ fiche.avancement }}" as="s" hint-placeholder-count="2">
+                  <div style="{{ s.traitStyle }}"></div>
+                  <button onClick="{{ s.onClick }}" title="{{ s.label }}" style="{{ s.etapeStyle }}">
+                    <div style="{{ s.pointStyle }}"></div>
+                    <span style="{{ s.labelStyle }}">{{ s.label }}</span>
+                  </button>
+                </sc-for>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -759,14 +776,16 @@ a:hover{color:var(--color-accent-400)}
   <div onClick="{{ fermerNouveau }}" style="position:fixed;inset:0;background:rgba(5,5,12,.58);display:flex;align-items:center;justify-content:center;z-index:50">
     <div onClick="{{ stop }}" style="width:480px;background:linear-gradient(165deg, rgba(12,22,44,.5), rgba(12,22,44,.34));backdrop-filter:blur(26px) saturate(150%);-webkit-backdrop-filter:blur(26px) saturate(150%);box-shadow:0 26px 60px rgba(8,22,45,.28), inset 0 1px 0 rgba(255,255,255,.4);border:1px solid rgba(255,255,255,.3);border-radius:24px;padding:22px 24px 20px;max-height:calc(100vh - 48px);overflow-y:auto;animation:fadeUp .18s ease both">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-        <h2 style="margin:0;color:#ffffff;letter-spacing:-.02em;font-size:16px;font-weight:600;text-transform:none;white-space:nowrap">Nouveau mandat</h2>
+        <h2 style="margin:0;color:#ffffff;letter-spacing:-.02em;font-size:16px;font-weight:600;text-transform:none;white-space:nowrap">{{ nouveauTitre }}</h2>
         <div style="flex:1"></div>
       </div>
 
+      <sc-if value="{{ nouveau.modeCreation }}" hint-placeholder-val="{{ true }}">
       <label onDragOver="{{ nouveau.onDragOver }}" onDragLeave="{{ nouveau.onDragLeave }}" onDrop="{{ nouveau.onDrop }}" style="{{ nouveau.zoneStyle }}">
         <i class="{{ nouveau.zoneIcon }}" title="{{ nouveau.zoneTitre }}" aria-label="{{ nouveau.zoneTitre }}" style="font-size:26px;line-height:1;color:#ffffff"></i>
         <input type="file" accept="application/pdf" onChange="{{ nouveau.onFichier }}" style="display:none">
       </label>
+      </sc-if>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px">
         <sc-for list="{{ nouveau.champs }}" as="c" hint-placeholder-count="6">
@@ -779,7 +798,7 @@ a:hover{color:var(--color-accent-400)}
 
       <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:20px">
         <button onClick="{{ fermerNouveau }}" title="Fermer sans créer" aria-label="Fermer sans créer" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-500);border-radius:10px;cursor:pointer" style-hover="color:var(--color-text);border-color:var(--color-neutral-700);background:rgba(255,255,255,.09)"><i class="ph ph-x" style="font-size:16px"></i></button>
-        <button onClick="{{ nouveau.onCreer }}" title="Créer le mandat" aria-label="Créer le mandat" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-500);border-radius:10px;cursor:pointer" style-hover="color:var(--color-text);border-color:var(--color-neutral-700);background:rgba(255,255,255,.09)"><i class="ph ph-check" style="font-size:16px"></i></button>
+        <button onClick="{{ nouveau.onCreer }}" title="{{ nouveau.actionTitre }}" aria-label="{{ nouveau.actionTitre }}" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-500);border-radius:10px;cursor:pointer" style-hover="color:var(--color-text);border-color:var(--color-neutral-700);background:rgba(255,255,255,.09)"><i class="ph ph-check" style="font-size:16px"></i></button>
       </div>
     </div>
   </div>
@@ -1176,8 +1195,8 @@ const POS_INIT = {
 };
 const POS_INIT_F = {
   entete:   { x: 0,    y: 0,   w: 300, h: 330 },
-  infos:    { x: 0,    y: 367, w: 300, h: 300 },
-  stats:    { x: 0,    y: 704, w: 300, h: 190 },
+  infos:    { x: 0,    y: 367, w: 300, h: 390 },
+  stats:    { x: 0,    y: 794, w: 300, h: 190 },
   resume:   { x: 337,  y: 0,   w: 740, h: 428 },
   notesf:   { x: 337,  y: 465, w: 740, h: 429 },
   visites:  { x: 1114, y: 0,   w: 300, h: 290 },
@@ -1348,6 +1367,7 @@ class Component extends DCLogic {
     visiteEditee: null,
     mandatsOuvert: false,
     epingles: [],
+    actus: [],
     edite: null,
     deplie: {},
     todoOuvert: false,
@@ -1439,6 +1459,49 @@ class Component extends DCLogic {
     this._planifierSyncCloud();
   }
 
+  definirAvancementMandat(id, valeur) {
+    this.setState(s => {
+      const mandatsSup = s.mandatsSup.map(m => (m.id === id ? { ...m, avancement: valeur } : m));
+      try { localStorage.setItem(CLE_M, JSON.stringify(mandatsSup)); } catch (e) {}
+      return { mandatsSup };
+    });
+    this._planifierSyncCloud();
+  }
+
+  ouvrirModifierMandat(m) {
+    const d = v => (v === undefined || v === null || v === '—' ? '' : String(v));
+    this.setState({
+      nouveau: {
+        editId: m.id,
+        adresse: d(m.adresse), quartier: d(m.quartier), prix: d(m.prix), surface: d(m.surface),
+        pieces: d(m.pieces), chambres: d(m.chambres), sdb: d(m.sdb), copro: d(m.copro),
+        dpe: d(m.dpe), annee: d(m.annee), taxe: d(m.taxe), charges: d(m.charges),
+        fichier: null, survol: false
+      }
+    });
+  }
+
+  modifierMandat() {
+    const n = this.state.nouveau;
+    if (!n || !n.editId) return;
+    const num = s => parseInt(String(s).replace(/[^0-9]/g, ''), 10) || 0;
+    const surface = Math.round(parseFloat(String(n.surface).replace(',', '.').replace(/[^0-9.]/g, '')) || 0) || 1;
+    this.setState(s => {
+      const mandatsSup = s.mandatsSup.map(m => (m.id !== n.editId ? m : {
+        ...m,
+        adresse: (n.adresse || '').trim() || m.adresse,
+        quartier: (n.quartier || '').trim() || m.quartier,
+        prix: num(n.prix), surface, pieces: num(n.pieces) || 1,
+        chambres: num(n.chambres) || '—', sdb: num(n.sdb) || '—', copro: n.copro || '—',
+        dpe: (n.dpe || '—').toUpperCase().slice(0, 1),
+        annee: n.annee || '—', taxe: n.taxe || '—', charges: n.charges || '—'
+      }));
+      try { localStorage.setItem(CLE_M, JSON.stringify(mandatsSup)); } catch (e) {}
+      return { mandatsSup, nouveau: null };
+    });
+    this._planifierSyncCloud();
+  }
+
   creerMandat() {
     const n = this.state.nouveau;
     if (!n) return;
@@ -1453,7 +1516,7 @@ class Component extends DCLogic {
       chambres: num(n.chambres) || '—', sdb: num(n.sdb) || '—', copro: n.copro || '—',
       dpe: (n.dpe || '—').toUpperCase().slice(0, 1), dpeVal: n.dpeVal || '—', ges: n.ges || '—', gesVal: n.gesVal || '—',
       taxe: n.taxe || '—', charges: n.charges || '—', annee: n.annee || '—', etage: n.etage || '—', expo: n.expo || '—',
-      mandat: n.ref ? `N° ${n.ref}` : 'À préciser', fin: '—', statut: 'Nouveau', ton: 'neutre',
+      mandat: n.ref ? `N° ${n.ref}` : 'À préciser', fin: '—', statut: 'Nouveau', ton: 'neutre', avancement: 'rentre',
       visites: 0, contacts: 0, jours: 0,
       vendeur: n.vendeur || 'À compléter', vendeurTel: n.vendeurTel || '—',
       description: n.description || (n.fichier ? `Fiche PDF déposée : ${n.fichier}. Informations à vérifier et compléter.` : 'Description à compléter.'),
@@ -1492,6 +1555,7 @@ class Component extends DCLogic {
     window.addEventListener('resize', this._surResize);
     this.programmerMinuitProspection();
     this._demarrerFirebase();
+    this._chargerActus();
     const lire = (cle, defaut) => {
       try {
         const sauv = JSON.parse(localStorage.getItem(cle));
@@ -1933,6 +1997,16 @@ class Component extends DCLogic {
     if (retour) return libre;
     this.sauverLibre(libre);
     return libre;
+  }
+
+  async _chargerActus() {
+    try {
+      const r = await fetch('https://raw.githubusercontent.com/pierrestang/ilo-news/main/bordeaux-immo-news.json');
+      const d = await r.json();
+      if (Array.isArray(d.articles)) this.setState({ actus: d.articles });
+    } catch (e) {
+      console.error('[actus] échec chargement', e);
+    }
   }
 
   // L'agenda se connecte uniquement via connecterCompte() (une seule
@@ -2462,7 +2536,7 @@ class Component extends DCLogic {
   }
 
   componentDidUpdate(prevProps, prevEtat) {
-    if (this.state.vue === 'fiche' && prevEtat.vue !== 'fiche' && !this.state.libreF) {
+    if (this.state.vue === 'fiche' && (!prevEtat || prevEtat.vue !== 'fiche') && !this.state.libreF) {
       clearTimeout(this._tMesureF);
       this._tMesureF = setTimeout(() => this.mesurerDispoF(), 220);
     }
@@ -2645,7 +2719,10 @@ class Component extends DCLogic {
       };
     };
 
-    const keyMissions = actives.filter(t => t.key).sort((a, b) => a.key - b.key).map((t, iMission) => {
+    const missionsEpinglees = actives.filter(t => t.key).sort((a, b) => a.key - b.key);
+    const missionsRemplissage = actives.filter(t => !t.key).slice(0, Math.max(0, 3 - missionsEpinglees.length));
+    const idsTopMissions = new Set([...missionsEpinglees, ...missionsRemplissage].map(t => t.id));
+    const keyMissions = [...missionsEpinglees, ...missionsRemplissage].map((t, iMission) => {
       const s = st(t);
       const enCours = false;
       return {
@@ -2682,7 +2759,7 @@ class Component extends DCLogic {
     }));
 
     const todos = actives
-      .filter(t => !t.key)
+      .filter(t => !idsTopMissions.has(t.id))
       .filter(t => this.state.filtre === 'Tout' || t.tag === this.state.filtre)
       .map(t => {
         const s = st(t);
@@ -2732,8 +2809,11 @@ class Component extends DCLogic {
       };
     };
     const epingles = this.state.epingles.filter(id => tousMandats.some(x => x.id === id));
-    const topMandats = epingles.slice(0, 2).map((id, i) => ligneMandat(tousMandats.find(x => x.id === id), i + 1));
-    const mandats = tousMandats.filter(x => !epingles.includes(x.id)).map(x => ligneMandat(x, null));
+    const mandatsEpingles = epingles.map(id => tousMandats.find(x => x.id === id));
+    const mandatsRemplissage = tousMandats.filter(x => !epingles.includes(x.id)).slice(0, Math.max(0, 3 - mandatsEpingles.length));
+    const idsTopMandats = new Set([...mandatsEpingles, ...mandatsRemplissage].map(x => x.id));
+    const topMandats = [...mandatsEpingles, ...mandatsRemplissage].map((x, i) => ligneMandat(x, i + 1));
+    const mandats = tousMandats.filter(x => !idsTopMandats.has(x.id)).map(x => ligneMandat(x, null));
 
     const m = tousMandats.find(x => x.id === this.state.mandatId) || tousMandats[0] || MANDAT_VIDE;
     const ECH_DPE = { A: '#1f8a5a', B: '#43a75c', C: '#74b95c', D: '#f0d54a', E: '#ef9f45', F: '#e9713c', G: '#d5352b' };
@@ -2753,6 +2833,33 @@ class Component extends DCLogic {
       onVoirPdf: () => this.ouvrirPdf(m.id),
       supprimable: this.state.mandatsSup.some(x => x.id === m.id),
       onSupprimer: () => this.supprimerMandat(m.id),
+      modifiable: this.state.mandatsSup.some(x => x.id === m.id),
+      onModifier: () => this.ouvrirModifierMandat(m),
+      avancement: (() => {
+        const val = m.avancement || 'rentre';
+        const suivi = val !== 'rentre';
+        const perdu = val === 'perdu';
+        const teinte = !suivi ? '#8fb8ee' : perdu ? '#e8a6a2' : '#7fd0a2';
+        const etapeStyle = 'display:flex;flex-direction:column;align-items:center;gap:5px;flex:none;background:none;border:none;padding:0;font-family:inherit;cursor:pointer';
+        return [
+          {
+            label: 'Rentré',
+            onClick: () => this.definirAvancementMandat(m.id, 'rentre'),
+            etapeStyle,
+            traitStyle: 'display:none',
+            pointStyle: `width:16px;height:16px;border-radius:50%;box-sizing:border-box;flex:none;border:2px solid ${teinte};background:${!suivi ? teinte : 'transparent'};box-shadow:${!suivi ? '0 0 0 3px rgba(143,184,238,.2)' : 'none'}`,
+            labelStyle: `font-size:10.5px;font-weight:600;white-space:nowrap;color:${!suivi ? '#ffffff' : 'rgba(255,255,255,.48)'}`
+          },
+          {
+            label: perdu ? 'Perdu' : 'Vendu',
+            onClick: () => this.definirAvancementMandat(m.id, val === 'vendu' ? 'perdu' : 'vendu'),
+            etapeStyle,
+            traitStyle: `width:56px;flex:none;height:2px;margin-top:7px;border-radius:2px;background:${suivi ? teinte : 'rgba(255,255,255,.16)'}`,
+            pointStyle: `width:16px;height:16px;border-radius:50%;box-sizing:border-box;flex:none;border:2px solid ${teinte};background:${suivi ? teinte : 'transparent'};box-shadow:${suivi ? '0 0 0 3px ' + (perdu ? 'rgba(232,166,162,.25)' : 'rgba(127,208,162,.2)') : 'none'}`,
+            labelStyle: `font-size:10.5px;font-weight:600;white-space:nowrap;color:${suivi ? '#ffffff' : 'rgba(255,255,255,.48)'}`
+          }
+        ];
+      })(),
       ref: `Mandat ${String(m.mandat || '').replace(/^N°\s*/, '')}`,
       adresse: m.adresse,
       sousTitre: `${/bordeaux/i.test(m.quartier) ? 'Bordeaux' : m.quartier + ', Bordeaux'} · ${m.pieces} pièces · ${m.etage}`,
@@ -3143,7 +3250,9 @@ class Component extends DCLogic {
         };
         const tri = (a, b) => String(a.date).localeCompare(String(b.date));
         const epinglees = toutes.filter(v => v.key).sort((a, b) => a.key - b.key);
-        const duJour = epinglees.length ? epinglees : toutes.filter(v => ecart(v.date || AUJ) <= 0 && v.statut !== 'realisee').sort(tri);
+        const parDefaut = toutes.filter(v => ecart(v.date || AUJ) <= 0 && v.statut !== 'realisee').sort(tri);
+        const remplissage = parDefaut.filter(v => !epinglees.includes(v)).slice(0, Math.max(0, 3 - epinglees.length));
+        const duJour = [...epinglees, ...remplissage];
         const reste = toutes.filter(v => !duJour.includes(v)).sort(tri);
         return {
           zoneVisitesTop: {
@@ -3483,10 +3592,14 @@ class Component extends DCLogic {
       resetDispo: () => this.resetDispo(),
       ouvrirNouveau: () => this.setState({ nouveau: { adresse: '', quartier: '', prix: '', surface: '', pieces: '', dpe: '', fichier: null, survol: false } }),
       fermerNouveau: () => this.setState({ nouveau: null }),
+      nouveauTitre: (this.state.nouveau || {}).editId ? 'Modifier le mandat' : 'Nouveau mandat',
       nouveau: (() => {
         const n = this.state.nouveau || {};
+        const modeCreation = !n.editId;
         const bord = n.survol ? 'var(--color-accent)' : n.fichier ? 'var(--color-accent-700)' : 'var(--color-neutral-800)';
         return {
+          modeCreation,
+          actionTitre: modeCreation ? 'Créer le mandat' : 'Enregistrer les modifications',
           zoneStyle: `display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px 16px;border:none;border-radius:12px;background:${n.survol ? 'rgba(255,255,255,.16)' : 'rgba(255,255,255,.09)'};cursor:pointer;transition:all ${anim ? '.15s' : '0s'} ease`,
           zoneIcon: n.analyse === 'en_cours' ? 'ph ph-circle-notch' : n.fichier ? 'ph ph-file-pdf' : 'ph ph-upload-simple',
           zoneTitre: n.analyse === 'en_cours' ? 'Analyse du PDF…' : (n.fichier || 'Déposer la fiche PDF du mandat'),
@@ -3525,7 +3638,7 @@ class Component extends DCLogic {
             wrapStyle: `display:block;padding:7px 12px;min-height:44px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.09);cursor:text${c.large ? ';grid-column:1 / -1' : ''}`,
             onChange: e => this.champNouveau(c.cle, e.target.value)
           })),
-          onCreer: () => this.creerMandat()
+          onCreer: () => (modeCreation ? this.creerMandat() : this.modifierMandat())
         };
       })(),
       ...(() => {
@@ -3556,16 +3669,19 @@ class Component extends DCLogic {
         const ecart = (f2, t) => (f2 >= t ? '+5' : f2 >= t * 0.6 ? '+1' : '−1');
         const coldSem = { label: 'Cold call — semaine', valeur: `${faitsSem}/${joursSemaine}`, delta: ecart(faitsSem, joursSemaine) };
         const coldMois = { label: 'Cold call — mois', valeur: `${faitsMois}/${joursMois}`, delta: ecart(faitsMois, joursMois) };
-        const totalMandats = tousMandats.reduce((s, x) => s + (Number(x.prix) || 0), 0);
+        const mandatsCeMois = tousMandats.filter(m => m.creeLe && isoJour(new Date(m.creeLe)).startsWith(prefMois));
+        const totalMandats = mandatsCeMois.reduce((s, x) => s + (Number(x.prix) || 0), 0);
         const valeurTotale = totalMandats >= 1e6
           ? (totalMandats / 1e6).toFixed(1).replace('.', ',') + ' M€'
           : totalMandats >= 1000
             ? Math.round(totalMandats / 1000).toLocaleString('fr-FR').replace(/\u202f|\u00a0/g, ' ') + ' k€'
             : totalMandats.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g, ' ') + ' €';
+        const visitesCeMois = Object.values(this.state.visites || {}).flat()
+          .filter(v => v.statut === 'realisee' && (v.date || '').startsWith(prefMois)).length;
         return {
           chiffres: [
-            { label: 'Mandats rentrés', valeur: String(tousMandats.length), delta: '+1' },
-            { label: 'Visites', valeur: '23', delta: '+6' },
+            { label: 'Mandats rentrés', valeur: String(mandatsCeMois.length), delta: '+1' },
+            { label: 'Visites', valeur: String(visitesCeMois), delta: '+6' },
             { label: 'Offres reçues', valeur: '3', delta: '=' },
             { label: 'Compromis', valeur: '1', delta: '−1' },
             { label: 'Ventes annuelles', valeur: '11', delta: '+2' },
@@ -3674,9 +3790,13 @@ class Component extends DCLogic {
           };
         };
         const top = actives.filter(r => r.key).sort((a, b) => a.key - b.key);
-        const autres = actives.filter(r => !r.key).sort((a, b) => a.date.localeCompare(b.date));
+        const autresTriees = actives.filter(r => !r.key).sort((a, b) => a.date.localeCompare(b.date));
+        const remplissage = autresTriees.slice(0, Math.max(0, 3 - top.length));
+        const idsRemplissage = new Set(remplissage.map(r => r.id));
+        const topAffiche = [...top, ...remplissage];
+        const autres = autresTriees.filter(r => !idsRemplissage.has(r.id));
         return {
-          topRelances: top.slice(0, 2).map((r, i) => ligne(r, i + 1)),
+          topRelances: topAffiche.map((r, i) => ligne(r, i + 1)),
           relances: autres.map(r => ligne(r, null)),
           relancesBascule: {
             ouvert: this.state.relancesOuvert,
@@ -3685,8 +3805,8 @@ class Component extends DCLogic {
             onToggle: () => { const ouvre = !this.state.relancesOuvert; this.setState({ relancesOuvert: ouvre }); }
           },
           zoneRelancesTop: {
-            style: zoneDropStyle('relTop', top.length === 0),
-            vide: top.length === 0,
+            style: zoneDropStyle('relTop', topAffiche.length === 0),
+            vide: topAffiche.length === 0,
             onDragOver: e => { e.preventDefault(); e.stopPropagation(); if (this.state.glisseRelance) { if (this.state.surZone !== 'relTop') this.setState({ surZone: 'relTop' }); } },
             onDrop: e => {
               const id = this.state.glisseRelance;
@@ -3772,11 +3892,13 @@ class Component extends DCLogic {
         };
       })(),
       nbRelances: `${this.state.relances.filter(r => r.statut !== 'done' && ecart(r.date) <= 0).length} pour aujourd’hui`,
-      news: [
-        { titre: 'Bordeaux Métropole : le prix médian recule de 2,1 % sur un an', meta: 'Sud Ouest · il y a 2 h' },
-        { titre: 'Encadrement des loyers étendu à trois communes de la rive droite', meta: 'Les Échos · ce matin' },
-        { titre: 'Chartrons et Bacalan tirent les volumes de transactions du T2', meta: 'Notaires de Gironde · hier' }
-      ]
+      news: this.state.actus.length
+        ? this.state.actus.map(a => ({ titre: a.title, meta: `${a.source} · ${a.published_label}`, lien: a.url }))
+        : [
+          { titre: 'Bordeaux Métropole : le prix médian recule de 2,1 % sur un an', meta: 'Sud Ouest · il y a 2 h', lien: '#' },
+          { titre: 'Encadrement des loyers étendu à trois communes de la rive droite', meta: 'Les Échos · ce matin', lien: '#' },
+          { titre: 'Chartrons et Bacalan tirent les volumes de transactions du T2', meta: 'Notaires de Gironde · hier', lien: '#' }
+        ]
     };
   }
 }
