@@ -42,7 +42,7 @@
 <style>
 html,body{margin:0;height:100%;overflow:hidden}
 *,*::before,*::after{box-sizing:border-box}
-body{font-size:17px;line-height:1.55;font-weight:400;--ombre-carte:0 26px 60px rgba(8,22,45,.28), inset 0 1px 0 rgba(255,255,255,.4)}
+body{font-size:13px;line-height:1.55;font-weight:400;--ombre-carte:0 26px 60px rgba(8,22,45,.28), inset 0 1px 0 rgba(255,255,255,.4)}
 @media (max-width:980px){
   [data-canvas]{padding-bottom:20px}
   main > header{flex-wrap:wrap;row-gap:8px;padding:12px 14px 8px !important}
@@ -81,24 +81,22 @@ input.champ-sombre:-webkit-autofill:focus{-webkit-text-fill-color:#ffffff;-webki
 [contenteditable]:empty::before{content:attr(data-placeholder);color:#a2a8b8}
 a{color:var(--color-accent);text-decoration:none}
 a:hover{color:var(--color-accent-400)}
-.titre-section{margin:0;color:#ffffff;letter-spacing:-.02em;font-size:19px;font-weight:600;text-transform:none;white-space:nowrap}
+.titre-section{margin:0;color:#ffffff;letter-spacing:-.02em;font-size:15px;font-weight:600;text-transform:none;white-space:nowrap}
+.sous-titre{margin:0;color:var(--color-neutral-500);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
 .btn-icone-34{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-500);border-radius:10px;cursor:pointer}
 .btn-icone-20{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border:0;background:transparent;color:var(--color-neutral-500);border-radius:6px;cursor:pointer;padding:0}
-.btn-bascule{display:inline-flex;align-items:center;gap:7px;border:1px solid transparent;background:transparent;padding:4px 9px;margin:-4px 0 -4px -9px;border-radius:20px;font-family:inherit;font-size:14px;font-weight:500;color:var(--color-neutral-400);cursor:pointer;text-align:left;white-space:nowrap;transition:background-color .15s ease,color .15s ease}
-.btn-voir-plus{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;border:0;background:transparent;color:var(--color-neutral-500);font-family:inherit;font-size:14px;cursor:pointer;padding:9px 0 2px}
-.btn-google{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;border:0;background:#2f6fed;color:#ffffff;border-radius:10px;padding:11px 16px;font-family:inherit;font-size:16px;font-weight:500;cursor:pointer;transition:filter .15s ease;box-shadow:0 0 0 1px rgba(255,255,255,.4), 0 0 34px 6px #2f6fed}
+.btn-voir-plus{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;border:0;background:transparent;color:var(--color-neutral-500);font-family:inherit;font-size:10px;cursor:pointer;padding:9px 0 2px}
+.btn-google{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;border:0;background:#2f6fed;color:#ffffff;border-radius:10px;padding:11px 16px;font-family:inherit;font-size:12px;font-weight:500;cursor:pointer;transition:filter .15s ease;box-shadow:0 0 0 1px rgba(255,255,255,.4), 0 0 34px 6px #2f6fed}
 .btn-google:hover{filter:brightness(1.08)}
-.carte-groupe{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px 16px}
-.carte-champ{padding:7px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);box-sizing:border-box;min-height:46px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;cursor:text}
-.saisie-cle{width:100%;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;margin-top:2px;color:#ffffff;font-family:inherit;font-size:15.5px;font-weight:500;line-height:1.35;letter-spacing:-.01em;font-variant-numeric:tabular-nums;outline:none}
-.saisie-mandat{width:100%;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;margin-top:2px;color:#ffffff;font-family:inherit;font-size:17px;font-weight:500;line-height:1.15;letter-spacing:-.01em;font-variant-numeric:tabular-nums;outline:none}
-.saisie-cle:focus,.saisie-mandat:focus{outline:1px solid rgba(255,255,255,.35);outline-offset:3px;border-radius:6px}
+.carte-champ{padding:7px 10px;border-radius:14px;background:rgba(255,255,255,.14);box-sizing:border-box;height:100%;min-height:46px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;cursor:text}
+.saisie-cle{width:100%;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;margin-top:2px;color:#ffffff;font-family:inherit;font-size:11.5px;font-weight:500;line-height:1.35;letter-spacing:-.01em;font-variant-numeric:tabular-nums;outline:none}
+.saisie-cle:focus{outline:1px solid rgba(255,255,255,.35);outline-offset:3px;border-radius:6px}
 </style>
 <template id="__bundler_thumbnail" data-bg-color="#122430">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"><rect width="120" height="120" fill="#122430"></rect><g fill="none" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M36 58 60 40l24 18"></path><path d="M42 58v22h36V58"></path></g></svg>
 </template>
 </helmet>
-<div style="height:100vh;display:flex;position:relative;overflow:hidden;color:var(--color-text);font-family:'Inter', system-ui, sans-serif;font-size:17px;{{ themeVars }}">
+<div style="height:100vh;display:flex;position:relative;overflow:hidden;color:var(--color-text);font-family:'Inter', system-ui, sans-serif;font-size:13px;{{ themeVars }}">
   <div aria-hidden="true" style="{{ ciel.fond }}"></div>
   <div aria-hidden="true" style="{{ ciel.voile }}"></div>
   <div aria-hidden="true" style="{{ ciel.nuages1 }}"></div>
@@ -107,13 +105,11 @@ a:hover{color:var(--color-accent-400)}
 
   <sc-if value="{{ authPret }}" hint-placeholder-val="{{ false }}">
   <sc-if value="{{ compteConnecte }}" hint-placeholder-val="{{ false }}">
-  <main style="flex:1;min-width:0;display:flex;flex-direction:column;position:relative;z-index:1">
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column;position:relative;z-index:1;overflow:hidden">
 
-    <header style="flex:none;display:flex;align-items:center;gap:16px;padding:18px 26px 14px">
-      <div style="min-width:0"></div>
-      <div style="flex:1"></div>
+    <header style="position:absolute;top:10px;right:10px;z-index:20;display:flex;align-items:center;gap:16px">
       <sc-if value="{{ vueFiche }}" hint-placeholder-val="{{ false }}">
-        <button onClick="{{ fermerFiche }}" title="Revenir au dashboard" aria-label="Revenir au dashboard" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-500);border-radius:9px;cursor:pointer"><i class="ph ph-x" style="font-size:17px"></i></button>
+        <button onClick="{{ fermerFiche }}" title="Revenir au dashboard" aria-label="Revenir au dashboard" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-500);border-radius:9px;cursor:pointer"><i class="ph ph-x" style="font-size:13px"></i></button>
       </sc-if>
       <div style="position:relative">
         <button onClick="{{ onCompteBouton }}" title="Compte et synchronisation" aria-label="Compte et synchronisation" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;padding:0;cursor:pointer;overflow:hidden;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-500)">
@@ -121,10 +117,10 @@ a:hover{color:var(--color-accent-400)}
             <img src="{{ compteAvatar }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
           </sc-if>
           <sc-if value="{{ compteInitialeVisible }}" hint-placeholder-val="{{ false }}">
-            <span style="font-size:14px;font-weight:600">{{ compteInitiale }}</span>
+            <span style="font-size:10px;font-weight:600">{{ compteInitiale }}</span>
           </sc-if>
           <sc-if value="{{ !compteConnecte }}" hint-placeholder-val="{{ true }}">
-            <i class="ph ph-user-circle" style="font-size:19px"></i>
+            <i class="ph ph-user-circle" style="font-size:15px"></i>
           </sc-if>
         </button>
         <sc-if value="{{ compteOuvert }}" hint-placeholder-val="{{ false }}">
@@ -132,17 +128,17 @@ a:hover{color:var(--color-accent-400)}
           <div style="position:absolute;top:38px;right:0;z-index:50;width:280px;background:linear-gradient(165deg, rgba(12,22,44,.42), rgba(12,22,44,.26));backdrop-filter:blur(26px) saturate(150%);-webkit-backdrop-filter:blur(26px) saturate(150%);box-shadow:var(--ombre-carte);border:1px solid rgba(255,255,255,.3);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;animation:fadeUp .16s ease both">
             <sc-if value="{{ compteConnecte }}" hint-placeholder-val="{{ false }}">
               <div>
-                <div style="font-size:15px;font-weight:600;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteNom }}</div>
-                <div style="font-size:13.5px;color:var(--color-neutral-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteEmail }}</div>
+                <div style="font-size:11px;font-weight:600;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteNom }}</div>
+                <div style="font-size:9.5px;color:var(--color-neutral-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteEmail }}</div>
               </div>
-              <button onClick="{{ onCompteDeconnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-400);border-radius:9px;padding:7px 10px;font-family:inherit;font-size:14.5px;cursor:pointer">Se déconnecter</button>
+              <button onClick="{{ onCompteDeconnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-400);border-radius:9px;padding:7px 10px;font-family:inherit;font-size:10.5px;cursor:pointer">Se déconnecter</button>
             </sc-if>
             <sc-if value="{{ !compteConnecte }}" hint-placeholder-val="{{ true }}">
-              <div style="font-size:15px;color:var(--color-text)">Connectez-vous avec Google pour enregistrer vos données et les retrouver sur tous vos appareils.</div>
-              <button onClick="{{ onCompteConnecter }}" class="btn-google" style="align-self:flex-start;width:auto"><i class="ph ph-google-logo" style="font-size:17px"></i>Se connecter avec Google</button>
+              <div style="font-size:11px;color:var(--color-text)">Connectez-vous avec Google pour enregistrer vos données et les retrouver sur tous vos appareils.</div>
+              <button onClick="{{ onCompteConnecter }}" class="btn-google" style="align-self:flex-start;width:auto"><i class="ph ph-google-logo" style="font-size:13px"></i>Se connecter avec Google</button>
             </sc-if>
             <sc-if value="{{ compteMessageVisible }}" hint-placeholder-val="{{ false }}">
-              <div style="font-size:14px;color:#ffd9c2;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4)">{{ compteMessage }}</div>
+              <div style="font-size:10px;color:#ffd9c2;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4)">{{ compteMessage }}</div>
             </sc-if>
           </div>
         </sc-if>
@@ -150,7 +146,7 @@ a:hover{color:var(--color-accent-400)}
     </header>
 
     <sc-if value="{{ vueDashboard }}" hint-placeholder-val="{{ true }}">
-    <div style="flex:1;overflow:auto;padding:4px 2px 2px;display:flex;justify-content:center;align-items:flex-start">
+    <div style="flex:1;padding:2px 0 0;display:flex;justify-content:center;align-items:flex-start">
       <div data-canvas="1" style="{{ canvasStyle }}">
         <sc-if value="{{ guidesActifs }}" hint-placeholder-val="{{ false }}">
           <div style="{{ axeVerticalStyle }}"></div>
@@ -163,27 +159,28 @@ a:hover{color:var(--color-accent-400)}
           <section data-widget="pipeline" onPointerDown="{{ wPipeline.onZone }}" style="{{ wPipeline.style }}">
             <div onPointerDown="{{ wPipeline.onMove }}" title="Déplacer le widget" style="{{ wPipeline.handleStyle }}"></div>
             <div onPointerDown="{{ wPipeline.onResize }}" title="Redimensionner" style="{{ wPipeline.cornerStyle }}"></div>
-            <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px;pointer-events:none">
+            <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px;pointer-events:none;flex:none">
               <h2 class="titre-section">{{ titreMandats }}</h2>
               <div style="flex:1"></div>
               <sc-if value="{{ !mandatsHistoriqueOuvert }}" hint-placeholder-val="{{ true }}">
-                <button onClick="{{ ouvrirMandatsHistorique }}" title="Historique" aria-label="Historique" class="btn-icone-20"><i class="ph ph-check-circle" style="font-size:16px"></i></button>
-                <button onClick="{{ ouvrirNouveau }}" title="Nouveau mandat" aria-label="Nouveau mandat" class="btn-icone-20"><i class="ph ph-plus" style="font-size:15px"></i></button>
+                <button onClick="{{ ouvrirMandatsHistorique }}" title="Historique" aria-label="Historique" class="btn-icone-20"><i class="ph ph-check-circle" style="font-size:12px"></i></button>
+                <button onClick="{{ ouvrirNouveau }}" title="Nouveau mandat" aria-label="Nouveau mandat" class="btn-icone-20"><i class="ph ph-plus" style="font-size:11px"></i></button>
               </sc-if>
               <sc-if value="{{ mandatsHistoriqueOuvert }}" hint-placeholder-val="{{ false }}">
-                <button onClick="{{ fermerMandatsHistorique }}" title="Fermer" aria-label="Fermer" class="btn-icone-20"><i class="ph ph-x" style="font-size:16px"></i></button>
+                <button onClick="{{ fermerMandatsHistorique }}" title="Fermer" aria-label="Fermer" class="btn-icone-20"><i class="ph ph-x" style="font-size:12px"></i></button>
               </sc-if>
             </div>
             <sc-if value="{{ mandatsHistoriqueOuvert }}" hint-placeholder-val="{{ false }}">
+              <div style="flex:1;overflow-y:auto;min-height:0">
               <sc-if value="{{ mandatsHistoriqueVide }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:13.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px">Aucun mandat terminé</div>
+                <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:9.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px">Aucun mandat terminé</div>
               </sc-if>
               <div style="display:flex;flex-direction:column;gap:12px">
                 <sc-for list="{{ mandatsHistorique }}" as="m" hint-placeholder-count="3">
                   <div style="{{ m.rowStyle }}" style-hover="background:rgba(255,255,255,.18)">
                     <div onClick="{{ m.onOpen }}" onKeyDown="{{ m.onKeyDown }}" role="button" tabIndex="{{ 0 }}" title="Ouvrir la fiche mandat" style="min-width:0;flex:1;cursor:pointer;border-radius:8px;padding:2px 4px;margin:-2px -4px">
                       <div style="{{ m.titreStyle }}">{{ m.adresse }}</div>
-                      <div style="font-size:13px;font-weight:600;color:var(--color-neutral-500);margin-top:4px;font-variant-numeric:tabular-nums">{{ m.prixCommissionFmt }}</div>
+                      <div style="font-size:9px;font-weight:600;color:var(--color-neutral-500);margin-top:4px;font-variant-numeric:tabular-nums">{{ m.prixCommissionFmt }}</div>
                     </div>
                     <div style="flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:5px;min-width:0">
                       <span title="{{ m.statutAide }}" aria-label="{{ m.statutAide }}" style="{{ m.statutRondStyle }}"></span>
@@ -191,58 +188,32 @@ a:hover{color:var(--color-accent-400)}
                   </div>
                 </sc-for>
               </div>
+              </div>
             </sc-if>
             <sc-if value="{{ !mandatsHistoriqueOuvert }}" hint-placeholder-val="{{ true }}">
-            <div onDragOver="{{ zoneMandatsTop.onDragOver }}" onDrop="{{ zoneMandatsTop.onDrop }}" style="{{ zoneMandatsTop.style }}">
-              <sc-if value="{{ zoneMandatsTop.vide }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:13.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px">Glisser un mandat ici pour l'épingler</div>
-              </sc-if>
-              <sc-for list="{{ topMandats }}" as="m" hint-placeholder-count="3">
-                <div draggable="{{ true }}" onDragStart="{{ m.onDragStart }}" onDragEnd="{{ m.onDragEnd }}" onDragEnter="{{ m.onDragEnter }}" onDragOver="{{ m.onDragOver }}" onClick="{{ m.onOpen }}" onKeyDown="{{ m.onKeyDown }}" role="button" tabIndex="{{ 0 }}" style="{{ m.rowStyle }}" style-hover="background:rgba(255,255,255,.11)">
-                  <div style="{{ m.numStyle }}">{{ m.num }}</div>
+            <div style="flex:1;overflow-y:auto;min-height:0">
+            <sc-if value="{{ mandatsVide }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:9.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px">Aucun mandat en cours</div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <sc-for list="{{ mandatsListe }}" as="m" hint-placeholder-count="4">
+                <div draggable="{{ true }}" onDragStart="{{ m.onDragStart }}" onDragEnd="{{ m.onDragEnd }}" onDragEnter="{{ m.onDragEnter }}" onDragOver="{{ m.onDragOver }}" onClick="{{ m.onOpen }}" onKeyDown="{{ m.onKeyDown }}" role="button" tabIndex="{{ 0 }}" style="{{ m.rowStyle }}" style-hover="background:rgba(255,255,255,.2)">
                   <div style="min-width:0;flex:1">
-                    <div style="font-size:15.5px;font-weight:500;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.adresse }}</div>
-                    <div style="font-size:13px;font-weight:600;color:var(--color-neutral-500);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.sousTitre }}</div>
-                    <div style="font-size:13px;font-weight:600;color:var(--color-neutral-500);margin-top:2px;font-variant-numeric:tabular-nums">{{ m.prixFmt }}</div>
+                    <div style="font-size:11.5px;font-weight:500;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.adresse }}</div>
+                    <div style="font-size:9px;font-weight:600;color:var(--color-neutral-500);margin-top:4px;font-variant-numeric:tabular-nums">{{ m.prixFmt }}</div>
                   </div>
                 </div>
               </sc-for>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;margin-top:12px">
-              <button onClick="{{ mandatsBascule.onToggle }}" class="btn-bascule">
-                <i class="{{ mandatsBascule.icone }}" style="font-size:14px"></i>Autres mandats
-              </button>
             </div>
-            <sc-if value="{{ mandatsBascule.ouvert }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:10px;animation:fadeUp .16s ease both">
-              <div onDragOver="{{ zoneMandats.onDragOver }}" onDrop="{{ zoneMandats.onDrop }}" style="{{ zoneMandats.style }}">
-                <sc-for list="{{ mandats }}" as="m" hint-placeholder-count="5">
-                <div draggable="{{ true }}" onDragStart="{{ m.onDragStart }}" onDragEnd="{{ m.onDragEnd }}" onDragEnter="{{ m.onDragEnter }}" onDragOver="{{ m.onDragOver }}" onClick="{{ m.onOpen }}" onKeyDown="{{ m.onKeyDown }}" role="button" tabIndex="{{ 0 }}" style="{{ m.rowStyle }}" style-hover="background:rgba(255,255,255,.11)">
-                  <div style="min-width:0;flex:1">
-                    <div style="font-size:15.5px;font-weight:500;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.adresse }}</div>
-                    <div style="font-size:13px;font-weight:600;color:var(--color-neutral-500);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.sousTitre }}</div>
-                    <div style="font-size:13px;font-weight:600;color:var(--color-neutral-500);margin-top:2px;font-variant-numeric:tabular-nums">{{ m.prixFmt }}</div>
-                  </div>
-                </div>
-                </sc-for>
-              </div>
-              </div>
-            </sc-if>
-
-            <sc-if value="{{ plusMandats.plus }}" hint-placeholder-val="{{ false }}">
-              <button onClick="{{ plusMandats.onToggle }}" class="btn-voir-plus">
-                <i class="{{ plusMandats.icone }}" style="font-size:14px"></i>{{ plusMandats.libelle }}
-              </button>
-            </sc-if>
-            </sc-if>
           </section>
         </div>
         <div style="{{ colWrap }}">
           <section data-widget="salut" onPointerDown="{{ wSalut.onZone }}" style="{{ wSalut.style }}">
             <div onPointerDown="{{ wSalut.onMove }}" title="Déplacer le widget" style="{{ wSalut.handleStyle }}"></div>
             <div onPointerDown="{{ wSalut.onResize }}" title="Redimensionner" style="{{ wSalut.cornerStyle }}"></div>
-            <div style="font-size:48px;font-weight:400;letter-spacing:-.035em;line-height:1.08;background:linear-gradient(100deg,#ffffff,#ffffff 45%,rgba(255,255,255,.7));-webkit-background-clip:text;background-clip:text;color:transparent">{{ salutation }}</div>
-            <div style="font-size:18.5px;font-weight:400;letter-spacing:-.01em;color:rgba(255,255,255,.72);margin-top:10px">{{ salutationSous }}</div>
+            <div style="font-size:44px;font-weight:400;letter-spacing:-.035em;line-height:1.08;background:linear-gradient(100deg,#ffffff,#ffffff 45%,rgba(255,255,255,.7));-webkit-background-clip:text;background-clip:text;color:transparent">{{ salutation }}</div>
+            <div style="font-size:14.5px;font-weight:400;letter-spacing:-.01em;color:rgba(255,255,255,.72);margin-top:10px">{{ salutationSous }}</div>
           </section>
           <section data-widget="yanport" onPointerDown="{{ wYanport.onZone }}" style="{{ wYanport.style }}">
             <div onPointerDown="{{ wYanport.onMove }}" title="Déplacer le widget" style="{{ wYanport.handleStyle }}"></div>
@@ -250,45 +221,49 @@ a:hover{color:var(--color-accent-400)}
             <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px;pointer-events:none">
               <h2 class="titre-section">Cold Call</h2>
               <div style="flex:1"></div>
+              <button onClick="{{ onTogglePeriodeCold }}" title="{{ periodeColdAide }}" aria-label="{{ periodeColdAide }}" style="pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;box-sizing:border-box;flex:none;border:0;background:transparent;padding:0;cursor:pointer">
+                <span style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;box-sizing:border-box;border-radius:50%;border:1.2px solid #a9c4e8;color:var(--color-neutral-500);font-family:inherit;font-size:7px;font-weight:700;line-height:1">{{ periodeColdLettre }}</span>
+              </button>
             </div>
-            <div style="position:relative;z-index:2;display:flex;align-items:center;gap:12px;margin-bottom:12px;pointer-events:none">
-              <div onClick="{{ prospection.onToggle }}" onKeyDown="{{ prospection.onKeyDown }}" role="button" tabIndex="{{ 0 }}" aria-pressed="{{ prospection.actif }}" title="{{ prospection.aide }}" aria-label="{{ prospection.aide }}" style="pointer-events:auto;{{ prospection.style }}">
-                <span style="{{ prospection.refletStyle }}"></span>
-                <span style="{{ prospection.haloStyle }}"></span>
-              </div>
-              <a href="https://app.yanport.com/login?continue=%2Fdashboard%3FmarketingTypes%3DSALE%26products%3DAGENT_360" target="_blank" rel="noopener" aria-label="Ouvrir Yanport" title="Ouvrir Yanport" style="pointer-events:auto;flex:none;width:44px;height:44px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.3);box-shadow:0 10px 26px rgba(10,12,26,.42), inset 0 1px 0 rgba(255,255,255,.4);opacity:.9;transition:transform .3s ease, opacity .3s ease">
-                <img src="yanport-logo.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
-              </a>
-            </div>
-            <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:9px;align-content:start">
-              <sc-for list="{{ chiffresCold }}" as="c" hint-placeholder-count="2">
-                <div style="padding:7px 10px;height:44px;min-width:0;box-sizing:border-box;display:flex;align-items:center;gap:8px;border-radius:12px;background:rgba(255,255,255,.12);transition:background-color .15s ease" style-hover="background:rgba(255,255,255,.18)">
+            <div style="display:flex;align-items:center;gap:8px">
+              <sc-for list="{{ chiffresCold }}" as="c" hint-placeholder-count="1">
+                <div style="flex:1;padding:7px 10px;height:44px;min-width:0;box-sizing:border-box;display:flex;align-items:center;gap:8px;border-radius:14px;background:rgba(255,255,255,.14);transition:background-color .15s ease" style-hover="background:rgba(255,255,255,.2)">
                   <div style="min-width:0;flex:1">
-                    <div style="font-size:13px;font-weight:600;color:rgba(255,255,255,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.label }}</div>
-                    <div style="font-size:17px;font-weight:500;line-height:1.15;letter-spacing:-.01em;font-variant-numeric:tabular-nums">{{ c.valeur }}</div>
+                    <div style="font-size:9px;font-weight:600;color:rgba(255,255,255,.6);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.label }}</div>
+                    <div style="font-size:13px;font-weight:500;line-height:1.15;letter-spacing:-.01em;font-variant-numeric:tabular-nums">{{ c.valeur }}</div>
                   </div>
-                  <span style="{{ c.deltaStyle }}">{{ c.delta }}</span>
+                  <div style="flex:none;display:flex;flex-direction:row-reverse;align-items:center;gap:8px">
+                    <div onClick="{{ prospection.onToggle }}" onKeyDown="{{ prospection.onKeyDown }}" role="button" tabIndex="{{ 0 }}" aria-pressed="{{ prospection.actif }}" title="{{ prospection.aide }}" aria-label="{{ prospection.aide }}" style="{{ prospection.style }}">
+                      <span style="{{ prospection.refletStyle }}"></span>
+                      <span style="{{ prospection.haloStyle }}"></span>
+                    </div>
+                    <span style="{{ c.deltaStyle }}">{{ c.delta }}</span>
+                  </div>
                 </div>
               </sc-for>
+              <a href="https://app.yanport.com/login?continue=%2Fdashboard%3FmarketingTypes%3DSALE%26products%3DAGENT_360" target="_blank" rel="noopener" aria-label="Ouvrir Yanport" title="Ouvrir Yanport" style="flex:none;width:28px;height:28px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.3);box-shadow:0 10px 26px rgba(10,12,26,.42), inset 0 1px 0 rgba(255,255,255,.4);opacity:.9;transition:transform .3s ease, opacity .3s ease">
+                <img src="yanport-logo.svg" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+              </a>
             </div>
 </section>
           <section data-widget="missions" onPointerDown="{{ wMissions.onZone }}" style="{{ wMissions.style }}" data-comment-anchor="071d163719-section">
             <div onPointerDown="{{ wMissions.onMove }}" title="Déplacer le widget" style="{{ wMissions.handleStyle }}"></div>
             <div onPointerDown="{{ wMissions.onResize }}" title="Redimensionner" style="{{ wMissions.cornerStyle }}"></div>
-            <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px;pointer-events:none">
+            <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px;pointer-events:none;flex:none">
                             <h2 class="titre-section">{{ titrePriorites }}</h2>
               <div style="flex:1"></div>
               <sc-if value="{{ !archivesOuvertes }}" hint-placeholder-val="{{ true }}">
-                <button onClick="{{ ouvrirArchives }}" title="Tâches terminées" aria-label="Tâches terminées" class="btn-icone-20"><i class="ph ph-check-circle" style="font-size:16px"></i></button>
-                <button onClick="{{ onAjouterPriorite }}" title="Ajouter une tâche" aria-label="Ajouter une tâche" class="btn-icone-20"><i class="ph ph-plus" style="font-size:15px"></i></button>
+                <button onClick="{{ ouvrirArchives }}" title="Tâches terminées" aria-label="Tâches terminées" class="btn-icone-20"><i class="ph ph-check-circle" style="font-size:12px"></i></button>
+                <button onClick="{{ onAjouterPriorite }}" title="Ajouter une tâche" aria-label="Ajouter une tâche" class="btn-icone-20"><i class="ph ph-plus" style="font-size:11px"></i></button>
               </sc-if>
               <sc-if value="{{ archivesOuvertes }}" hint-placeholder-val="{{ false }}">
-                <button onClick="{{ fermerArchives }}" title="Fermer" aria-label="Fermer" class="btn-icone-20"><i class="ph ph-x" style="font-size:16px"></i></button>
+                <button onClick="{{ fermerArchives }}" title="Fermer" aria-label="Fermer" class="btn-icone-20"><i class="ph ph-x" style="font-size:12px"></i></button>
               </sc-if>
             </div>
             <sc-if value="{{ archivesOuvertes }}" hint-placeholder-val="{{ false }}">
+              <div style="flex:1;overflow-y:auto;min-height:0">
               <sc-if value="{{ archivesVides }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:13.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px">{{ videArchives }}</div>
+                <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:9.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px">{{ videArchives }}</div>
               </sc-if>
               <div style="display:flex;flex-direction:column;gap:12px">
                 <sc-for list="{{ archives }}" as="a" hint-placeholder-count="3">
@@ -308,11 +283,12 @@ a:hover{color:var(--color-accent-400)}
                   </div>
                 </sc-for>
               </div>
+              </div>
             </sc-if>
             <sc-if value="{{ !archivesOuvertes }}" hint-placeholder-val="{{ true }}">
             <div onDragOver="{{ zoneMissions.onDragOver }}" onDrop="{{ zoneMissions.onDrop }}" style="{{ zoneMissions.style }}">
               <sc-if value="{{ zoneMissions.vide }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:13.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px">Glisser un élément ici pour le mettre en avant</div>
+                <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:9.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px">Glisser un élément ici pour le mettre en avant</div>
               </sc-if>
               <sc-for list="{{ keyMissions }}" as="k" hint-placeholder-count="3">
                 <div draggable="{{ true }}" onDragStart="{{ k.onDragStart }}" onDragEnd="{{ k.onDragEnd }}" onDragEnter="{{ k.onDragEnter }}" onDragOver="{{ k.onDragOver }}" style="{{ k.rowStyle }}" style-hover="background:rgba(255,255,255,.2)">
@@ -320,7 +296,7 @@ a:hover{color:var(--color-accent-400)}
                   <div onClick="{{ k.onEdit }}" onKeyDown="{{ k.onKeyDown }}" role="button" tabIndex="{{ 0 }}" title="Modifier" style="min-width:0;flex:1;cursor:pointer;border-radius:8px;padding:2px 4px;margin:-2px -4px">
                     <div style="{{ k.titreStyle }}">{{ k.titre }}</div>
                     <sc-if value="{{ k.descriptionVisible }}" hint-placeholder-val="{{ false }}">
-                      <div style="font-size:13.5px;line-height:1.4;color:rgba(255,255,255,.62);margin-top:2px">{{ k.description }}</div>
+                      <div style="font-size:9.5px;line-height:1.4;color:rgba(255,255,255,.62);margin-top:2px">{{ k.description }}</div>
                     </sc-if>
                     <sc-if value="{{ k.mandatVisible }}" hint-placeholder-val="{{ false }}">
                       <button onClick="{{ k.onMandatOuvrir }}" title="Ouvrir la fiche mandat" style="{{ k.mandatStyle }}">{{ k.mandatLabel }}</button>
@@ -336,26 +312,23 @@ a:hover{color:var(--color-accent-400)}
               </sc-for>
             </div>
             <sc-if value="{{ plusMissions.plus }}" hint-placeholder-val="{{ false }}">
-              <button onClick="{{ plusMissions.onToggle }}" class="btn-voir-plus">
-                <i class="{{ plusMissions.icone }}" style="font-size:14px"></i>{{ plusMissions.libelle }}
+              <button onClick="{{ plusMissions.onToggle }}" class="btn-voir-plus" style="flex:none">
+                <i class="{{ plusMissions.icone }}" style="font-size:10px"></i>{{ plusMissions.libelle }}
               </button>
             </sc-if>
 
-            <div style="display:flex;align-items:center;gap:10px;margin-top:12px">
-              <button onClick="{{ todoBascule.onToggle }}" class="btn-bascule">
-                <i class="{{ todoBascule.icone }}" style="font-size:14px"></i>Autres tâches
-              </button>
-              <div style="flex:1"></div>
-            </div>
-            <sc-if value="{{ todoBascule.ouvert }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:10px;animation:fadeUp .16s ease both">
+            <div style="flex:none;height:1px;background:var(--color-divider);margin:12px 0"></div>
+              <div style="flex:1;overflow-y:auto;min-height:44px">
             <div onDragOver="{{ zoneTodo.onDragOver }}" onDrop="{{ zoneTodo.onDrop }}" style="{{ zoneTodo.style }}">
+              <sc-if value="{{ zoneTodo.vide }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:9.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px">Glisser une tâche ici pour la mettre dans Autres tâches</div>
+              </sc-if>
               <sc-for list="{{ todos }}" as="t" hint-placeholder-count="6">
-                <div draggable="{{ true }}" onDragStart="{{ t.onDragStart }}" onDragEnd="{{ t.onDragEnd }}" style="{{ t.rowStyle }}" style-hover="background:rgba(255,255,255,.2)">
+                <div draggable="{{ true }}" onDragStart="{{ t.onDragStart }}" onDragEnd="{{ t.onDragEnd }}" onDragEnter="{{ t.onDragEnter }}" onDragOver="{{ t.onDragOver }}" style="{{ t.rowStyle }}" style-hover="background:rgba(255,255,255,.2)">
                   <div onClick="{{ t.onEdit }}" onKeyDown="{{ t.onKeyDown }}" role="button" tabIndex="{{ 0 }}" title="Modifier" style="min-width:0;flex:1;cursor:pointer;border-radius:8px;padding:2px 4px;margin:-2px -4px">
                     <div style="{{ t.titreStyle }}">{{ t.titre }}</div>
                     <sc-if value="{{ t.descriptionVisible }}" hint-placeholder-val="{{ false }}">
-                      <div style="font-size:13.5px;line-height:1.4;color:rgba(255,255,255,.62);margin-top:2px">{{ t.description }}</div>
+                      <div style="font-size:9.5px;line-height:1.4;color:rgba(255,255,255,.62);margin-top:2px">{{ t.description }}</div>
                     </sc-if>
                     <sc-if value="{{ t.mandatVisible }}" hint-placeholder-val="{{ false }}">
                       <button onClick="{{ t.onMandatOuvrir }}" title="Ouvrir la fiche mandat" style="{{ t.mandatStyle }}">{{ t.mandatLabel }}</button>
@@ -373,27 +346,26 @@ a:hover{color:var(--color-accent-400)}
             </div>
             <sc-if value="{{ plusTodo.plus }}" hint-placeholder-val="{{ false }}">
               <button onClick="{{ plusTodo.onToggle }}" class="btn-voir-plus">
-                <i class="{{ plusTodo.icone }}" style="font-size:14px"></i>{{ plusTodo.libelle }}
+                <i class="{{ plusTodo.icone }}" style="font-size:10px"></i>{{ plusTodo.libelle }}
               </button>
             </sc-if>
               </div>
-            </sc-if>
             </sc-if>
           </section>
           <section data-widget="rdv" onPointerDown="{{ wRdv.onZone }}" style="{{ wRdv.style }}">
             <div onPointerDown="{{ wRdv.onMove }}" title="Déplacer le widget" style="{{ wRdv.handleStyle }}"></div>
             <div onPointerDown="{{ wRdv.onResize }}" title="Redimensionner" style="{{ wRdv.cornerStyle }}"></div>
-            <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:12px;pointer-events:none">
-              <h2 style="margin:0;text-align:center;color:#ffffff;letter-spacing:-.02em;font-size:19px;font-weight:600;text-transform:none;white-space:nowrap">Prochain rendez-vous :</h2>
-              <span style="font-size:40px;font-weight:500;letter-spacing:-.02em;font-variant-numeric:tabular-nums">{{ rdv.heure }}</span>
-              <span style="font-size:14px;padding:3px 10px;border-radius:20px;background:rgba(255,253,248,.14);color:#eaf1fb">{{ rdv.dans }}</span>
+            <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:12px;pointer-events:none;text-align:center">
+              <h2 style="margin:0;text-align:center;color:#ffffff;letter-spacing:-.02em;font-size:17px;font-weight:600;text-transform:none;white-space:nowrap">Prochain rendez-vous :</h2>
+              <span style="font-size:38px;font-weight:500;letter-spacing:-.02em;font-variant-numeric:tabular-nums">{{ rdv.heure }}</span>
+              <span style="font-size:12px;padding:3px 10px;border-radius:20px;background:rgba(255,253,248,.14);color:#eaf1fb">{{ rdv.dans }}</span>
             </div>
-            <div style="font-size:16px;font-weight:500;margin-top:8px;text-align:center">{{ rdv.titre }}</div>
-            <div style="font-size:14px;color:var(--color-neutral-500);margin-top:2px;text-align:center">{{ rdv.lieu }}</div>
+            <div style="font-size:14px;font-weight:500;margin-top:8px;text-align:center">{{ rdv.titre }}</div>
+            <div style="font-size:12px;color:var(--color-neutral-500);margin-top:2px;text-align:center">{{ rdv.lieu }}</div>
             <div style="height:1px;background:var(--color-divider);margin:12px 0"></div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
+            <div style="display:flex;flex-direction:column;gap:5px">
               <sc-for list="{{ suiteAgenda }}" as="a" hint-placeholder-count="3">
-                <div style="display:flex;align-items:center;justify-content:center;gap:9px;font-size:14.5px;opacity:.75">
+                <div style="display:flex;align-items:center;gap:9px;font-size:12.5px;opacity:.75">
                   <span style="width:38px;opacity:.7;font-variant-numeric:tabular-nums">{{ a.heure }}</span>
                   <span style="{{ a.barStyle }}"></span>
                   <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ a.titre }}</span>
@@ -409,14 +381,16 @@ a:hover{color:var(--color-accent-400)}
             <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px;pointer-events:none">
               <h2 class="titre-section">{{ titreMois }}</h2>
               <div style="flex:1"></div>
-              <button onClick="{{ onTogglePeriodeStats }}" title="{{ periodeAide }}" aria-label="{{ periodeAide }}" style="pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;box-sizing:border-box;flex:none;border-radius:50%;border:1px solid var(--color-neutral-700);background:rgba(255,255,255,.12);color:#ffffff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer">{{ periodeLettre }}</button>
+              <button onClick="{{ onTogglePeriodeStats }}" title="{{ periodeAide }}" aria-label="{{ periodeAide }}" style="pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;box-sizing:border-box;flex:none;border:0;background:transparent;padding:0;cursor:pointer">
+                <span style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;box-sizing:border-box;border-radius:50%;border:1.2px solid #a9c4e8;color:var(--color-neutral-500);font-family:inherit;font-size:7px;font-weight:700;line-height:1">{{ periodeLettre }}</span>
+              </button>
             </div>
-            <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:9px;align-content:start">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px;align-content:start">
               <sc-for list="{{ chiffres }}" as="c" hint-placeholder-count="4">
-                <div style="padding:7px 10px;height:44px;min-width:0;box-sizing:border-box;display:flex;align-items:center;gap:8px;border-radius:12px;background:rgba(255,255,255,.12);transition:background-color .15s ease" style-hover="background:rgba(255,255,255,.18)">
+                <div style="padding:7px 10px;height:44px;min-width:0;box-sizing:border-box;display:flex;align-items:center;gap:8px;border-radius:14px;background:rgba(255,255,255,.14);transition:background-color .15s ease" style-hover="background:rgba(255,255,255,.2)">
                   <div style="min-width:0;flex:1">
-                    <div style="font-size:13.5px;font-weight:600;color:var(--color-neutral-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.label }}</div>
-                    <div style="font-size:17px;font-weight:500;line-height:1.15;letter-spacing:-.01em;font-variant-numeric:tabular-nums;margin-top:1px">{{ c.valeur }}</div>
+                    <div style="font-size:9.5px;font-weight:600;color:var(--color-neutral-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.label }}</div>
+                    <div style="font-size:13px;font-weight:500;line-height:1.15;letter-spacing:-.01em;font-variant-numeric:tabular-nums;margin-top:1px">{{ c.valeur }}</div>
                   </div>
                   <span style="{{ c.deltaStyle }}">{{ c.delta }}</span>
                 </div>
@@ -426,17 +400,19 @@ a:hover{color:var(--color-accent-400)}
           <section data-widget="news" onPointerDown="{{ wNews.onZone }}" style="{{ wNews.style }}">
             <div onPointerDown="{{ wNews.onMove }}" title="Déplacer le widget" style="{{ wNews.handleStyle }}"></div>
             <div onPointerDown="{{ wNews.onResize }}" title="Redimensionner" style="{{ wNews.cornerStyle }}"></div>
-            <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px;pointer-events:none">
+            <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px;pointer-events:none;flex:none">
               <h2 class="titre-section">Actualités Bordeaux</h2>
               <div style="flex:1"></div>
             </div>
+            <div style="flex:1;overflow-y:auto;min-height:0">
             <div style="display:flex;flex-direction:column;gap:12px">
               <sc-for list="{{ news }}" as="n" hint-placeholder-count="4">
-                <a href="{{ n.lien }}" target="_blank" rel="noopener noreferrer" style="display:block;width:100%;box-sizing:border-box;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.05);color:var(--color-text);text-decoration:none;transition:background-color .15s ease" style-hover="background:rgba(255,255,255,.11)">
-                  <div style="font-size:14.5px;line-height:1.3;text-wrap:pretty;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ n.titre }}</div>
-                  <div style="font-size:13.5px;font-weight:600;color:var(--color-neutral-500);margin-top:2px">{{ n.meta }}</div>
+                <a href="{{ n.lien }}" target="_blank" rel="noopener noreferrer" style="display:block;width:100%;box-sizing:border-box;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.14);color:var(--color-text);text-decoration:none;transition:background-color .15s ease" style-hover="background:rgba(255,255,255,.2)">
+                  <div style="font-size:10.5px;line-height:1.3;text-wrap:pretty;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ n.titre }}</div>
+                  <div style="font-size:9.5px;font-weight:600;color:var(--color-neutral-500);margin-top:2px">{{ n.meta }}</div>
                 </a>
               </sc-for>
+            </div>
             </div>
           </section>
         </div>
@@ -445,7 +421,7 @@ a:hover{color:var(--color-accent-400)}
     </sc-if>
 
     <sc-if value="{{ vueFiche }}" hint-placeholder-val="{{ false }}">
-    <div style="flex:1;overflow:auto;padding:4px 2px 2px;display:flex;justify-content:center;align-items:flex-start;animation:fadeUp .22s ease both">
+    <div style="flex:1;padding:2px 0 0;display:flex;justify-content:center;align-items:flex-start">
 
       <div data-canvas-f="1" style="{{ canvasFStyle }}">
         <sc-if value="{{ guidesActifsF }}" hint-placeholder-val="{{ false }}">
@@ -465,7 +441,7 @@ a:hover{color:var(--color-accent-400)}
             </sc-if>
             <sc-if value="{{ fiche.sansPhoto }}" hint-placeholder-val="{{ true }}">
               <div style="flex:1 1 120px;min-height:0;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center">
-                <span style="font-size:14px;color:var(--color-neutral-600)">photo du bien</span>
+                <span style="font-size:10px;color:var(--color-neutral-600)">photo du bien</span>
               </div>
             </sc-if>
           </section>
@@ -477,26 +453,29 @@ a:hover{color:var(--color-accent-400)}
               <h2 class="titre-section" style="padding-left:10px">Informations clés</h2>
               <div style="flex:1"></div>
             </div>
-            <div class="infos-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,240px));gap:6px">
+            <div class="infos-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(83px,120px));grid-auto-rows:64px;gap:6px">
               <sc-for list="{{ fiche.infosGeneraux }}" as="i" hint-placeholder-count="4">
                 <label class="carte-champ">
-                  <span style="font-size:15.5px;font-weight:600;color:var(--color-neutral-500)">{{ i.label }}</span>
+                  <span style="font-size:11.5px;font-weight:600;color:var(--color-neutral-500)">{{ i.label }}</span>
                   <input value="{{ i.valeur }}" onChange="{{ i.onChange }}" readonly="{{ i.lecseule }}" class="saisie-cle">
                 </label>
               </sc-for>
               <sc-for list="{{ fiche.infosBien }}" as="i" hint-placeholder-count="5">
                 <label class="carte-champ">
-                  <span style="font-size:15.5px;font-weight:600;color:var(--color-neutral-500)">{{ i.label }}</span>
+                  <span style="font-size:11.5px;font-weight:600;color:var(--color-neutral-500)">{{ i.label }}</span>
                   <input value="{{ i.valeur }}" onChange="{{ i.onChange }}" readonly="{{ i.lecseule }}" class="saisie-cle">
                 </label>
               </sc-for>
-              <label class="carte-champ">
-                <span style="font-size:15.5px;font-weight:600;color:var(--color-neutral-500)">DPE / GES</span>
-                <input value="{{ fiche.infosDpeGes.valeur }}" onChange="{{ fiche.infosDpeGes.onChange }}" placeholder="A/B" class="saisie-cle">
-              </label>
+              <div class="carte-champ">
+                <span style="font-size:11.5px;font-weight:600;color:var(--color-neutral-500)">DPE / GES</span>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:3px">
+                  <span onClick="{{ fiche.infosDpeGes.onCyclerDpe }}" title="DPE — cliquer pour modifier" style="{{ fiche.infosDpeGes.dpeStyle }}">{{ fiche.infosDpeGes.dpe }}</span>
+                  <span onClick="{{ fiche.infosDpeGes.onCyclerGes }}" title="GES — cliquer pour modifier" style="{{ fiche.infosDpeGes.gesStyle }}">{{ fiche.infosDpeGes.ges }}</span>
+                </div>
+              </div>
               <sc-for list="{{ fiche.infosFinancier }}" as="i" hint-placeholder-count="5">
                 <label class="carte-champ">
-                  <span style="font-size:15.5px;font-weight:600;color:var(--color-neutral-500)">{{ i.label }}</span>
+                  <span style="font-size:11.5px;font-weight:600;color:var(--color-neutral-500)">{{ i.label }}</span>
                   <input value="{{ i.valeur }}" onChange="{{ i.onChange }}" readonly="{{ i.lecseule }}" class="saisie-cle">
                 </label>
               </sc-for>
@@ -510,17 +489,17 @@ a:hover{color:var(--color-accent-400)}
               <h2 class="titre-section">Statut</h2>
               <div style="flex:1"></div>
             </div>
-            <div style="padding:7px 12px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:space-between">
-              <span style="font-size:16px;font-weight:500;color:#ffffff">{{ fiche.statutLabel }}</span>
-              <button onClick="{{ fiche.onCyclerStatutMandat }}" title="Cliquer pour changer le statut : Rentré → Perdu → Gagné" aria-label="Statut du mandat : {{ fiche.statutLabel }}" style="{{ fiche.statutRondStyle }}" style-focus="outline:2px solid rgba(255,255,255,.4);outline-offset:2px"></button>
+            <div style="padding:7px 12px;box-sizing:border-box;border-radius:14px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:space-between">
+              <span style="font-size:12px;font-weight:500;color:#ffffff">{{ fiche.statutLabel }}</span>
+              <button onClick="{{ fiche.onCyclerStatutMandat }}" title="Cliquer pour changer le statut : Rentré → Perdu → Vendu" aria-label="Statut du mandat : {{ fiche.statutLabel }}" style="{{ fiche.statutRondStyle }}" style-focus="outline:2px solid rgba(255,255,255,.4);outline-offset:2px"></button>
             </div>
             <div style="display:flex;align-items:center;gap:8px;margin-top:16px">
               <sc-if value="{{ fiche.supprimable }}" hint-placeholder-val="{{ false }}">
-                <button onClick="{{ fiche.onSupprimer }}" title="Supprimer ce mandat" aria-label="Supprimer ce mandat" class="btn-icone-34" style="transition:background-color .18s ease,border-color .18s ease,color .18s ease" style-focus="outline:2px solid rgba(255,255,255,.35);outline-offset:2px"><i class="ph ph-trash" style="font-size:22px"></i></button>
+                <button onClick="{{ fiche.onSupprimer }}" title="Supprimer ce mandat" aria-label="Supprimer ce mandat" class="btn-icone-34" style="transition:background-color .18s ease,border-color .18s ease,color .18s ease" style-focus="outline:2px solid rgba(255,255,255,.35);outline-offset:2px"><i class="ph ph-trash" style="font-size:18px"></i></button>
               </sc-if>
               <div style="flex:1"></div>
               <sc-if value="{{ pdfDispoFiche }}" hint-placeholder-val="{{ false }}">
-                <button onClick="{{ fiche.onVoirPdf }}" title="Ouvrir la fiche PDF" aria-label="Ouvrir la fiche PDF" class="btn-icone-34" style="transition:background-color .18s ease,border-color .18s ease,color .18s ease" style-focus="outline:2px solid rgba(255,255,255,.35);outline-offset:2px"><i class="ph ph-file-pdf" style="font-size:22px"></i></button>
+                <button onClick="{{ fiche.onVoirPdf }}" title="Ouvrir la fiche PDF" aria-label="Ouvrir la fiche PDF" class="btn-icone-34" style="transition:background-color .18s ease,border-color .18s ease,color .18s ease" style-focus="outline:2px solid rgba(255,255,255,.35);outline-offset:2px"><i class="ph ph-file-pdf" style="font-size:18px"></i></button>
               </sc-if>
             </div>
           </section>
@@ -528,17 +507,18 @@ a:hover{color:var(--color-accent-400)}
           <section data-widget-f="visites" onPointerDown="{{ wfVisites.onZone }}" style="{{ wfVisites.style }}">
             <div onPointerDown="{{ wfVisites.onMove }}" title="Déplacer le widget" style="{{ wfVisites.handleStyle }}"></div>
             <div onPointerDown="{{ wfVisites.onResize }}" title="Redimensionner" style="{{ wfVisites.cornerStyle }}"></div>
-            <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px;pointer-events:none">
+            <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px;pointer-events:none;flex:none">
               <h2 class="titre-section">Visites</h2>
               <div style="flex:1"></div>
-              <button onClick="{{ fiche.onAjouterVisite }}" title="Ajouter une visite" aria-label="Ajouter une visite" class="btn-icone-20"><i class="ph ph-plus" style="font-size:15px"></i></button>
+              <button onClick="{{ fiche.onAjouterVisite }}" title="Ajouter une visite" aria-label="Ajouter une visite" class="btn-icone-20"><i class="ph ph-plus" style="font-size:11px"></i></button>
             </div>
+            <div style="flex:1;overflow-y:auto;min-height:0">
             <sc-if value="{{ visitesVide }}" hint-placeholder-val="{{ false }}">
-              <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:13.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px">Aucune visite pour ce mandat</div>
+              <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:9.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px">Aucune visite pour ce mandat</div>
             </sc-if>
             <div style="display:flex;flex-direction:column;gap:12px">
               <sc-for list="{{ visites }}" as="v" hint-placeholder-count="3">
-                <div style="{{ v.rowStyle }}" style-hover="background:rgba(255,255,255,.2)">
+                <div draggable="{{ true }}" onDragStart="{{ v.onDragStart }}" onDragEnd="{{ v.onDragEnd }}" onDragEnter="{{ v.onDragEnter }}" onDragOver="{{ v.onDragOver }}" style="{{ v.rowStyle }}" style-hover="background:rgba(255,255,255,.2)">
                   <div onClick="{{ v.onEdit }}" onKeyDown="{{ v.onKeyDown }}" role="button" tabIndex="{{ 0 }}" title="Modifier la visite" style="min-width:0;flex:1;cursor:pointer;border-radius:8px;padding:2px 4px;margin:-2px -4px">
                     <div style="{{ v.titreStyle }}">{{ v.titre }}</div>
                     <sc-if value="{{ v.mandatVisible }}" hint-placeholder-val="{{ false }}">
@@ -552,22 +532,23 @@ a:hover{color:var(--color-accent-400)}
                 </div>
               </sc-for>
             </div>
+            </div>
           </section>
 
           <section data-widget-f="taches" onPointerDown="{{ wfTaches.onZone }}" style="{{ wfTaches.style }}">
             <div onPointerDown="{{ wfTaches.onMove }}" title="Déplacer le widget" style="{{ wfTaches.handleStyle }}"></div>
             <div onPointerDown="{{ wfTaches.onResize }}" title="Redimensionner" style="{{ wfTaches.cornerStyle }}"></div>
-            <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px;pointer-events:none">
+            <div style="position:relative;z-index:2;display:flex;align-items:center;height:20px;gap:8px;margin-bottom:12px;pointer-events:none;flex:none">
               <h2 class="titre-section">Tâches</h2>
               <div style="flex:1"></div>
-              <button onClick="{{ fiche.onAjouterMission }}" title="Ajouter une tâche" aria-label="Ajouter une tâche" class="btn-icone-20"><i class="ph ph-plus" style="font-size:15px"></i></button>
+              <button onClick="{{ fiche.onAjouterMission }}" title="Ajouter une tâche" aria-label="Ajouter une tâche" class="btn-icone-20"><i class="ph ph-plus" style="font-size:11px"></i></button>
             </div>
             <sc-if value="{{ ficheTachesVide }}" hint-placeholder-val="{{ false }}">
-              <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:13.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px">Aucun élément lié à ce mandat</div>
+              <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:9.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px;flex:none">Aucun élément lié à ce mandat</div>
             </sc-if>
-            <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="flex:1;overflow-y:auto;min-height:0;display:flex;flex-direction:column;gap:12px">
               <sc-for list="{{ ficheTaches }}" as="x" hint-placeholder-count="2">
-                <div style="{{ x.rowStyle }}" style-hover="background:rgba(255,255,255,.11)">
+                <div style="{{ x.rowStyle }}" style-hover="background:rgba(255,255,255,.2)">
                   <div onClick="{{ x.onEdit }}" onKeyDown="{{ x.onKeyDown }}" role="button" tabIndex="{{ 0 }}" title="Modifier" style="min-width:0;flex:1;cursor:pointer;border-radius:8px;padding:2px 4px;margin:-2px -4px">
                     <div style="{{ x.titreStyle }}">{{ x.titre }}</div>
                   </div>
@@ -578,26 +559,6 @@ a:hover{color:var(--color-accent-400)}
                 </div>
               </sc-for>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;margin-top:12px">
-              <button onClick="{{ bascTachesF.onToggle }}" class="btn-bascule">
-                <i class="{{ bascTachesF.icone }}" style="font-size:14px"></i>Tâches terminées
-              </button>
-            </div>
-            <sc-if value="{{ bascTachesF.ouvert }}" hint-placeholder-val="{{ false }}">
-              <div style="display:flex;flex-direction:column;gap:12px;margin-top:10px;animation:fadeUp .16s ease both">
-              <sc-for list="{{ ficheTachesFaites }}" as="x" hint-placeholder-count="2">
-                <div style="{{ x.rowStyle }}" style-hover="background:rgba(255,255,255,.11)">
-                  <div onClick="{{ x.onEdit }}" onKeyDown="{{ x.onKeyDown }}" role="button" tabIndex="{{ 0 }}" title="Modifier" style="min-width:0;flex:1;cursor:pointer;border-radius:8px;padding:2px 4px;margin:-2px -4px">
-                    <div style="{{ x.titreStyle }}">{{ x.titre }}</div>
-                  </div>
-                  <div style="flex:none;display:flex;flex-direction:row-reverse;align-items:center;gap:8px;min-width:0">
-                    <button onClick="{{ x.onCycle }}" title="{{ x.terminerAide }}" aria-label="{{ x.terminerAide }}" style="{{ x.terminerStyleRond }}"><i class="{{ x.terminerIcone }}"></i></button>
-                    <span title="Échéance" style="{{ x.echeanceStyle }}">{{ x.echeanceLabel }}</span>
-                  </div>
-                </div>
-              </sc-for>
-              </div>
-            </sc-if>
           </section>
 
           <section data-widget-f="notesf" onPointerDown="{{ wfNotesf.onZone }}" style="{{ wfNotesf.style }}">
@@ -607,7 +568,7 @@ a:hover{color:var(--color-accent-400)}
               <h2 class="titre-section">Informations complémentaires</h2>
               <div style="flex:1"></div>
             </div>
-            <textarea value="{{ infosFTexte }}" onChange="{{ onInfosF }}" spellcheck="false" style="position:relative;z-index:2;display:block;width:100%;box-sizing:border-box;flex:1;min-height:220px;resize:none;padding:12px 14px;border-radius:0;border:none;background:transparent;color:#ffffff;font:inherit;font-size:18px;line-height:1.55;letter-spacing:-.01em;outline:none" style-focus="background:rgba(255,255,255,.05)"></textarea>
+            <textarea value="{{ infosFTexte }}" onChange="{{ onInfosF }}" spellcheck="false" style="position:relative;z-index:2;display:block;width:100%;box-sizing:border-box;flex:1;min-height:220px;resize:none;padding:12px 14px;border-radius:0;border:none;background:transparent;color:#ffffff;font:inherit;font-size:14px;line-height:1.55;letter-spacing:-.01em;outline:none" style-focus="background:rgba(255,255,255,.05)"></textarea>
           </section>
 
         </div>
@@ -622,15 +583,15 @@ a:hover{color:var(--color-accent-400)}
   <div onClick="{{ fermerPdf }}" style="position:fixed;inset:0;background:rgba(5,5,12,.66);display:flex;align-items:center;justify-content:center;z-index:60;padding:26px">
     <div onClick="{{ stop }}" style="width:min(920px,100%);height:100%;display:flex;flex-direction:column;background:linear-gradient(165deg, rgba(12,22,44,.42), rgba(12,22,44,.26));backdrop-filter:blur(26px) saturate(150%);-webkit-backdrop-filter:blur(26px) saturate(150%);box-shadow:var(--ombre-carte);border:1px solid rgba(255,255,255,.3);border-radius:24px;overflow:hidden;animation:fadeUp .18s ease both">
       <div style="flex:none;display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--color-divider)">
-        <i class="ph ph-file-pdf" style="font-size:18px;color:var(--color-neutral-500)"></i>
-        <span style="font-size:14.5px;color:var(--color-neutral-400)">{{ pdfNom }}</span>
+        <i class="ph ph-file-pdf" style="font-size:14px;color:var(--color-neutral-500)"></i>
+        <span style="font-size:10.5px;color:var(--color-neutral-400)">{{ pdfNom }}</span>
         <div style="flex:1"></div>
-        <a href="{{ pdfSrc }}" target="_blank" rel="noopener" title="Ouvrir dans un onglet" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid var(--color-neutral-800);border-radius:9px;color:var(--color-neutral-400)"><i class="ph ph-arrow-square-out" style="font-size:17px"></i></a>
-        <button onClick="{{ fermerPdf }}" title="Fermer" aria-label="Fermer" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-400);border-radius:9px;cursor:pointer"><i class="ph ph-x" style="font-size:17px"></i></button>
+        <a href="{{ pdfSrc }}" target="_blank" rel="noopener" title="Ouvrir dans un onglet" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid var(--color-neutral-800);border-radius:9px;color:var(--color-neutral-400)"><i class="ph ph-arrow-square-out" style="font-size:13px"></i></a>
+        <button onClick="{{ fermerPdf }}" title="Fermer" aria-label="Fermer" style="display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-400);border-radius:9px;cursor:pointer"><i class="ph ph-x" style="font-size:13px"></i></button>
       </div>
       <div style="flex:1;overflow:auto;background:#eceff5;padding:16px;display:flex;flex-direction:column;align-items:center;gap:14px">
         <sc-if value="{{ pdfEnCours }}" hint-placeholder-val="{{ false }}">
-          <div style="padding:40px 0;font-size:14.5px;color:var(--color-neutral-500)">Rendu des pages…</div>
+          <div style="padding:40px 0;font-size:10.5px;color:var(--color-neutral-500)">Rendu des pages…</div>
         </sc-if>
         <sc-for list="{{ pdfPages }}" as="pg" hint-placeholder-count="1">
           <div ref="{{ pg.ref }}" style="{{ pg.style }}"></div>
@@ -646,54 +607,49 @@ a:hover{color:var(--color-accent-400)}
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
         <h2 class="titre-section" style="padding-left:10px">{{ nouveauTitre }}</h2>
         <div style="flex:1"></div>
+      </div>
+
+      <div class="infos-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
         <sc-if value="{{ nouveau.modeCreation }}" hint-placeholder-val="{{ true }}">
-          <label onDragOver="{{ nouveau.onDragOver }}" onDragLeave="{{ nouveau.onDragLeave }}" onDrop="{{ nouveau.onDrop }}" title="{{ nouveau.zoneTitre }}" aria-label="{{ nouveau.zoneTitre }}" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;flex:none;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-500);border-radius:10px;cursor:pointer">
-            <i class="{{ nouveau.zoneIcon }}" style="font-size:19px"></i>
+          <label class="carte-champ" onDragOver="{{ nouveau.onDragOver }}" onDragLeave="{{ nouveau.onDragLeave }}" onDrop="{{ nouveau.onDrop }}" title="{{ nouveau.zoneTitre }}" style="cursor:pointer;align-items:center;justify-content:center">
+            <i class="{{ nouveau.zoneIcon }}" style="font-size:18px;color:var(--color-neutral-500)"></i>
             <input type="file" accept="application/pdf" onChange="{{ nouveau.onFichier }}" style="display:none">
           </label>
         </sc-if>
-      </div>
-
-      <div class="carte-groupe">
-        <div class="infos-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-          <sc-for list="{{ nouveau.champs.generaux }}" as="c" hint-placeholder-count="4">
-            <label style="{{ c.wrapStyle }}">
-              <span style="display:block;font-size:15px;font-weight:600;color:var(--color-neutral-500)">{{ c.label }}</span>
-              <input value="{{ c.valeur }}" onChange="{{ c.onChange }}" placeholder="{{ c.exemple }}" class="saisie-mandat">
-            </label>
-          </sc-for>
+        <div class="carte-champ">
+          <span style="font-size:11.5px;font-weight:600;color:var(--color-neutral-500)">Adresse</span>
+          <input value="{{ nouveau.champAdresse.valeur }}" onChange="{{ nouveau.champAdresse.onChange }}" class="saisie-cle">
         </div>
-      </div>
-
-      <div class="carte-groupe" style="margin-top:12px">
-        <div class="infos-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-          <sc-for list="{{ nouveau.champs.bien }}" as="c" hint-placeholder-count="5">
-            <label style="{{ c.wrapStyle }}">
-              <span style="display:block;font-size:15px;font-weight:600;color:var(--color-neutral-500)">{{ c.label }}</span>
-              <input value="{{ c.valeur }}" onChange="{{ c.onChange }}" placeholder="{{ c.exemple }}" class="saisie-mandat">
-            </label>
-          </sc-for>
-          <label style="{{ nouveau.dpeGes.wrapStyle }}">
-            <span style="display:block;font-size:15px;font-weight:600;color:var(--color-neutral-500)">DPE / GES</span>
-            <input value="{{ nouveau.dpeGes.valeur }}" onChange="{{ nouveau.dpeGes.onChange }}" class="saisie-mandat">
+        <sc-for list="{{ nouveau.champs.generaux }}" as="c" hint-placeholder-count="2">
+          <label class="carte-champ">
+            <span style="font-size:11.5px;font-weight:600;color:var(--color-neutral-500)">{{ c.label }}</span>
+            <input value="{{ c.valeur }}" onChange="{{ c.onChange }}" placeholder="{{ c.exemple }}" class="saisie-cle">
           </label>
+        </sc-for>
+        <sc-for list="{{ nouveau.champs.bien }}" as="c" hint-placeholder-count="5">
+          <label class="carte-champ">
+            <span style="font-size:11.5px;font-weight:600;color:var(--color-neutral-500)">{{ c.label }}</span>
+            <input value="{{ c.valeur }}" onChange="{{ c.onChange }}" placeholder="{{ c.exemple }}" class="saisie-cle">
+          </label>
+        </sc-for>
+        <div class="carte-champ">
+          <span style="font-size:11.5px;font-weight:600;color:var(--color-neutral-500)">DPE / GES</span>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:3px">
+            <span onClick="{{ nouveau.dpeGes.onCyclerDpe }}" title="DPE — cliquer pour modifier" style="{{ nouveau.dpeGes.dpeStyle }}">{{ nouveau.dpeGes.dpe }}</span>
+            <span onClick="{{ nouveau.dpeGes.onCyclerGes }}" title="GES — cliquer pour modifier" style="{{ nouveau.dpeGes.gesStyle }}">{{ nouveau.dpeGes.ges }}</span>
+          </div>
         </div>
-      </div>
-
-      <div class="carte-groupe" style="margin-top:12px">
-        <div class="infos-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-          <sc-for list="{{ nouveau.champs.financier }}" as="c" hint-placeholder-count="5">
-            <label style="{{ c.wrapStyle }}">
-              <span style="display:block;font-size:15px;font-weight:600;color:var(--color-neutral-500)">{{ c.label }}</span>
-              <input value="{{ c.valeur }}" onChange="{{ c.onChange }}" placeholder="{{ c.exemple }}" class="saisie-mandat">
-            </label>
-          </sc-for>
-        </div>
+        <sc-for list="{{ nouveau.champs.financier }}" as="c" hint-placeholder-count="5">
+          <label class="carte-champ">
+            <span style="font-size:11.5px;font-weight:600;color:var(--color-neutral-500)">{{ c.label }}</span>
+            <input value="{{ c.valeur }}" onChange="{{ c.onChange }}" placeholder="{{ c.exemple }}" class="saisie-cle">
+          </label>
+        </sc-for>
       </div>
 
       <div style="display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:20px">
-        <button onClick="{{ fermerNouveau }}" title="Fermer sans créer" aria-label="Fermer sans créer" class="btn-icone-34"><i class="ph ph-x" style="font-size:18px"></i></button>
-        <button onClick="{{ nouveau.onCreer }}" title="{{ nouveau.actionTitre }}" aria-label="{{ nouveau.actionTitre }}" class="btn-icone-34"><i class="ph ph-check" style="font-size:18px"></i></button>
+        <button onClick="{{ fermerNouveau }}" title="Fermer sans créer" aria-label="Fermer sans créer" class="btn-icone-34"><i class="ph ph-x" style="font-size:14px"></i></button>
+        <button onClick="{{ nouveau.onCreer }}" title="{{ nouveau.actionTitre }}" aria-label="{{ nouveau.actionTitre }}" class="btn-icone-34"><i class="ph ph-check" style="font-size:14px"></i></button>
       </div>
     </div>
   </div>
@@ -705,13 +661,13 @@ a:hover{color:var(--color-accent-400)}
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
         <label style="display:block;padding:7px 12px;min-height:44px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12);cursor:text">
-          <span style="display:block;font-size:13.5px;font-weight:600;color:var(--color-neutral-500)">Titre</span>
-          <input value="{{ edition.titre }}" onChange="{{ edition.onTitre }}" style="width:100%;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;margin-top:1px;color:#ffffff;font-family:inherit;font-size:16px;font-weight:500;line-height:1.15;letter-spacing:-.01em;outline:none" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
+          <span style="display:block;font-size:9.5px;font-weight:600;color:var(--color-neutral-500)">Titre</span>
+          <input value="{{ edition.titre }}" onChange="{{ edition.onTitre }}" style="width:100%;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;margin-top:1px;color:#ffffff;font-family:inherit;font-size:12px;font-weight:500;line-height:1.15;letter-spacing:-.01em;outline:none" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
         </label>
         <div style="display:block;padding:7px 12px;min-height:44px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12)">
-          <span style="display:block;font-size:13.5px;font-weight:600;color:var(--color-neutral-500)">Priorité</span>
+          <span style="display:block;font-size:9.5px;font-weight:600;color:var(--color-neutral-500)">Priorité</span>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-top:2px">
-            <span style="font-size:16px;font-weight:500;color:#ffffff">{{ edition.prioriteLabel }}</span>
+            <span style="font-size:12px;font-weight:500;color:#ffffff">{{ edition.prioriteLabel }}</span>
             <button onClick="{{ edition.onCyclePriorite }}" title="{{ edition.prioriteAide }}" aria-label="{{ edition.prioriteAide }}" style="{{ edition.prioriteStyle }}" style-focus="outline:2px solid rgba(255,255,255,.5);outline-offset:2px"></button>
           </div>
         </div>
@@ -720,15 +676,15 @@ a:hover{color:var(--color-accent-400)}
       <sc-if value="{{ edition.mandatOuvert }}" hint-placeholder-val="{{ false }}">
         <sc-if value="{{ edition.mandatFixe }}" hint-placeholder-val="{{ false }}">
           <div style="display:block;padding:7px 12px;min-height:44px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12);margin-bottom:8px">
-            <span style="display:block;font-size:13.5px;font-weight:600;color:var(--color-neutral-500)">Mandat associé</span>
-            <span style="display:block;margin-top:1px;color:#ffffff;font-size:16px;font-weight:500;line-height:1.15;letter-spacing:-.01em">{{ edition.mandatLabel }}</span>
+            <span style="display:block;font-size:9.5px;font-weight:600;color:var(--color-neutral-500)">Mandat associé</span>
+            <span style="display:block;margin-top:1px;color:#ffffff;font-size:12px;font-weight:500;line-height:1.15;letter-spacing:-.01em">{{ edition.mandatLabel }}</span>
           </div>
         </sc-if>
         <sc-if value="{{ edition.mandatLibre }}" hint-placeholder-val="{{ true }}">
           <label style="display:block;padding:7px 12px;min-height:44px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12);cursor:pointer;margin-bottom:8px">
-            <span style="display:block;font-size:13.5px;font-weight:600;color:var(--color-neutral-500)">Mandat associé</span>
+            <span style="display:block;font-size:9.5px;font-weight:600;color:var(--color-neutral-500)">Mandat associé</span>
             <div style="position:relative;display:flex;align-items:center;margin-top:1px;height:18px">
-              <select value="{{ edition.mandat }}" onChange="{{ edition.onMandat }}" style="appearance:none;-webkit-appearance:none;-moz-appearance:none;width:100%;box-sizing:border-box;display:block;height:18px;background:transparent;border:none;padding:0;padding-right:18px;margin:0;color:#ffffff;font-family:inherit;font-size:16px;font-weight:500;line-height:18px;letter-spacing:-.01em;outline:none;cursor:pointer" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
+              <select value="{{ edition.mandat }}" onChange="{{ edition.onMandat }}" style="appearance:none;-webkit-appearance:none;-moz-appearance:none;width:100%;box-sizing:border-box;display:block;height:18px;background:transparent;border:none;padding:0;padding-right:18px;margin:0;color:#ffffff;font-family:inherit;font-size:12px;font-weight:500;line-height:18px;letter-spacing:-.01em;outline:none;cursor:pointer" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
                 <option value="" style="background:#121a30;color:#ffffff">Aucun mandat</option>
                 <div style="display:contents">
                 <sc-for list="{{ edition.mandatsDispo }}" as="m" hint-placeholder-count="4">
@@ -736,40 +692,40 @@ a:hover{color:var(--color-accent-400)}
                 </sc-for>
                 </div>
               </select>
-              <i class="ph ph-caret-down" style="position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:13px;color:var(--color-neutral-500);pointer-events:none"></i>
+              <i class="ph ph-caret-down" style="position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:9px;color:var(--color-neutral-500);pointer-events:none"></i>
             </div>
           </label>
         </sc-if>
       </sc-if>
 
       <label style="display:block;padding:7px 12px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12);cursor:text;margin-bottom:8px">
-        <span style="display:block;font-size:13.5px;font-weight:600;color:var(--color-neutral-500)">Description</span>
-        <textarea value="{{ edition.description }}" onChange="{{ edition.onDescription }}" style="width:100%;box-sizing:border-box;display:block;min-height:44px;resize:vertical;background:transparent;border:none;padding:0;margin-top:2px;color:#ffffff;font-family:inherit;font-size:15px;line-height:1.45;outline:none"></textarea>
+        <span style="display:block;font-size:9.5px;font-weight:600;color:var(--color-neutral-500)">Description</span>
+        <textarea value="{{ edition.description }}" onChange="{{ edition.onDescription }}" style="width:100%;box-sizing:border-box;display:block;min-height:44px;resize:vertical;background:transparent;border:none;padding:0;margin-top:2px;color:#ffffff;font-family:inherit;font-size:11px;line-height:1.45;outline:none"></textarea>
       </label>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
         <label style="display:block;padding:7px 12px;min-height:44px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12);cursor:text">
-          <span style="display:block;font-size:13.5px;font-weight:600;color:var(--color-neutral-500)">Échéance</span>
+          <span style="display:block;font-size:9.5px;font-weight:600;color:var(--color-neutral-500)">Échéance</span>
           <div style="position:relative;display:flex;align-items:center;margin-top:1px;height:18px">
-            <input type="date" class="ph-date" value="{{ edition.echeance }}" onChange="{{ edition.onEcheance }}" style="width:100%;box-sizing:border-box;display:block;height:18px;background:transparent;border:none;padding:0;padding-right:18px;margin:0;color:#ffffff;-webkit-text-fill-color:#ffffff;color-scheme:dark;font-family:inherit;font-size:16px;font-weight:500;line-height:18px;letter-spacing:-.01em;font-variant-numeric:tabular-nums;outline:none" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
-            <i class="ph ph-calendar-blank" style="position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:15px;color:var(--color-neutral-500);pointer-events:none"></i>
+            <input type="date" class="ph-date" value="{{ edition.echeance }}" onChange="{{ edition.onEcheance }}" style="width:100%;box-sizing:border-box;display:block;height:18px;background:transparent;border:none;padding:0;padding-right:18px;margin:0;color:#ffffff;-webkit-text-fill-color:#ffffff;color-scheme:dark;font-family:inherit;font-size:12px;font-weight:500;line-height:18px;letter-spacing:-.01em;font-variant-numeric:tabular-nums;outline:none" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
+            <i class="ph ph-calendar-blank" style="position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:11px;color:var(--color-neutral-500);pointer-events:none"></i>
           </div>
         </label>
         <div style="display:block;padding:7px 12px;min-height:44px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12)">
-          <span style="display:block;font-size:13.5px;font-weight:600;color:var(--color-neutral-500)">Statut</span>
+          <span style="display:block;font-size:9.5px;font-weight:600;color:var(--color-neutral-500)">Statut</span>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-top:2px">
-            <span style="font-size:16px;font-weight:500;color:#ffffff">{{ edition.termineLabel }}</span>
+            <span style="font-size:12px;font-weight:500;color:#ffffff">{{ edition.termineLabel }}</span>
             <button onClick="{{ edition.onToggleTermine }}" role="switch" aria-checked="{{ edition.termine }}" title="Marquer comme réalisée" style="{{ edition.statutRondStyle }}" style-focus="outline:2px solid rgba(127,208,162,.6);outline-offset:2px"></button>
           </div>
         </div>
       </div>
 
       <div style="display:flex;align-items:center;gap:8px;margin-top:16px">
-        <button onClick="{{ edition.onSupprimer }}" title="Supprimer" aria-label="Supprimer" class="btn-icone-34" style="transition:background-color .18s ease,border-color .18s ease,color .18s ease" style-focus="outline:2px solid rgba(255,255,255,.35);outline-offset:2px" data-comment-anchor="9d8b6f9e63-button"><i class="ph ph-trash" style="font-size:18px"></i></button>
-        <button onClick="{{ edition.onToggleMandat }}" title="Associer à un mandat" aria-label="Associer à un mandat" aria-pressed="{{ edition.mandatOuvert }}" style="{{ edition.mandatBoutonStyle }}" style-focus="outline:2px solid rgba(255,255,255,.35);outline-offset:2px"><i class="ph ph-house" style="font-size:18px"></i></button>
+        <button onClick="{{ edition.onSupprimer }}" title="Supprimer" aria-label="Supprimer" class="btn-icone-34" style="transition:background-color .18s ease,border-color .18s ease,color .18s ease" style-focus="outline:2px solid rgba(255,255,255,.35);outline-offset:2px" data-comment-anchor="9d8b6f9e63-button"><i class="ph ph-trash" style="font-size:14px"></i></button>
+        <button onClick="{{ edition.onToggleMandat }}" title="Associer à un mandat" aria-label="Associer à un mandat" aria-pressed="{{ edition.mandatOuvert }}" style="{{ edition.mandatBoutonStyle }}" style-focus="outline:2px solid rgba(255,255,255,.35);outline-offset:2px"><i class="ph ph-house" style="font-size:14px"></i></button>
         <div style="flex:1"></div>
-        <button onClick="{{ fermerEdition }}" title="Fermer sans enregistrer" aria-label="Fermer sans enregistrer" class="btn-icone-34" style="transition:background-color .18s ease,border-color .18s ease,color .18s ease" style-focus="outline:2px solid rgba(255,255,255,.35);outline-offset:2px"><i class="ph ph-x" style="font-size:18px"></i></button>
-        <button onClick="{{ edition.onEnregistrer }}" title="Enregistrer" aria-label="Enregistrer" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid rgba(127,208,162,.55);background:rgba(127,208,162,.18);color:#7fd0a2;border-radius:10px;cursor:pointer;transition:background-color .18s ease,border-color .18s ease,color .18s ease" style-focus="outline:2px solid rgba(127,208,162,.6);outline-offset:2px"><i class="ph ph-check" style="font-size:18px"></i></button>
+        <button onClick="{{ fermerEdition }}" title="Fermer sans enregistrer" aria-label="Fermer sans enregistrer" class="btn-icone-34" style="transition:background-color .18s ease,border-color .18s ease,color .18s ease" style-focus="outline:2px solid rgba(255,255,255,.35);outline-offset:2px"><i class="ph ph-x" style="font-size:14px"></i></button>
+        <button onClick="{{ edition.onEnregistrer }}" title="Enregistrer" aria-label="Enregistrer" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid rgba(127,208,162,.55);background:rgba(127,208,162,.18);color:#7fd0a2;border-radius:10px;cursor:pointer;transition:background-color .18s ease,border-color .18s ease,color .18s ease" style-focus="outline:2px solid rgba(127,208,162,.6);outline-offset:2px"><i class="ph ph-check" style="font-size:14px"></i></button>
       </div>
 
     </div>
@@ -782,34 +738,34 @@ a:hover{color:var(--color-accent-400)}
 
       <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:10px">
         <label style="display:block;padding:7px 12px;min-height:44px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12);cursor:text">
-          <span style="display:block;font-size:13.5px;font-weight:600;color:var(--color-neutral-500)">Visiteur</span>
-          <input value="{{ visiteEdition.visiteur }}" onChange="{{ visiteEdition.onVisiteur }}" style="width:100%;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;margin-top:1px;color:#ffffff;font-family:inherit;font-size:16px;font-weight:500;line-height:1.15;letter-spacing:-.01em;outline:none" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
+          <span style="display:block;font-size:9.5px;font-weight:600;color:var(--color-neutral-500)">Visiteur</span>
+          <input value="{{ visiteEdition.visiteur }}" onChange="{{ visiteEdition.onVisiteur }}" style="width:100%;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;margin-top:1px;color:#ffffff;font-family:inherit;font-size:12px;font-weight:500;line-height:1.15;letter-spacing:-.01em;outline:none" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
         </label>
         <label style="display:block;padding:7px 12px;min-height:44px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12);cursor:text">
-          <span style="display:block;font-size:13.5px;font-weight:600;color:var(--color-neutral-500)">Email</span>
-          <input type="email" class="champ-sombre" value="{{ visiteEdition.email }}" onChange="{{ visiteEdition.onEmail }}" style="width:100%;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;margin-top:1px;color:#ffffff;-webkit-text-fill-color:#ffffff;font-family:inherit;font-size:16px;font-weight:500;line-height:1.15;letter-spacing:-.01em;outline:none" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
+          <span style="display:block;font-size:9.5px;font-weight:600;color:var(--color-neutral-500)">Email</span>
+          <input type="email" class="champ-sombre" value="{{ visiteEdition.email }}" onChange="{{ visiteEdition.onEmail }}" style="width:100%;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;margin-top:1px;color:#ffffff;-webkit-text-fill-color:#ffffff;font-family:inherit;font-size:12px;font-weight:500;line-height:1.15;letter-spacing:-.01em;outline:none" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
         </label>
         <div style="display:block;padding:7px 12px;min-height:44px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12)">
-          <span style="display:block;font-size:13.5px;font-weight:600;color:var(--color-neutral-500)">Mandat</span>
-          <span style="display:block;margin-top:1px;color:#ffffff;font-size:16px;font-weight:500;line-height:1.15;letter-spacing:-.01em">{{ visiteEdition.mandatLabel }}</span>
+          <span style="display:block;font-size:9.5px;font-weight:600;color:var(--color-neutral-500)">Mandat</span>
+          <span style="display:block;margin-top:1px;color:#ffffff;font-size:12px;font-weight:500;line-height:1.15;letter-spacing:-.01em">{{ visiteEdition.mandatLabel }}</span>
         </div>
         <label style="display:block;padding:7px 12px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12);cursor:text">
-          <span style="display:block;font-size:13.5px;font-weight:600;color:var(--color-neutral-500)">Notes</span>
-          <textarea value="{{ visiteEdition.note }}" onChange="{{ visiteEdition.onNote }}" style="width:100%;box-sizing:border-box;display:block;min-height:52px;resize:vertical;background:transparent;border:none;padding:0;margin-top:2px;color:#ffffff;font-family:inherit;font-size:15px;line-height:1.45;outline:none"></textarea>
+          <span style="display:block;font-size:9.5px;font-weight:600;color:var(--color-neutral-500)">Notes</span>
+          <textarea value="{{ visiteEdition.note }}" onChange="{{ visiteEdition.onNote }}" style="width:100%;box-sizing:border-box;display:block;min-height:52px;resize:vertical;background:transparent;border:none;padding:0;margin-top:2px;color:#ffffff;font-family:inherit;font-size:11px;line-height:1.45;outline:none"></textarea>
         </label>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
           <label style="display:block;padding:7px 12px;min-height:44px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12);cursor:text">
-            <span style="display:block;font-size:13.5px;font-weight:600;color:var(--color-neutral-500)">Date et heure</span>
+            <span style="display:block;font-size:9.5px;font-weight:600;color:var(--color-neutral-500)">Date et heure</span>
             <div style="display:flex;align-items:center;gap:6px;margin-top:1px;height:18px">
-              <input type="date" value="{{ visiteEdition.date }}" onChange="{{ visiteEdition.onDate }}" style="flex:1.3;min-width:0;box-sizing:border-box;height:18px;background:transparent;border:none;padding:0;margin:0;color:#ffffff;-webkit-text-fill-color:#ffffff;color-scheme:dark;font-family:inherit;font-size:16px;font-weight:500;line-height:18px;letter-spacing:-.01em;font-variant-numeric:tabular-nums;outline:none" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
+              <input type="date" value="{{ visiteEdition.date }}" onChange="{{ visiteEdition.onDate }}" style="flex:1.3;min-width:0;box-sizing:border-box;height:18px;background:transparent;border:none;padding:0;margin:0;color:#ffffff;-webkit-text-fill-color:#ffffff;color-scheme:dark;font-family:inherit;font-size:12px;font-weight:500;line-height:18px;letter-spacing:-.01em;font-variant-numeric:tabular-nums;outline:none" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
               <span style="color:var(--color-neutral-600);flex:none">·</span>
-              <input type="time" value="{{ visiteEdition.heure }}" onChange="{{ visiteEdition.onHeure }}" style="flex:1;min-width:0;box-sizing:border-box;height:18px;background:transparent;border:none;padding:0;margin:0;color:#ffffff;-webkit-text-fill-color:#ffffff;color-scheme:dark;font-family:inherit;font-size:16px;font-weight:500;line-height:18px;letter-spacing:-.01em;font-variant-numeric:tabular-nums;outline:none" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
+              <input type="time" value="{{ visiteEdition.heure }}" onChange="{{ visiteEdition.onHeure }}" style="flex:1;min-width:0;box-sizing:border-box;height:18px;background:transparent;border:none;padding:0;margin:0;color:#ffffff;-webkit-text-fill-color:#ffffff;color-scheme:dark;font-family:inherit;font-size:12px;font-weight:500;line-height:18px;letter-spacing:-.01em;font-variant-numeric:tabular-nums;outline:none" style-focus="outline:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.13)">
             </div>
           </label>
           <div style="display:block;padding:7px 12px;min-height:44px;box-sizing:border-box;border-radius:12px;background:rgba(255,255,255,.12)">
-            <span style="display:block;font-size:13.5px;font-weight:600;color:var(--color-neutral-500)">Statut</span>
+            <span style="display:block;font-size:9.5px;font-weight:600;color:var(--color-neutral-500)">Statut</span>
             <div style="display:flex;align-items:center;justify-content:space-between;margin-top:2px">
-              <span style="font-size:16px;font-weight:500;color:#ffffff">{{ visiteEdition.statutLabel }}</span>
+              <span style="font-size:12px;font-weight:500;color:#ffffff">{{ visiteEdition.statutLabel }}</span>
               <button onClick="{{ visiteEdition.onCyclerStatut }}" title="{{ visiteEdition.statutAide }}" aria-label="Statut : {{ visiteEdition.statutLabel }}" style="{{ visiteEdition.statutRondStyle }}" style-focus="outline:2px solid rgba(255,255,255,.5);outline-offset:2px"></button>
             </div>
           </div>
@@ -817,10 +773,10 @@ a:hover{color:var(--color-accent-400)}
       </div>
 
       <div style="display:flex;align-items:center;gap:8px;margin-top:22px">
-        <button onClick="{{ visiteEdition.onSupprimer }}" title="Supprimer la visite" aria-label="Supprimer la visite" class="btn-icone-34"><i class="ph ph-trash" style="font-size:18px"></i></button>
+        <button onClick="{{ visiteEdition.onSupprimer }}" title="Supprimer la visite" aria-label="Supprimer la visite" class="btn-icone-34"><i class="ph ph-trash" style="font-size:14px"></i></button>
         <div style="flex:1"></div>
-        <button onClick="{{ fermerVisite }}" title="Fermer sans enregistrer" aria-label="Fermer sans enregistrer" class="btn-icone-34"><i class="ph ph-x" style="font-size:18px"></i></button>
-        <button onClick="{{ visiteEdition.onEnregistrer }}" title="Enregistrer" aria-label="Enregistrer" class="btn-icone-34"><i class="ph ph-check" style="font-size:18px"></i></button>
+        <button onClick="{{ fermerVisite }}" title="Fermer sans enregistrer" aria-label="Fermer sans enregistrer" class="btn-icone-34"><i class="ph ph-x" style="font-size:14px"></i></button>
+        <button onClick="{{ visiteEdition.onEnregistrer }}" title="Enregistrer" aria-label="Enregistrer" class="btn-icone-34"><i class="ph ph-check" style="font-size:14px"></i></button>
       </div>
 
     </div>
@@ -831,16 +787,16 @@ a:hover{color:var(--color-accent-400)}
   <div onClick="{{ fermerGcalPanneau }}" style="position:fixed;inset:0;background:rgba(5,5,12,.58);display:flex;align-items:center;justify-content:center;z-index:50">
     <div onClick="{{ stop }}" style="width:480px;max-width:calc(100vw - 40px);background:rgba(16,20,32,.86);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);box-shadow:var(--ombre-carte);border:1px solid rgba(255,255,255,.13);border-radius:22px;padding:20px 22px 18px;animation:fadeUp .18s ease both">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
-        <i class="ph ph-google-logo" style="font-size:18px;color:#ffffff"></i>
-        <h2 style="margin:0;color:#ffffff;letter-spacing:-.02em;font-size:19px;font-weight:600;text-transform:none">Agenda Google</h2>
+        <i class="ph ph-google-logo" style="font-size:14px;color:#ffffff"></i>
+        <h2 style="margin:0;color:#ffffff;letter-spacing:-.02em;font-size:15px;font-weight:600;text-transform:none">Agenda Google</h2>
         <div style="flex:1"></div>
-        <button onClick="{{ fermerGcalPanneau }}" title="Fermer" aria-label="Fermer" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid rgba(255,255,255,.2);background:transparent;color:var(--color-neutral-400);border-radius:9px;cursor:pointer"><i class="ph ph-x" style="font-size:16px"></i></button>
+        <button onClick="{{ fermerGcalPanneau }}" title="Fermer" aria-label="Fermer" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid rgba(255,255,255,.2);background:transparent;color:var(--color-neutral-400);border-radius:9px;cursor:pointer"><i class="ph ph-x" style="font-size:12px"></i></button>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
-        <div style="font-size:15px;color:var(--color-text)">{{ gcalIntro }}</div>
-        <button onClick="{{ onGcalConnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;align-self:flex-start;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.13);color:#ffffff;border-radius:10px;padding:9px 14px;font-family:inherit;font-size:16px;font-weight:500;cursor:pointer"><i class="ph ph-google-logo" style="font-size:17px"></i>Se reconnecter avec Google</button>
+        <div style="font-size:11px;color:var(--color-text)">{{ gcalIntro }}</div>
+        <button onClick="{{ onGcalConnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;align-self:flex-start;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.13);color:#ffffff;border-radius:10px;padding:9px 14px;font-family:inherit;font-size:12px;font-weight:500;cursor:pointer"><i class="ph ph-google-logo" style="font-size:13px"></i>Se reconnecter avec Google</button>
         <sc-if value="{{ gcalMessageVisible }}" hint-placeholder-val="{{ false }}">
-          <div style="font-size:14px;color:#ffd9c2;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4)">{{ gcalMessage }}</div>
+          <div style="font-size:10px;color:#ffd9c2;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4)">{{ gcalMessage }}</div>
         </sc-if>
       </div>
     </div>
@@ -852,9 +808,9 @@ a:hover{color:var(--color-accent-400)}
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:1;padding:56px 26px;text-align:center">
     <div role="img" aria-label="ÎLO" style="width:220px;height:220px;border-radius:50%;background-image:url('favicon.png');background-size:auto 260%;background-position:center;background-repeat:no-repeat;animation:tournePlanete 8s ease-in-out infinite alternate;box-shadow:0 20px 50px rgba(10,12,26,.45)"></div>
     <div style="position:absolute;left:50%;bottom:56px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:12px;width:340px;max-width:100%">
-      <button onClick="{{ onCompteConnecter }}" aria-label="Se connecter avec Google" title="Se connecter avec Google" style="display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;border:0;background:#2f6fed;color:#ffffff;cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,.4), 0 0 34px 6px #2f6fed"><i class="ph ph-google-logo" style="font-size:26px"></i></button>
+      <button onClick="{{ onCompteConnecter }}" aria-label="Se connecter avec Google" title="Se connecter avec Google" style="display:inline-flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;border:0;background:#2f6fed;color:#ffffff;cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,.4), 0 0 34px 6px #2f6fed"><i class="ph ph-google-logo" style="font-size:22px"></i></button>
       <sc-if value="{{ compteMessageVisible }}" hint-placeholder-val="{{ false }}">
-        <div style="font-size:14px;color:#ffd9c2;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4);width:100%;box-sizing:border-box">{{ compteMessage }}</div>
+        <div style="font-size:10px;color:#ffd9c2;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4);width:100%;box-sizing:border-box">{{ compteMessage }}</div>
       </sc-if>
     </div>
   </div>
@@ -882,6 +838,37 @@ const TON = {
   alerte: ['#0f1220', 'rgba(15,18,32,.08)']
 };
 
+// Badges DPE/GES : pastille colorée par lettre (échelle énergie A à G).
+const ECH_DPE = { A: '#1f8a5a', B: '#43a75c', C: '#74b95c', D: '#f0d54a', E: '#ef9f45', F: '#e9713c', G: '#d5352b' };
+const ECH_GES = { A: '#a8dff0', B: '#93bfd6', C: '#7089a8', D: '#5a6b8c', E: '#454f6e', F: '#2f3550', G: '#211f31' };
+const CLAIR_ENERGIE = ['#f0d54a', '#ef9f45', '#74b95c', '#a8dff0', '#93bfd6'];
+const LETTRES_ENERGIE = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+const badgeEnergie = (l, ech) => {
+  const bg = ech[String(l || '').toUpperCase()];
+  return `display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;flex:none;border-radius:7px;font-size:9px;font-weight:600;cursor:pointer;background:${bg || 'rgba(255,255,255,.08)'};color:${bg ? (CLAIR_ENERGIE.includes(bg) ? '#14162a' : '#ffffff') : 'var(--color-neutral-500)'}`;
+};
+const cyclerLettreEnergie = l => {
+  const i = LETTRES_ENERGIE.indexOf(String(l || '').toUpperCase());
+  return i === -1 ? LETTRES_ENERGIE[0] : (i === LETTRES_ENERGIE.length - 1 ? '' : LETTRES_ENERGIE[i + 1]);
+};
+// Seuils réglementaires (kWh/m²/an pour le DPE, kgCO2/m²/an pour le GES) :
+// certains mandats n'ont qu'une valeur numérique récupérée (ex: extraction
+// PDF ayant capté le chiffre mais pas la lettre) — on déduit alors la lettre
+// de cette valeur plutôt que d'afficher une pastille vide alors que la
+// donnée existe.
+const SEUILS_DPE = [70, 110, 180, 250, 330, 420];
+const SEUILS_GES = [6, 11, 30, 50, 70, 100];
+const lettreDepuisValeur = (val, seuils) => {
+  const n = parseFloat(String(val == null ? '' : val).replace(',', '.').replace(/[^0-9.]/g, ''));
+  if (!isFinite(n) || String(val == null ? '' : val).trim() === '') return '';
+  const i = seuils.findIndex(s => n <= s);
+  return LETTRES_ENERGIE[i === -1 ? LETTRES_ENERGIE.length - 1 : i];
+};
+const lettreAffichable = (lettre, valeur, seuils) => {
+  const l = String(lettre || '').toUpperCase();
+  return LETTRES_ENERGIE.includes(l) ? l : lettreDepuisValeur(valeur, seuils);
+};
+
 const PRIOS = { faible: '🙂', moyenne: '😐', haute: '😠' };
 const PRIOS_ICON = { faible: 'ph-fill ph-smiley', moyenne: 'ph-fill ph-smiley-meh', haute: 'ph-fill ph-smiley-x-eyes' };
 const PRIOS_NOM = { faible: 'Faible', moyenne: 'Moyenne', haute: 'Haute' };
@@ -896,12 +883,12 @@ const TEINTES_PRIO = {
 // Parcours de suivi d'une visite : 5 étapes séquentielles, un simple cercle
 // coloré qu'on fait avancer d'un clic (et qui boucle après la dernière).
 const ETAPES_VISITE = ['prevue', 'realisee', 'offre', 'compromis', 'vente'];
-const LABELS_VISITE = { prevue: 'Prévu', realisee: 'Réalisé', offre: 'Offre reçue', compromis: 'Compromis', vente: 'Vente' };
+const LABELS_VISITE = { prevue: 'Prévu', realisee: 'Réalisé', offre: 'Offre reçue', compromis: 'Compromis', vente: 'Vendu' };
 const COULEURS_VISITE = { prevue: 'rgba(255,255,255,.34)', realisee: '#a9c4e8', offre: '#8ecfe0', compromis: '#86d9b9', vente: '#7fd0a2' };
 // Distance minimale (px) imposée entre deux widgets d'une même page libre :
 // le déplacement/redimensionnement est bloqué avant que deux widgets ne se
 // touchent ou ne se chevauchent.
-const MARGE_MIN_WIDGETS = 42; // doublée (précédemment 21)
+const MARGE_MIN_WIDGETS = 21; // réduite de moitié (précédemment 42)
 // Hauteur fixe de l'écran logique sur lequel les widgets se déplacent et se
 // redimensionnent, dashboard ET fiche mandat confondus. Indépendante de la
 // hauteur de la fenêtre du navigateur (qui peut être courte et bloquerait un
@@ -926,7 +913,7 @@ const SELECTEUR_INTERACTIF = 'button, a, input, textarea, select, [role="button"
 // Champs de l'état synchronisés dans Firestore (les informations saisies) —
 // la disposition des widgets et le suivi de prospection restent locaux à
 // chaque appareil.
-const CHAMPS_CLOUD = ['priorites', 'mandatsSup', 'visites', 'epingles', 'infosM'];
+const CHAMPS_CLOUD = ['priorites', 'mandatsSup', 'visites', 'infosM'];
 
 // Client OAuth Google dédié à l'agenda (distinct de celui auto-créé par
 // Firebase Auth) — permet d'obtenir un jeton de renouvellement (refresh
@@ -1148,14 +1135,14 @@ class Component extends DCLogic {
     glisseMandat: null,
     visites: {},
     visiteEditee: null,
-    mandatsOuvert: false,
-    epingles: [],
+    mandatsOuvert: true,
     actus: [],
     edite: null,
     mandatChampOuvert: false,
     deplie: {},
-    todoOuvert: false,
+    todoOuvert: true,
     glissePriorite: null,
+    glisseVisite: null,
     surZone: null,
     ordre: ['missions', 'pipeline', 'mois', 'rdv', 'news', 'yanport'],
     spans: {},
@@ -1232,10 +1219,6 @@ class Component extends DCLogic {
         if (imgs[0]) photo = await compresser(imgs[0].dataUrl, 1000);
       } catch (e) {}
       if (photo) lu.photo = photo;
-      // DPE/GES ne sont jamais pré-remplis automatiquement (comme la
-      // commission) : même trouvés dans le PDF, ils restent à saisir à la
-      // main dans le formulaire.
-      delete lu.dpe; delete lu.dpeVal; delete lu.ges; delete lu.gesVal;
       this.setState(s => ({ nouveau: { ...s.nouveau, ...lu, pdfData, analyse: 'ok', trouves: Object.keys(lu).filter(k => lu[k]).length } }));
     } catch (e) {
       this.setState(s => ({ nouveau: { ...s.nouveau, analyse: 'echec' } }));
@@ -1269,7 +1252,7 @@ class Component extends DCLogic {
         adresse: d(m.adresse), quartier: d(m.quartier), prix: d(m.prix), commission: d(m.commission),
         ref: d(String(m.mandat || '').replace(/^N°\s*/, '')), surface: d(m.surface),
         pieces: d(m.pieces), etage: d(m.etage), chambres: d(m.chambres), sdb: d(m.sdb), copro: d(m.copro),
-        dpe: d(m.dpe), ges: d(m.ges), annee: d(m.annee), taxe: d(m.taxe), charges: d(m.charges),
+        dpe: d(m.dpe), dpeVal: d(m.dpeVal), ges: d(m.ges), gesVal: d(m.gesVal), annee: d(m.annee), taxe: d(m.taxe), charges: d(m.charges),
         fichier: null, survol: false
       }
     });
@@ -1299,8 +1282,8 @@ class Component extends DCLogic {
         prix: num(n.prix), commission: pct(n.commission), surface, pieces: num(n.pieces) || 1,
         etage: n.etage || m.etage || '—',
         chambres: num(n.chambres) || '—', sdb: num(n.sdb) || '—', copro: n.copro || '—',
-        dpe: (n.dpe || '—').toUpperCase().slice(0, 1),
-        ges: (n.ges || '—').toUpperCase().slice(0, 1),
+        dpe: (n.dpe || '').toUpperCase().slice(0, 1),
+        ges: (n.ges || '').toUpperCase().slice(0, 1),
         annee: n.annee || '—', taxe: n.taxe || '—', charges: n.charges || '—'
       }));
       try { localStorage.setItem(CLE_M, JSON.stringify(mandatsSup)); } catch (e) {}
@@ -1322,7 +1305,7 @@ class Component extends DCLogic {
       quartier: (n.quartier || '').trim() || 'Bordeaux',
       prix: num(n.prix), commission: pct(n.commission), surface, pieces: num(n.pieces) || 1,
       chambres: num(n.chambres) || '—', sdb: num(n.sdb) || '—', copro: n.copro || '—',
-      dpe: (n.dpe || '—').toUpperCase().slice(0, 1), dpeVal: n.dpeVal || '—', ges: n.ges || '—', gesVal: n.gesVal || '—',
+      dpe: (n.dpe || '').toUpperCase().slice(0, 1), dpeVal: n.dpeVal || '', ges: (n.ges || '').toUpperCase().slice(0, 1), gesVal: n.gesVal || '',
       taxe: n.taxe || '—', charges: n.charges || '—', annee: n.annee || '—', etage: n.etage || '—', expo: n.expo || '—',
       mandat: n.ref ? `N° ${n.ref}` : 'À préciser', fin: '—', statut: 'Nouveau', ton: 'neutre', avancement: 'rentre',
       visites: 0, contacts: 0, jours: 0,
@@ -1405,7 +1388,6 @@ class Component extends DCLogic {
     };
     this.setState({
       priorites: migrerPriorites(),
-      epingles: (() => { try { const v = JSON.parse(localStorage.getItem('agentimmo.epingles.v2')); return Array.isArray(v) ? v : []; } catch (e) { return []; } })(),
       visites: (() => { try { const o = JSON.parse(localStorage.getItem(CLE_V)); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } })(),
       mandatsSup: purge(lire(CLE_M, []).filter(sain)),
       ...(() => {
@@ -1421,32 +1403,25 @@ class Component extends DCLogic {
     this.chargerFichiers();
   }
 
-  majEpingles(fn) {
-    this.setState(s => {
-      const epingles = fn(s.epingles);
-      try { localStorage.setItem('agentimmo.epingles.v2', JSON.stringify(epingles)); } catch (e) {}
-      return { epingles };
-    });
-    this._planifierSyncCloud();
-  }
-
-  epinglerMandat(id) {
-    this.majEpingles(list => (list.includes(id) ? list : [...list, id]));
-  }
-
-  desepinglerMandat(id) {
-    this.majEpingles(list => list.filter(x => x !== id));
-  }
-
+  // Glisser-déposer pour réordonner manuellement les mandats en cours
+  // (liste simple, sans Top 3 — même fonctionnement que reordonnerVisite) :
+  // insère le mandat déplacé juste avant idCible ; les mandats terminés
+  // conservent leur position relative en fin de tableau.
   reordonnerMandat(idCible) {
     const src = this.state.glisseMandat;
     if (!src || src === idCible) return;
-    this.majEpingles(list => {
-      if (!list.includes(src) || !list.includes(idCible)) return list;
-      const ordre = list.filter(x => x !== src);
-      ordre.splice(ordre.indexOf(idCible), 0, src);
-      return ordre;
+    this.setState(s => {
+      const termine = x => x.avancement === 'perdu' || x.avancement === 'vendu';
+      const enCours = s.mandatsSup.filter(x => !termine(x));
+      const termines = s.mandatsSup.filter(termine);
+      const ordre = enCours.filter(x => x.id !== src).map(x => x.id);
+      const idx = ordre.indexOf(idCible);
+      if (idx === -1) ordre.push(src); else ordre.splice(idx, 0, src);
+      const parId = new Map(s.mandatsSup.map(x => [x.id, x]));
+      const mandatsSup = [...ordre.map(id => parId.get(id)), ...termines];
+      return { mandatsSup };
     });
+    this._planifierSyncCloud();
   }
 
   majVisites(mandatId, fn) {
@@ -1461,6 +1436,22 @@ class Component extends DCLogic {
 
   ajouterVisite(m) {
     this.setState({ visiteEditee: { id: 'v' + Date.now(), mandat: m.id, visiteur: '', email: '', date: new Date().toLocaleDateString('sv-SE'), heure: '', statut: 'prevue', note: '' } });
+  }
+
+  // Glisser-déposer pour réordonner manuellement les visites d'un mandat
+  // (liste simple, sans Top 3) : insère la visite déplacée juste avant
+  // idCible.
+  reordonnerVisite(mandatId, idCible) {
+    const src = this.state.glisseVisite;
+    if (!src || src === idCible) return;
+    this.majVisites(mandatId, liste => {
+      const ordre = liste.filter(v => v.id !== src);
+      const idx = ordre.findIndex(v => v.id === idCible);
+      const item = liste.find(v => v.id === src);
+      if (!item) return liste;
+      if (idx === -1) ordre.push(item); else ordre.splice(idx, 0, item);
+      return ordre;
+    });
   }
 
   ajouterVisiteLibre() {
@@ -1973,7 +1964,6 @@ class Component extends DCLogic {
         }
         if (Array.isArray(d.mandatsSup)) maj.mandatsSup = d.mandatsSup;
         if (d.visites && typeof d.visites === 'object') maj.visites = d.visites;
-        if (Array.isArray(d.epingles)) maj.epingles = d.epingles;
         if (d.infosM && typeof d.infosM === 'object') maj.infosM = d.infosM;
         this._cloudChargee = true;
         this.setState({ ...maj, cloudEtat: 'ok' });
@@ -2022,7 +2012,7 @@ class Component extends DCLogic {
   // de la fiche mandat, qui doivent afficher un cercle rigoureusement
   // identique au badge d'échéance voisin (même box-sizing:border-box).
   _terminerRondStyle(fait) {
-    return `display:flex;align-items:center;justify-content:center;width:34px;height:34px;flex:none;padding:0;box-sizing:border-box;border-radius:50%;cursor:pointer;border:2px solid ${fait ? 'rgba(127,208,162,.55)' : 'rgba(255,255,255,.35)'};background:${fait ? 'rgba(127,208,162,.35)' : 'transparent'};transition:background-color .15s ease,border-color .15s ease,transform .15s ease`;
+    return `display:flex;align-items:center;justify-content:center;width:28px;height:28px;flex:none;padding:0;box-sizing:border-box;border-radius:50%;cursor:pointer;border:2px solid ${fait ? 'rgba(127,208,162,.55)' : 'rgba(255,255,255,.35)'};background:${fait ? 'rgba(127,208,162,.35)' : 'transparent'};transition:background-color .15s ease,border-color .15s ease,transform .15s ease`;
   }
 
   // Vrai si les rectangles a et b (chacun {x,y,w,h}) se touchent ou se
@@ -2229,11 +2219,37 @@ class Component extends DCLogic {
     const src = this.state.glissePriorite;
     if (!src || src === idCible) return;
     this.majPriorites(list => {
-      const cles = list.filter(p => p.key && p.statut !== 'done').sort((a, b) => a.key - b.key).map(p => p.id);
-      if (!cles.includes(src) || !cles.includes(idCible)) return list;
-      const ordre = cles.filter(x => x !== src);
-      ordre.splice(ordre.indexOf(idCible), 0, src);
-      return list.map(p => (ordre.includes(p.id) ? { ...p, key: ordre.indexOf(p.id) + 1 } : p));
+      // Insère src (déjà en haut ou non, venant d'« Autres tâches ») juste
+      // avant idCible : permet le glisser dans les deux sens entre le Top et
+      // « Autres tâches », avec positionnement précis.
+      const dejaKeye = list.some(p => p.id === src && p.key);
+      const ordre = list.filter(p => p.key && p.statut !== 'done').sort((a, b) => a.key - b.key).map(p => p.id).filter(id => id !== src);
+      const idx = ordre.indexOf(idCible);
+      if (idx === -1) ordre.push(src); else ordre.splice(idx, 0, src);
+      return list.map(p => (ordre.includes(p.id) ? { ...p, key: ordre.indexOf(p.id) + 1, tag: (p.id === src && !dejaKeye) ? 'Key' : p.tag } : p));
+    });
+  }
+
+  reordonnerTodo(idCible) {
+    const src = this.state.glissePriorite;
+    if (!src || src === idCible) return;
+    this.majPriorites(list => {
+      // Même mécanisme que reordonnerPriorite, mais pour interchanger les
+      // tâches entre elles à l'intérieur d'« Autres tâches » (hors Top 3) :
+      // on fige l'ordre actuellement affiché dans un champ « rang » dédié.
+      const actives = list.filter(p => p.statut !== 'done');
+      const epinglees = actives.filter(p => p.key).sort((a, b) => a.key - b.key);
+      const remplissage = actives.filter(p => !p.key).sort((a, b) => (a.echeance || '9999').localeCompare(b.echeance || '9999')).slice(0, Math.max(0, 3 - epinglees.length));
+      const idsTop = new Set([...epinglees, ...remplissage].map(p => p.id));
+      const filtre = this.state.filtre;
+      const autres = actives.filter(p => !idsTop.has(p.id) && (filtre === 'Tout' || p.tag === filtre));
+      const ordreActuel = [...autres]
+        .sort((a, b) => (a.rang != null && b.rang != null) ? a.rang - b.rang : (a.echeance || '9999').localeCompare(b.echeance || '9999'))
+        .map(p => p.id);
+      const ordre = ordreActuel.filter(id => id !== src);
+      const idx = ordre.indexOf(idCible);
+      if (idx === -1) ordre.push(src); else ordre.splice(idx, 0, src);
+      return list.map(p => (ordre.includes(p.id) ? { ...p, rang: ordre.indexOf(p.id) + 1 } : p));
     });
   }
 
@@ -2356,7 +2372,7 @@ class Component extends DCLogic {
     const cols = 'minmax(0,.72fr) minmax(0,1.45fr) minmax(0,.72fr)';
     const order = dispo === 'Focus mandats' ? ['order:2', 'order:1', 'order:3'] : ['order:1', 'order:2', 'order:3'];
 
-    const plafonds = { missions: 3, todo: 6, mandats: 3 };
+    const plafonds = { missions: 3, todo: 6 };
     const replier = (cle, liste) => {
       const cap = plafonds[cle];
       const ouvert = !!this.state.deplie[cle];
@@ -2386,7 +2402,7 @@ class Component extends DCLogic {
         prioLabel: PRIOS[pr],
         prioAide: `Priorité ${PRIOS_NOM[pr].toLowerCase()}`,
         prioIcon: PRIOS_ICON[pr],
-        prioStyle: `display:flex;align-items:center;justify-content:center;align-self:flex-end;width:26px;height:26px;flex:none;font-size:26px;line-height:1;border-radius:50%;color:${c.fg}`,
+        prioStyle: `display:flex;align-items:center;justify-content:center;align-self:flex-end;width:26px;height:26px;flex:none;font-size:22px;line-height:1;border-radius:50%;color:${c.fg}`,
         ...(() => {
           const fait = p.statut === 'done';
           return {
@@ -2405,20 +2421,22 @@ class Component extends DCLogic {
         descriptionVisible: !!(p.description || '').trim()
       };
     };
-    const styleCocher = `display:flex;justify-content:center;align-items:center;gap:4px;white-space:nowrap;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-500);border-radius:20px;padding:3px 9px;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer`;
+    const styleCocher = `display:flex;justify-content:center;align-items:center;gap:4px;white-space:nowrap;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-500);border-radius:20px;padding:3px 9px;font-family:inherit;font-size:8.5px;font-weight:500;cursor:pointer`;
     // Style d'une zone de dépôt drag-and-drop (bordure en pointillés quand
-    // vide, contour en surbrillance quand un élément la survole). Partagé
-    // par les zones de priorités, mandats et visites.
-    const zoneDropStyle = (sur, vide) => `display:flex;flex-direction:column;gap:12px;border-radius:11px;min-height:${vide ? 52 : 0}px;${vide ? 'border:1px dashed var(--color-neutral-800);' : ''}outline:${this.state.surZone === sur ? '2px dashed ' + accent : 'none'};outline-offset:4px`;
+    // vide, contour plein bleu clair en surbrillance quand un élément la
+    // survole). Partagé par les zones de priorités, mandats et visites.
+    const zoneDropStyle = (sur, vide) => `display:flex;flex-direction:column;gap:12px;border-radius:11px;min-height:${vide ? 52 : 0}px;flex-shrink:0;${vide ? 'border:1px dashed var(--color-neutral-800);' : ''}outline:${this.state.surZone === sur ? '2px solid #a9c4e8' : 'none'};outline-offset:4px`;
 
     const tousMandats = [...this.state.mandatsSup];
     const infosMandat = p => {
       const m = p.mandat && tousMandats.find(x => x.id === p.mandat);
       if (!m) return { mandatVisible: false, mandatLabel: '', mandatStyle: 'display:none', onMandatOuvrir: () => {} };
       return {
-        mandatVisible: true,
+        // Le lien vers le mandat n'est plus affiché dans le widget Tâches
+        // (Priorités du jour) : trop d'informations secondaires dans la liste.
+        mandatVisible: false,
         mandatLabel: m.adresse,
-        mandatStyle: 'display:block;width:100%;margin-top:4px;font-size:13px;font-weight:600;color:var(--color-neutral-400);cursor:default;background:none;border:0;padding:0;font-family:inherit;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis',
+        mandatStyle: 'display:block;width:100%;margin-top:4px;font-size:9px;font-weight:600;color:var(--color-neutral-400);cursor:default;background:none;border:0;padding:0;font-family:inherit;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis',
         onMandatOuvrir: ev => { ev.stopPropagation(); ev.preventDefault(); }
       };
     };
@@ -2433,7 +2451,7 @@ class Component extends DCLogic {
       return {
         echeanceVisible: true,
         echeanceLabel: libelle,
-        echeanceStyle: `display:flex;justify-content:center;align-items:center;white-space:nowrap;width:34px;height:34px;flex:none;box-sizing:border-box;border-radius:50%;font-weight:600;font-size:${libelle.length > 3 ? 11 : 13}px;border:1px solid ${t2.bd};background:${t2.bg};color:${t2.fg}`
+        echeanceStyle: `display:flex;justify-content:center;align-items:center;white-space:nowrap;width:28px;height:28px;flex:none;box-sizing:border-box;border-radius:50%;font-weight:600;font-size:${libelle.length > 3 ? 9 : 11}px;border:2px solid ${t2.bd};background:${t2.bg};color:${t2.fg}`
       };
     };
 
@@ -2449,18 +2467,22 @@ class Component extends DCLogic {
         ...prioInfos(p),
         ...infosEcheance(p),
         ...infosMandat(p),
-        onDragEnter: e => { if (this.state.glissePriorite && p.key) { e.preventDefault(); this.reordonnerPriorite(p.id); } },
+        onDragEnter: e => {
+          if (!this.state.glissePriorite || this.state.glissePriorite === p.id) return;
+          e.preventDefault();
+          if (num) this.reordonnerPriorite(p.id); else this.reordonnerTodo(p.id);
+        },
         onDragOver: e => { if (this.state.glissePriorite) e.preventDefault(); },
         onDragStart: e => { e.stopPropagation(); e.dataTransfer.effectAllowed = 'move'; this.setState({ glissePriorite: p.id }); },
         onDragEnd: () => this.setState({ glissePriorite: null, surZone: null }),
-        rowStyle: `display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.14);transition:all ${anim ? '.18s' : '0s'} ease`,
-        numStyle: `flex:none;width:30px;height:30px;box-sizing:border-box;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;background:#e2ecf8;color:#2b5c98`,
-        titreStyle: `font-size:15.5px;line-height:1.35;${num ? 'font-weight:500;' : ''}cursor:text`,
+        rowStyle: `display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.14);opacity:${this.state.glissePriorite === p.id ? .35 : 1};transition:all ${anim ? '.18s' : '0s'} ease`,
+        numStyle: `flex:none;width:28px;height:28px;box-sizing:border-box;border-radius:50%;border:2px solid #a9c4e8;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;background:#e2ecf8;color:#2b5c98`,
+        titreStyle: `font-size:11.5px;line-height:1.35;${num ? 'font-weight:500;' : ''}cursor:text`,
         aFaire: p.statut !== 'done',
         cocherStyle: styleCocher,
         tag: p.tag,
         tagVisible: !!p.tag,
-        tagStyle: `flex:none;font-size:12.5px;padding:2px 8px;border-radius:20px;background:${p.tag === 'Key' ? 'color-mix(in srgb, ' + accent + ' 20%, transparent)' : 'rgba(15,18,32,.045)'};color:${p.tag === 'Key' ? '#cfdcff' : 'var(--color-neutral-400)'}`
+        tagStyle: `flex:none;font-size:8.5px;padding:2px 8px;border-radius:20px;background:${p.tag === 'Key' ? 'color-mix(in srgb, ' + accent + ' 20%, transparent)' : 'rgba(15,18,32,.045)'};color:${p.tag === 'Key' ? '#cfdcff' : 'var(--color-neutral-400)'}`
       };
     };
 
@@ -2472,33 +2494,30 @@ class Component extends DCLogic {
     const filtres = ['Tout', 'Key', 'Admin', 'Prospect.'].map(f => ({
       label: f,
       onClick: () => this.setState({ filtre: f }),
-      style: `border:0;cursor:pointer;font-family:inherit;font-size:13.5px;padding:4px 10px;border-radius:6px;background:${this.state.filtre === f ? '#e6eaf2' : 'transparent'};color:${this.state.filtre === f ? 'var(--color-text)' : 'var(--color-neutral-500)'}`
+      style: `border:0;cursor:pointer;font-family:inherit;font-size:9.5px;padding:4px 10px;border-radius:6px;background:${this.state.filtre === f ? '#e6eaf2' : 'transparent'};color:${this.state.filtre === f ? 'var(--color-text)' : 'var(--color-neutral-500)'}`
     }));
 
     const todos = actives
       .filter(p => !idsTopPriorites.has(p.id))
       .filter(p => this.state.filtre === 'Tout' || p.tag === this.state.filtre)
-      .sort((a, b) => (a.echeance || '9999').localeCompare(b.echeance || '9999'))
+      .sort((a, b) => (a.rang != null && b.rang != null) ? a.rang - b.rang : (a.echeance || '9999').localeCompare(b.echeance || '9999'))
       .map(p => lignePriorite(p, null));
 
-    const ligneMandat = (m, num) => {
+    const ligneMandat = m => {
       const c = TON[m.ton];
       return {
-        num,
-        numStyle: 'flex:none;width:30px;height:30px;box-sizing:border-box;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;background:#e2ecf8;color:#2b5c98',
         onDragStart: e => { e.stopPropagation(); e.dataTransfer.effectAllowed = 'move'; this.setState({ glisseMandat: m.id }); },
         onDragEnd: () => this.setState({ glisseMandat: null, surZone: null }),
-        onDragEnter: e => { if (this.state.glisseMandat && num) { e.preventDefault(); this.reordonnerMandat(m.id); } },
+        onDragEnter: e => { if (this.state.glisseMandat && this.state.glisseMandat !== m.id) { e.preventDefault(); this.reordonnerMandat(m.id); } },
         onDragOver: e => { if (this.state.glisseMandat) e.preventDefault(); },
         adresse: m.adresse,
-        sousTitre: `${m.quartier} · ${m.surface} m²`,
         prixFmt: EUR(m.prix),
         statut: m.statut,
         onOpen: () => this.setState({ vue: 'fiche', mandatId: m.id }),
         onKeyDown: activationClavier(() => this.setState({ vue: 'fiche', mandatId: m.id })),
-        rowStyle: `display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.05);cursor:pointer;transition:all ${anim ? '.18s' : '0s'} ease`,
+        rowStyle: `display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.14);cursor:pointer;opacity:${this.state.glisseMandat === m.id ? .35 : 1};transition:all ${anim ? '.18s' : '0s'} ease`,
         dotStyle: `flex:none;width:6px;height:6px;border-radius:50%;background:${m.ton === 'accent' ? accent : m.ton === 'alerte' ? '#0f1220' : 'var(--color-neutral-700)'}`,
-        statutStyle: `font-size:12.5px;padding:2px 9px;border-radius:20px;display:inline-block;line-height:1.2;background:${c[1]};color:${c[0]}`
+        statutStyle: `font-size:8.5px;padding:2px 9px;border-radius:20px;display:inline-block;line-height:1.2;background:${c[1]};color:${c[0]}`
       };
     };
     // Widget "Mandats" de la page principale : ne montre que les mandats en
@@ -2506,19 +2525,16 @@ class Component extends DCLogic {
     // place dans la vue active (ils restent consultables via "Historique").
     const mandatsEnCours = tousMandats.filter(x => x.avancement !== 'perdu' && x.avancement !== 'vendu');
     const mandatsTermines = tousMandats.filter(x => x.avancement === 'perdu' || x.avancement === 'vendu');
-    const epingles = this.state.epingles.filter(id => mandatsEnCours.some(x => x.id === id));
-    const mandatsEpingles = epingles.map(id => mandatsEnCours.find(x => x.id === id));
-    const mandatsRemplissage = mandatsEnCours.filter(x => !epingles.includes(x.id)).slice(0, Math.max(0, 3 - mandatsEpingles.length));
-    const idsTopMandats = new Set([...mandatsEpingles, ...mandatsRemplissage].map(x => x.id));
-    const topMandats = [...mandatsEpingles, ...mandatsRemplissage].map((x, i) => ligneMandat(x, i + 1));
-    const mandats = mandatsEnCours.filter(x => !idsTopMandats.has(x.id)).map(x => ligneMandat(x, null));
+    // Widget "Mandats" : une seule liste continue, dans l'ordre enregistré,
+    // réordonnable par glisser-déposer — même fonctionnement que "Visites".
+    const mandatsListe = mandatsEnCours.map(x => ligneMandat(x));
     // Historique des mandats terminés : même carte que "Tâches terminées"
     // pour que les deux vues "historique" de l'application se ressemblent
     // malgré des contenus différents. Le cercle de statut est entièrement
     // vide (aucune icône) — vert si gagné, rouge si perdu, mêmes teintes que
     // le cercle de statut de la fiche mandat.
     const mandatsHistorique = mandatsTermines.map(x => {
-      const base = ligneMandat(x, null);
+      const base = ligneMandat(x);
       const gagne = x.avancement === 'vendu';
       const couleurs = gagne
         ? { bd: 'rgba(127,208,162,.55)', bg: 'rgba(127,208,162,.35)' }
@@ -2526,10 +2542,10 @@ class Component extends DCLogic {
       return {
         ...base,
         rowStyle: `display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:14px;border:1px solid var(--color-neutral-800);background:rgba(255,255,255,.12);transition:all ${anim ? '.18s' : '0s'} ease`,
-        titreStyle: 'font-size:15.5px;font-weight:500;line-height:1.35;color:var(--color-neutral-400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis',
+        titreStyle: 'font-size:11.5px;font-weight:500;line-height:1.35;color:var(--color-neutral-400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis',
         prixCommissionFmt: `${base.prixFmt} - ${EUR(Math.round((x.prix || 0) * (x.commission || 0) / 100))}`,
-        statutAide: gagne ? 'Gagné' : 'Perdu',
-        statutRondStyle: `display:flex;align-self:flex-end;width:26px;height:26px;flex:none;box-sizing:border-box;border-radius:50%;border:2px solid ${couleurs.bd};background:${couleurs.bg}`
+        statutAide: gagne ? 'Vendu' : 'Perdu',
+        statutRondStyle: `display:flex;align-self:flex-end;width:28px;height:28px;flex:none;box-sizing:border-box;border-radius:50%;border:2px solid ${couleurs.bd};background:${couleurs.bg}`
       };
     });
 
@@ -2545,7 +2561,7 @@ class Component extends DCLogic {
       onSupprimer: () => this.supprimerMandat(m.id),
       modifiable: this.state.mandatsSup.some(x => x.id === m.id),
       onModifier: () => this.ouvrirModifierMandat(m),
-      statutLabel: m.avancement === 'perdu' ? 'Perdu' : (m.avancement === 'vendu' ? 'Gagné' : 'Rentré'),
+      statutLabel: m.avancement === 'perdu' ? 'Perdu' : (m.avancement === 'vendu' ? 'Vendu' : 'Rentré'),
       onCyclerStatutMandat: () => {
         const seq = ['rentre', 'perdu', 'vendu'];
         const i = seq.indexOf(m.avancement || 'rentre');
@@ -2557,7 +2573,7 @@ class Component extends DCLogic {
           : m.avancement === 'vendu'
           ? { bd: 'rgba(127,208,162,.55)', bg: 'rgba(127,208,162,.35)' }
           : { bd: 'rgba(255,255,255,.25)', bg: 'rgba(255,255,255,.12)' };
-        return `width:34px;height:34px;flex:none;box-sizing:border-box;border-radius:50%;border:2px solid ${couleurs.bd};background:${couleurs.bg};cursor:pointer;padding:0;transition:background-color .18s ease,border-color .18s ease,transform .15s ease`;
+        return `width:28px;height:28px;flex:none;box-sizing:border-box;border-radius:50%;border:2px solid ${couleurs.bd};background:${couleurs.bg};cursor:pointer;padding:0;transition:background-color .18s ease,border-color .18s ease,transform .15s ease`;
       })(),
       sousTitre: `${/bordeaux/i.test(m.quartier) ? 'Bordeaux' : m.quartier + ', Bordeaux'} · ${m.pieces} pièces · ${m.etage}`,
       prixM2: m.prix && m.surface ? `${Math.round(m.prix / m.surface).toLocaleString('fr-FR').replace(/\u202f|\u00a0/g, ' ')} €/m²` : '—',
@@ -2566,8 +2582,8 @@ class Component extends DCLogic {
       vendeurTel: m.vendeurTel,
       vendeurInit: m.vendeur.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase(),
       tags: [
-        { label: m.statut, style: `font-size:13.5px;padding:3px 10px;border-radius:20px;background:${TON[m.ton][1]};color:${TON[m.ton][0]}` },
-        { label: `Échéance ${m.fin}`, style: 'font-size:13.5px;padding:3px 10px;border-radius:20px;border:1px solid var(--color-neutral-800);color:var(--color-neutral-400)' }
+        { label: m.statut, style: `font-size:9.5px;padding:3px 10px;border-radius:20px;background:${TON[m.ton][1]};color:${TON[m.ton][0]}` },
+        { label: `Échéance ${m.fin}`, style: 'font-size:9.5px;padding:3px 10px;border-radius:20px;border:1px solid var(--color-neutral-800);color:var(--color-neutral-400)' }
       ],
       // Mêmes 3 groupes que le formulaire "Nouveau mandat" (généraux / bien /
       // financier), pour reprendre exactement la même structure en cartes.
@@ -2598,14 +2614,18 @@ class Component extends DCLogic {
           infosGeneraux: tousInfos.filter(i => i.groupe === 'general'),
           infosBien: tousInfos.filter(i => i.groupe === 'bien'),
           infosFinancier: tousInfos.filter(i => i.groupe === 'financier'),
-          infosDpeGes: {
-            valeur: (m.dpe || m.ges) ? `${m.dpe || ''}/${m.ges || ''}` : '',
-            onChange: e => {
-              const [dpe, ges] = e.target.value.split('/');
-              this.modifierMandatChamp(m.id, 'dpe', (dpe || '').trim().toUpperCase());
-              this.modifierMandatChamp(m.id, 'ges', (ges || '').trim().toUpperCase());
-            }
-          }
+          infosDpeGes: (() => {
+            const dpeL = lettreAffichable(m.dpe, m.dpeVal, SEUILS_DPE);
+            const gesL = lettreAffichable(m.ges, m.gesVal, SEUILS_GES);
+            return {
+              dpe: dpeL || '—',
+              ges: gesL || '—',
+              dpeStyle: badgeEnergie(dpeL, ECH_DPE),
+              gesStyle: badgeEnergie(gesL, ECH_GES),
+              onCyclerDpe: () => this.modifierMandatChamp(m.id, 'dpe', cyclerLettreEnergie(dpeL)),
+              onCyclerGes: () => this.modifierMandatChamp(m.id, 'ges', cyclerLettreEnergie(gesL))
+            };
+          })()
         };
       })(),
       onAjouterMission: () => this.ajouterPriorite(m),
@@ -2623,7 +2643,7 @@ class Component extends DCLogic {
         '--color-neutral-400:#cbd6e4', '--color-neutral-500:#becbdb', '--color-neutral-600:#a4b5c7',
         '--color-neutral-700:rgba(255,255,255,.39)', '--color-neutral-800:rgba(255,255,255,.25)',
         '--color-accent-400:#ffb184', '--color-accent-700:rgba(255,255,255,.4)',
-        dense === 'Compact' ? '--gap:10px;--pad:12px 14px 10px' : '--gap:16px;--pad:18px 20px 16px'
+        dense === 'Compact' ? '--gap:5px;--pad:12px 14px 10px' : '--gap:8px;--pad:18px 20px 16px'
       ].join(';'),
       prospection: (() => {
         const actif = !!this.state.prospection;
@@ -2634,7 +2654,7 @@ class Component extends DCLogic {
           // simple bordure + fond teinté, sans dégradé ni flou.
           style: [
             'display:flex;align-items:center;justify-content:center;box-sizing:border-box',
-            'flex:none;width:44px;height:44px;padding:0',
+            'flex:none;width:28px;height:28px;padding:0',
             `border-radius:50%;cursor:${actif ? 'default' : 'pointer'}`,
             `border:2px solid ${actif ? 'rgba(127,208,162,.55)' : 'rgba(236,110,44,.6)'}`,
             `background:${actif ? 'rgba(127,208,162,.35)' : 'rgba(236,110,44,.28)'}`,
@@ -2675,11 +2695,15 @@ class Component extends DCLogic {
         const libre = this.state.libre;
         this._libreSane = libre;
         this._dispoL = dispoL;
-        const s = Math.max(.6, Math.min(1.1, dispoH / CADRE_HAUTEUR));
-        this._echelle = s;
-        const mise = s !== 1
-          ? `transform:scale(${s});transform-origin:top left;margin-right:${-Math.round(dispoL * (1 - s))}px;margin-bottom:${-Math.round(CADRE_HAUTEUR * (1 - s))}px;`
-          : '';
+        // Plus de mise à l'échelle du canevas : un scale() uniforme déformait
+        // les widgets (cercles ovalisés) et un scaleY() seul les étirait
+        // verticalement — dans les deux cas, plus du tout responsive. Le
+        // canevas garde désormais toujours sa taille réelle (largeur pleine
+        // écran, hauteur CADRE_HAUTEUR) ; si la fenêtre est plus courte, le
+        // conteneur parent (overflow:auto) défile verticalement au lieu de
+        // tout rapetisser.
+        this._echelle = 1;
+        const mise = '';
         const base = libre
           ? `position:relative;width:${dispoL}px;height:${CADRE_HAUTEUR}px`
           : `display:grid;gap:var(--gap,16px);align-items:start;grid-auto-flow:row dense;width:1120px;grid-template-columns:${cols}`;
@@ -2687,7 +2711,7 @@ class Component extends DCLogic {
       })(),
       colWrap: compact ? 'display:contents' : (this.state.libre ? 'display:contents' : 'display:flex;flex-direction:column;gap:var(--gap,16px);min-width:0'),
       // Repères d'aide au placement, affichés uniquement pendant un glisser :
-      // un halo en pointillés autour de chaque autre widget matérialise la
+      // un halo bleu clair autour de chaque autre widget matérialise la
       // marge minimale à respecter (MARGE_MIN_WIDGETS), et deux axes
       // pointillés (vertical/horizontal) marquent le centre exact de l'écran.
       guidesActifs: !compact && !!this.state.bougeId,
@@ -2696,7 +2720,7 @@ class Component extends DCLogic {
       zonesMarge: (!compact && this.state.bougeId && this.state.libre)
         ? Object.keys(this.state.libre).filter(k => k !== this.state.bougeId).map(k => {
             const w = this.state.libre[k];
-            return { style: `position:absolute;left:${w.x - MARGE_MIN_WIDGETS}px;top:${w.y - MARGE_MIN_WIDGETS}px;width:${w.w + 2 * MARGE_MIN_WIDGETS}px;height:${w.h + 2 * MARGE_MIN_WIDGETS}px;border:1px dashed rgba(255,159,10,.55);background:rgba(255,159,10,.08);border-radius:10px;pointer-events:none;z-index:5` };
+            return { style: `position:absolute;left:${w.x - MARGE_MIN_WIDGETS}px;top:${w.y - MARGE_MIN_WIDGETS}px;width:${w.w + 2 * MARGE_MIN_WIDGETS}px;height:${w.h + 2 * MARGE_MIN_WIDGETS}px;border:1px solid rgba(169,196,232,.65);background:rgba(169,196,232,.12);border-radius:10px;pointer-events:none;z-index:5` };
           })
         : [],
       wSalut: (() => {
@@ -2746,13 +2770,16 @@ class Component extends DCLogic {
           }
           const bouge = this.state.bougeId === id;
           const deplie = { missions: this.state.todoOuvert, pipeline: this.state.mandatsOuvert }[id];
+          // Titre figé + liste interne défilante : la section elle-même ne
+          // défile plus, seul son contenu (voir plus bas) le fait.
+          const listeInterne = id === 'missions' || id === 'pipeline' || id === 'news';
           sortie[nom] = {
             style: [
-              pos ? `position:absolute;left:${pos.x}px;top:${pos.y}px;width:${pos.w}px;height:${pos.h}px;overflow:auto;z-index:${bouge ? 20 : (deplie ? 10 : 1)};transition:${bouge ? 'none' : 'left .18s ease,top .18s ease,width .18s ease,height .18s ease'}` : 'position:relative;min-width:0',
+              pos ? `position:absolute;left:${pos.x}px;top:${pos.y}px;width:${pos.w}px;height:${pos.h}px;${listeInterne ? 'display:flex;flex-direction:column;overflow:hidden' : 'overflow:auto'};z-index:${bouge ? 20 : (deplie ? 10 : 1)};transition:${bouge ? 'none' : 'left .18s ease,top .18s ease,width .18s ease,height .18s ease'}` : 'position:relative;min-width:0',
               compact ? `order:${ordreCompact.indexOf(id)};width:100%;min-height:0` : (pos ? '' : `order:${fige ? figes[id] : 3 + mobiles.indexOf(id)}`),
               pos ? '' : `grid-column:span ${span}`,
               compact ? '' : (pos ? '' : `min-height:${h || ({ missions: 470, rdv: 190, pipeline: 150, mois: 190, news: 150, yanport: 76 })[id] || 190}px`),
-              compact ? '' : (pos ? '' : `margin-top:${({ pipeline: 46, news: 62, rdv: 18, mois: 10 })[id] || 0}px`),
+              compact ? '' : (pos ? '' : `margin-top:${({ pipeline: 23, news: 31, rdv: 9, mois: 5 })[id] || 0}px`),
               'background:linear-gradient(165deg, rgba(12,22,44,.42), rgba(12,22,44,.26))',
               'color:var(--color-text)',
               id === 'rdv' ? (compact || pos ? 'border-radius:28px' : 'border-radius:34px;width:76%;align-self:flex-start') : 'border-radius:24px',
@@ -2772,7 +2799,7 @@ class Component extends DCLogic {
       })(),
       zoneMissions: {
         vide: keyMissions.length === 0,
-        style: `display:flex;flex-direction:column;gap:12px;border-radius:11px;min-height:${keyMissions.length === 0 ? 52 : 0}px;${keyMissions.length === 0 ? 'border:1px dashed var(--color-neutral-800);' : ''}transition:background .15s ease;outline:${this.state.surZone === 'missions' ? '2px dashed ' + accent : 'none'};outline-offset:4px`,
+        style: zoneDropStyle('missions', keyMissions.length === 0) + ';transition:background .15s ease',
         onDragOver: e => { e.preventDefault(); e.stopPropagation(); if (this.state.glissePriorite) { if (this.state.surZone !== 'missions') this.setState({ surZone: 'missions' }); } },
         onDrop: e => {
           const id = this.state.glissePriorite;
@@ -2784,15 +2811,10 @@ class Component extends DCLogic {
         }
       },
       zoneTodo: {
-        style: `display:flex;flex-direction:column;gap:12px;border-radius:11px;transition:background .15s ease;outline:${this.state.surZone === 'todo' ? '2px dashed ' + accent : 'none'};outline-offset:4px`,
+        vide: todos.length === 0,
+        style: zoneDropStyle('todo', todos.length === 0) + ';transition:background .15s ease',
         onDragOver: e => { e.preventDefault(); e.stopPropagation(); if (this.state.glissePriorite) { if (this.state.surZone !== 'todo') this.setState({ surZone: 'todo' }); } },
         onDrop: e => { const id = this.state.glissePriorite; if (!id) return; e.preventDefault(); e.stopPropagation(); this.setState({ surZone: null }); this.retrograderPriorite(id); }
-      },
-      todoBascule: {
-        ouvert: this.state.todoOuvert,
-        icone: this.state.todoOuvert ? 'ph ph-caret-down' : 'ph ph-caret-right',
-        compte: `${todos.length}`,
-        onToggle: () => { const ouvre = !this.state.todoOuvert; this.setState({ todoOuvert: ouvre }); }
       },
       ajouterVisiteLibre: () => this.ajouterVisiteLibre(),
       bascDescription: {
@@ -2801,8 +2823,9 @@ class Component extends DCLogic {
         onToggle: () => this.setState(st => ({ descriptionOuverte: !st.descriptionOuverte }))
       },
       ...(() => {
-        // Plus de système "Top 3"/épinglage : une seule liste, triée par
-        // date, sans glisser-déposer de mise en avant.
+        // Liste réordonnable manuellement par glisser-déposer (l'ordre
+        // stocké dans state.visites[mandatId] fait foi, plus de tri
+        // automatique par date une fois l'utilisateur libre de les ranger).
         const toutes = (this.state.visites[m.id] || []).slice();
         const md = v => v.mandat && tousMandats.find(x => x.id === v.mandat);
         const ligne = v => {
@@ -2815,32 +2838,35 @@ class Component extends DCLogic {
           const suivanteV = LABELS_VISITE[ETAPES_VISITE[(iEtapeV + 1) % ETAPES_VISITE.length]];
           return {
             titre: [v.visiteur || 'Visite', v.heure ? v.heure : ''].filter(Boolean).join(' · '),
-            titreStyle: `font-size:15.5px;line-height:1.35;cursor:pointer`,
-            rowStyle: `display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.14);transition:all ${anim ? '.18s' : '0s'} ease`,
+            titreStyle: `font-size:11.5px;line-height:1.35;cursor:pointer`,
+            rowStyle: `display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:14px;background:rgba(255,255,255,.14);opacity:${this.state.glisseVisite === v.id ? .35 : 1};transition:all ${anim ? '.18s' : '0s'} ease`,
             mandatVisible: !!m2 && !this.state.mandatId,
             mandatLabel: m2 ? m2.adresse : '',
-            mandatStyle: 'display:block;width:100%;margin-top:4px;font-size:13px;font-weight:600;color:var(--color-neutral-400);cursor:default;background:none;border:0;padding:0;font-family:inherit;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis',
+            mandatStyle: 'display:block;width:100%;margin-top:4px;font-size:9px;font-weight:600;color:var(--color-neutral-400);cursor:default;background:none;border:0;padding:0;font-family:inherit;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis',
             onMandatOuvrir: ev => { ev.stopPropagation(); ev.preventDefault(); },
             onEdit: () => this.ouvrirVisite(v),
             onKeyDown: activationClavier(() => this.ouvrirVisite(v)),
             onCycle: () => this.cyclerVisite(v.id),
+            onDragStart: e => { e.stopPropagation(); e.dataTransfer.effectAllowed = 'move'; this.setState({ glisseVisite: v.id }); },
+            onDragEnd: () => this.setState({ glisseVisite: null }),
+            onDragEnter: e => { if (this.state.glisseVisite && this.state.glisseVisite !== v.id) { e.preventDefault(); this.reordonnerVisite(m.id, v.id); } },
+            onDragOver: e => { if (this.state.glisseVisite) e.preventDefault(); },
             statutLabel: '',
             statutAide: `${LABELS_VISITE[etapeV]} — cliquer pour passer à : ${suivanteV}`,
-            statutStyle: `display:flex;justify-content:center;align-items:center;flex:none;box-sizing:border-box;width:34px;height:34px;border-radius:50%;padding:0;border:2px solid ${COULEURS_VISITE[etapeV]};background:${etapeV === 'prevue' ? 'transparent' : COULEURS_VISITE[etapeV]};font-family:inherit;cursor:pointer;transition:background-color .18s ease,border-color .18s ease`,
+            statutStyle: `display:flex;justify-content:center;align-items:center;flex:none;box-sizing:border-box;width:28px;height:28px;border-radius:50%;padding:0;border:2px solid ${COULEURS_VISITE[etapeV]};background:${etapeV === 'prevue' ? 'transparent' : COULEURS_VISITE[etapeV]};font-family:inherit;cursor:pointer;transition:background-color .18s ease,border-color .18s ease`,
             echeanceLabel: lb,
-            echeanceStyle: `display:flex;justify-content:center;align-items:center;white-space:nowrap;width:34px;height:34px;flex:none;box-sizing:border-box;border-radius:50%;font-weight:600;font-size:${lb.length > 3 ? 11 : 13}px;border:1px solid ${t2.bd};background:${t2.bg};color:${t2.fg}`
+            echeanceStyle: `display:flex;justify-content:center;align-items:center;white-space:nowrap;width:28px;height:28px;flex:none;box-sizing:border-box;border-radius:50%;font-weight:600;font-size:${lb.length > 3 ? 9 : 11}px;border:2px solid ${t2.bd};background:${t2.bg};color:${t2.fg}`
           };
         };
-        const tri = (a, b) => String(a.date).localeCompare(String(b.date));
         return {
           visitesVide: toutes.length === 0,
-          visites: toutes.slice().sort(tri).map(ligne)
+          visites: toutes.map(ligne)
         };
       })(),
       ...(() => {
         const md = (this.state.mandatsSup || []).find(x => x.id === this.state.mandatId) || null;
-        if (!md) return { ficheTaches: [], ficheTachesFaites: [], ficheTachesVide: true, bascTachesF: { ouvert: false, icone: 'ph ph-caret-right', compte: '0', onToggle: () => {} } };
-        const cadre = 'display:flex;align-items:flex-start;gap:11px;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05)';
+        if (!md) return { ficheTaches: [], ficheTachesVide: true };
+        const cadre = 'display:flex;align-items:flex-start;gap:11px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.14)';
         const ech = iso => {
           if (!iso) return { echeanceLabel: '—', echeanceStyle: 'display:none' };
           const d = new Date(iso + 'T00:00:00');
@@ -2852,20 +2878,16 @@ class Component extends DCLogic {
               : { bd: '#e8a6a2', bg: '#fdeeed', fg: '#b3352c' };
           return {
             echeanceLabel: j === 0 ? 'J' : (j > 0 ? 'J-' + j : 'J+' + (-j)),
-            echeanceStyle: `display:inline-flex;align-items:center;justify-content:center;flex:none;width:34px;height:34px;box-sizing:border-box;border-radius:50%;font-size:${(j === 0 ? 'J' : (j > 0 ? 'J-' + j : 'J+' + (-j))).length > 3 ? 11 : 13}px;font-weight:600;border:1px solid ${t.bd};background:${t.bg};color:${t.fg}`
+            echeanceStyle: `display:inline-flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;box-sizing:border-box;border-radius:50%;font-size:${(j === 0 ? 'J' : (j > 0 ? 'J-' + j : 'J+' + (-j))).length > 3 ? 9 : 11}px;font-weight:600;border:2px solid ${t.bd};background:${t.bg};color:${t.fg}`
           };
         };
         const tachesTout = this.state.priorites.filter(p => p.mandat === md.id);
-        const auj = new Date().toLocaleDateString('sv-SE');
-        const archive = (statut, iso) => statut === 'done' && !!iso && iso < auj;
-        const tachesM = tachesTout.filter(p => !archive(p.statut, p.echeance));
-        const tachesF = tachesTout.filter(p => archive(p.statut, p.echeance));
         const ligneFiche = p => {
           const fait = p.statut === 'done';
           return {
             titre: p.titre,
             rowStyle: cadre,
-            titreStyle: `font-size:15.5px;line-height:1.35;${fait ? 'color:var(--color-neutral-500)' : ''}`,
+            titreStyle: `font-size:11.5px;line-height:1.35;${fait ? 'color:var(--color-neutral-500)' : ''}`,
             ...(fait ? { echeanceLabel: '', echeanceStyle: 'display:none' } : ech(p.echeance)),
             terminerAide: fait ? 'Rouvrir' : 'Terminer',
             terminerIcone: '',
@@ -2876,15 +2898,8 @@ class Component extends DCLogic {
           };
         };
         return {
-          ficheTachesVide: !tachesM.length,
-          ficheTaches: tachesM.map(ligneFiche),
-          ficheTachesFaites: tachesF.map(ligneFiche),
-          bascTachesF: {
-            ouvert: !!this.state.tachesFOuvert,
-            icone: this.state.tachesFOuvert ? 'ph ph-caret-down' : 'ph ph-caret-right',
-            compte: String(tachesF.length),
-            onToggle: () => this.setState(st => ({ tachesFOuvert: !st.tachesFOuvert }))
-          }
+          ficheTachesVide: !tachesTout.length,
+          ficheTaches: tachesTout.map(ligneFiche)
         };
       })(),
       ...(() => {
@@ -2902,11 +2917,8 @@ class Component extends DCLogic {
         // plutôt qu'une valeur fixe : la fiche mandat ne doit jamais paraître
         // plus petite que la page principale, quelle que soit la disposition
         // libre enregistrée par l'utilisateur.
-        const s = compact ? 1 : Math.max(this._echelle || .6, Math.min(1.1, dispoH / CADRE_HAUTEUR));
-        this._echelleF = s;
-        const mise = s !== 1
-          ? `transform:scale(${s});transform-origin:top left;margin-right:${-Math.round(dispoL * (1 - s))}px;margin-bottom:${-Math.round(CADRE_HAUTEUR * (1 - s))}px;`
-          : '';
+        this._echelleF = 1;
+        const mise = '';
         const sortie = {
           canvasFStyle: compact
             ? 'display:flex;flex-direction:column;gap:12px;min-width:0;width:100%'
@@ -2920,7 +2932,7 @@ class Component extends DCLogic {
           zonesMargeF: (!compact && this.state.bougeIdF && this.state.libreF)
             ? Object.keys(this.state.libreF).filter(k => k !== this.state.bougeIdF).map(k => {
                 const w = this.state.libreF[k];
-                return { style: `position:absolute;left:${w.x - MARGE_MIN_WIDGETS}px;top:${w.y - MARGE_MIN_WIDGETS}px;width:${w.w + 2 * MARGE_MIN_WIDGETS}px;height:${w.h + 2 * MARGE_MIN_WIDGETS}px;border:1px dashed rgba(255,159,10,.55);background:rgba(255,159,10,.08);border-radius:10px;pointer-events:none;z-index:5` };
+                return { style: `position:absolute;left:${w.x - MARGE_MIN_WIDGETS}px;top:${w.y - MARGE_MIN_WIDGETS}px;width:${w.w + 2 * MARGE_MIN_WIDGETS}px;height:${w.h + 2 * MARGE_MIN_WIDGETS}px;border:1px solid rgba(169,196,232,.65);background:rgba(169,196,232,.12);border-radius:10px;pointer-events:none;z-index:5` };
               })
             : []
         };
@@ -2932,7 +2944,7 @@ class Component extends DCLogic {
           sortie[nom] = {
             style: [
               pos
-                ? `position:absolute;left:${pos.x}px;top:${pos.y}px;width:${pos.w}px;height:${pos.h}px;overflow:auto;z-index:${bouge ? 20 : 1};transition:${bouge ? 'none' : 'left .18s ease,top .18s ease,width .18s ease,height .18s ease'}`
+                ? `position:absolute;left:${pos.x}px;top:${pos.y}px;width:${pos.w}px;height:${pos.h}px;${(id === 'taches' || id === 'visites') ? 'display:flex;flex-direction:column;overflow:hidden' : 'overflow:auto'};z-index:${bouge ? 20 : 1};transition:${bouge ? 'none' : 'left .18s ease,top .18s ease,width .18s ease,height .18s ease'}`
                 : 'position:relative;min-width:0',
               'background:linear-gradient(165deg, rgba(12,22,44,.42), rgba(12,22,44,.26))',
               'color:var(--color-text)',
@@ -2959,7 +2971,6 @@ class Component extends DCLogic {
       keyMissions: replier('missions', keyMissions).items,
       plusMissions: replier('missions', keyMissions).bloc,
       plusTodo: replier('todo', todos).bloc,
-      plusMandats: replier('mandats', mandats).bloc,
       keyFait: `${3 - keyMissions.length} / 3 fait`,
       filtres,
       todos: replier('todo', todos).items,
@@ -2995,11 +3006,11 @@ class Component extends DCLogic {
             const i = PRIOS_CYCLE.indexOf(e.priorite || 'moyenne');
             this.champPriorite('priorite', PRIOS_CYCLE[(i + 1) % PRIOS_CYCLE.length]);
           },
-          prioriteStyle: `width:24px;height:24px;flex:none;box-sizing:border-box;border-radius:50%;border:2px solid rgba(255,255,255,.4);background-color:${PRIOS_COULEUR[e.priorite || 'moyenne']};cursor:pointer;padding:0;transition:background-color .18s ease,border-color .18s ease,transform .15s ease`,
+          prioriteStyle: `width:28px;height:28px;flex:none;box-sizing:border-box;border-radius:50%;border:2px solid rgba(255,255,255,.4);background-color:${PRIOS_COULEUR[e.priorite || 'moyenne']};cursor:pointer;padding:0;transition:background-color .18s ease,border-color .18s ease,transform .15s ease`,
           termineLabel: e.statut === 'done' ? 'Réalisée' : 'À faire',
           termine: e.statut === 'done',
           onToggleTermine: () => this.champPriorite('statut', e.statut === 'done' ? 'todo' : 'done'),
-          statutRondStyle: `width:24px;height:24px;flex:none;box-sizing:border-box;border-radius:50%;border:2px solid ${e.statut === 'done' ? 'rgba(127,208,162,.55)' : 'rgba(169,196,232,.55)'};background:${e.statut === 'done' ? 'rgba(127,208,162,.35)' : 'rgba(169,196,232,.35)'};cursor:pointer;padding:0;transition:background-color .18s ease,border-color .18s ease,transform .15s ease`,
+          statutRondStyle: `width:28px;height:28px;flex:none;box-sizing:border-box;border-radius:50%;border:2px solid ${e.statut === 'done' ? 'rgba(127,208,162,.55)' : 'rgba(169,196,232,.55)'};background:${e.statut === 'done' ? 'rgba(127,208,162,.35)' : 'rgba(169,196,232,.35)'};cursor:pointer;padding:0;transition:background-color .18s ease,border-color .18s ease,transform .15s ease`,
           onEnregistrer: () => this.enregistrerPriorite(),
           onSupprimer: () => this.supprimerPriorite()
         };
@@ -3039,7 +3050,7 @@ class Component extends DCLogic {
         ...lignePriorite(p, null),
         titre: p.titre,
         rowStyle: `display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:14px;border:1px solid var(--color-neutral-800);background:rgba(255,255,255,.12);transition:all ${anim ? '.18s' : '0s'} ease`,
-        titreStyle: 'font-size:15.5px;font-weight:500;line-height:1.35;cursor:pointer;color:var(--color-neutral-400)',
+        titreStyle: 'font-size:11.5px;font-weight:500;line-height:1.35;cursor:pointer;color:var(--color-neutral-400)',
         echeanceVisible: false
       })),
       titreMandats: this.state.mandatsHistoriqueOuvert ? 'Historique' : 'Mandats',
@@ -3048,25 +3059,8 @@ class Component extends DCLogic {
       mandatsHistorique,
       ouvrirMandatsHistorique: () => this.setState({ mandatsHistoriqueOuvert: true }),
       fermerMandatsHistorique: () => this.setState({ mandatsHistoriqueOuvert: false }),
-      topMandats,
-      mandats: replier('mandats', mandats).items,
-      mandatsBascule: {
-        ouvert: this.state.mandatsOuvert,
-        icone: this.state.mandatsOuvert ? 'ph ph-caret-down' : 'ph ph-caret-right',
-        compte: `${mandats.length}`,
-        onToggle: () => { const ouvre = !this.state.mandatsOuvert; this.setState({ mandatsOuvert: ouvre }); }
-      },
-      zoneMandatsTop: {
-        style: zoneDropStyle('manTop', topMandats.length === 0),
-        vide: topMandats.length === 0,
-        onDragOver: e => { e.preventDefault(); e.stopPropagation(); if (this.state.glisseMandat) { if (this.state.surZone !== 'manTop') this.setState({ surZone: 'manTop' }); } },
-        onDrop: e => { const id = this.state.glisseMandat; if (!id) return; e.preventDefault(); e.stopPropagation(); this.setState({ surZone: null, glisseMandat: null }); this.epinglerMandat(id); }
-      },
-      zoneMandats: {
-        style: zoneDropStyle('manBas', false),
-        onDragOver: e => { e.preventDefault(); e.stopPropagation(); if (this.state.glisseMandat) { if (this.state.surZone !== 'manBas') this.setState({ surZone: 'manBas' }); } },
-        onDrop: e => { const id = this.state.glisseMandat; if (!id) return; e.preventDefault(); e.stopPropagation(); this.setState({ surZone: null, glisseMandat: null }); this.desepinglerMandat(id); }
-      },
+      mandatsListe,
+      mandatsVide: mandatsListe.length === 0,
       nbMandats: `${tousMandats.length} actifs`,
       pdfOuvert: !!this.state.pdfVu,
       fermerPdf: () => this.fermerPdf(),
@@ -3103,10 +3097,12 @@ class Component extends DCLogic {
             const fic = e.target.files && e.target.files[0];
             if (fic) this.analyser(fic);
           },
+          champAdresse: {
+            valeur: n.adresse || '',
+            onChange: e => this.champNouveau('adresse', e.target.value)
+          },
           champs: (() => {
             const tousChamps = [
-              { cle: 'adresse', label: 'Adresse', exemple: '12 rue Notre-Dame', large: true, groupe: 'general' },
-              { cle: 'quartier', label: 'Ville', exemple: 'Chartrons', groupe: 'general' },
               { cle: 'ref', label: 'N° de mandat', exemple: '2096678', groupe: 'general' },
               { cle: 'prix', label: 'Prix', exemple: '645000', groupe: 'general' },
               { cle: 'surface', label: 'Surface (m²)', exemple: '92', groupe: 'bien' },
@@ -3124,7 +3120,6 @@ class Component extends DCLogic {
               label: c.label,
               exemple: '',
               valeur: n[c.cle] || '',
-              wrapStyle: `padding:6px 10px;min-height:48px;box-sizing:border-box;border-radius:10px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;cursor:text${c.large ? ';grid-column:1 / -1' : ''}`,
               onChange: e => this.champNouveau(c.cle, e.target.value)
             }));
             return {
@@ -3133,21 +3128,23 @@ class Component extends DCLogic {
               financier: tousChamps.filter(c => c.groupe === 'financier')
             };
           })(),
-          // DPE et GES regroupés dans une seule case, au format "A/B".
-          dpeGes: {
-            wrapStyle: 'padding:6px 10px;min-height:48px;box-sizing:border-box;border-radius:10px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:left;cursor:text',
-            valeur: (n.dpe || n.ges) ? `${n.dpe || ''}/${n.ges || ''}` : '',
-            onChange: e => {
-              const [dpe, ges] = e.target.value.split('/');
-              this.champNouveau('dpe', (dpe || '').trim().toUpperCase());
-              this.champNouveau('ges', (ges || '').trim().toUpperCase());
-            }
-          },
+          dpeGes: (() => {
+            const dpeL = lettreAffichable(n.dpe, n.dpeVal, SEUILS_DPE);
+            const gesL = lettreAffichable(n.ges, n.gesVal, SEUILS_GES);
+            return {
+              dpe: dpeL || '—',
+              ges: gesL || '—',
+              dpeStyle: badgeEnergie(dpeL, ECH_DPE),
+              gesStyle: badgeEnergie(gesL, ECH_GES),
+              onCyclerDpe: () => this.champNouveau('dpe', cyclerLettreEnergie(dpeL)),
+              onCyclerGes: () => this.champNouveau('ges', cyclerLettreEnergie(gesL))
+            };
+          })(),
           onCreer: () => (modeCreation ? this.creerMandat() : this.modifierMandat())
         };
       })(),
       ...(() => {
-        const pastille = t => `display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;flex:none;box-sizing:border-box;padding-right:1px;border-radius:50%;font-weight:600;font-size:13px;line-height:1;letter-spacing:0;font-variant-numeric:tabular-nums;white-space:nowrap;border:1px solid ${t.bd};background:${t.bg};color:${t.fg}`;
+        const pastille = t => `display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;flex:none;box-sizing:border-box;padding-right:1px;border-radius:50%;font-weight:600;font-size:9px;line-height:1;letter-spacing:0;font-variant-numeric:tabular-nums;white-space:nowrap;border:2px solid ${t.bd};background:${t.bg};color:${t.fg}`;
         const VERT = { bd: '#9fd3b4', bg: '#eef8f2', fg: '#2f7a52' };
         const BLEU = { bd: '#a9c4e8', bg: '#eef4fd', fg: '#2b5c98' };
         const ROUGE = { bd: '#e8a6a2', bg: '#fdeeed', fg: '#b3352c' };
@@ -3183,9 +3180,10 @@ class Component extends DCLogic {
         const joursMois = joursOuvresEntre(debutMois, auj);
         const faitsMois = journal.filter(j => j.startsWith(prefMois) && estOuvre(j)).length;
         const ecart = (f2, t) => (f2 >= t ? '+5' : f2 >= t * 0.6 ? '+1' : '−1');
-        const coldSem = { label: 'Cold call — semaine', valeur: `${faitsSem}/${joursSemaine}`, delta: ecart(faitsSem, joursSemaine) };
-        const coldMois = { label: 'Cold call — mois', valeur: `${faitsMois}/${joursMois}`, delta: ecart(faitsMois, joursMois) };
+        const coldSem = { label: 'Semaine', valeur: `${faitsSem}/${joursSemaine}`, delta: ecart(faitsSem, joursSemaine) };
+        const coldMois = { label: 'Mois', valeur: `${faitsMois}/${joursMois}`, delta: ecart(faitsMois, joursMois) };
         const periodeStats = this.state.periodeStats || 'mois';
+        const periodeCold = this.state.periodeCold || 'semaine';
         const prefPeriode = periodeStats === 'annee' ? isoJour(auj).slice(0, 4) : prefMois;
         const mandatsCeMois = tousMandats.filter(m => m.creeLe && isoJour(new Date(m.creeLe)).startsWith(prefPeriode));
         const totalMandats = mandatsCeMois.reduce((s, x) => s + (Number(x.prix) || 0) * ((Number(x.commission) || 0) / 100), 0);
@@ -3220,7 +3218,10 @@ class Component extends DCLogic {
             { label: 'Ventes', valeur: String(ventesCeMois), delta: '+2' },
             { label: 'Commission totale', valeur: valeurTotale, delta: '+6' }
           ].map(c => ({ ...c, deltaStyle: pastille(teinte(c.delta)) })),
-          chiffresCold: [coldSem, coldMois].map(c => ({ ...c, deltaStyle: pastille(teinte(c.delta)) }))
+          periodeColdLettre: periodeCold === 'semaine' ? 'M' : 'S',
+          periodeColdAide: periodeCold === 'semaine' ? 'Voir le cold call du mois' : 'Voir le cold call de la semaine',
+          onTogglePeriodeCold: () => this.setState(s => ({ periodeCold: (s.periodeCold || 'semaine') === 'semaine' ? 'mois' : 'semaine' })),
+          chiffresCold: [periodeCold === 'mois' ? coldMois : coldSem].map(c => ({ ...c, deltaStyle: pastille(teinte(c.delta)) }))
         };
       })(),
       ...(() => {
@@ -3303,7 +3304,7 @@ class Component extends DCLogic {
           statutLabel: LABELS_VISITE[etapeV],
           statutAide: `Cliquer pour passer à : ${LABELS_VISITE[ETAPES_VISITE[(iEtapeV + 1) % ETAPES_VISITE.length]]}`,
           onCyclerStatut: () => this.champVisite('statut', ETAPES_VISITE[(iEtapeV + 1) % ETAPES_VISITE.length]),
-          statutRondStyle: `width:26px;height:26px;flex:none;box-sizing:border-box;border-radius:50%;border:2px solid ${COULEURS_VISITE[etapeV]};background:${etapeV === 'prevue' ? 'transparent' : COULEURS_VISITE[etapeV]};cursor:pointer;padding:0;transition:background-color .18s ease,border-color .18s ease,transform .15s ease`,
+          statutRondStyle: `width:28px;height:28px;flex:none;box-sizing:border-box;border-radius:50%;border:2px solid ${COULEURS_VISITE[etapeV]};background:${etapeV === 'prevue' ? 'transparent' : COULEURS_VISITE[etapeV]};cursor:pointer;padding:0;transition:background-color .18s ease,border-color .18s ease,transform .15s ease`,
           onEnregistrer: () => this.enregistrerVisite(),
           onSupprimer: () => this.supprimerVisite()
         };
