@@ -45,7 +45,7 @@ html,body{margin:0;height:100%;overflow:hidden}
 /* Police principale : Inter partout, y compris dans les champs et boutons qui n'héritent pas de la police par défaut */
 body, button, input, textarea, select, option{font-family:'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif}
 *,*::before,*::after{box-sizing:border-box}
-body{font-size:14px;line-height:1.55;font-weight:400;--ombre-carte:0 26px 60px rgba(30,50,90,.16), inset 0 1px 0 rgba(255,255,255,.55)}
+body{font-size:13px;line-height:1.55;font-weight:400;--ombre-carte:0 26px 60px rgba(30,50,90,.16), inset 0 1px 0 rgba(255,255,255,.55)}
 @media (max-width:980px){
   [data-canvas]{padding-bottom:20px}
   main > header{flex-wrap:wrap;row-gap:8px;padding:12px 14px 8px !important}
@@ -74,35 +74,38 @@ body{font-size:14px;line-height:1.55;font-weight:400;--ombre-carte:0 26px 60px r
 }
 /* Modale Visite : lignes Date / Heure, sélecteur en grilles, feuille du bas sur mobile */
 .visite-quand-form{display:flex;flex-direction:column;gap:8px}
-.visite-champ{flex:1;min-width:0;height:18px;padding:0;border:0;background:transparent;text-align:left;cursor:pointer;outline:none;font-family:inherit;font-size:14px;line-height:1.35;font-weight:500;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.visite-champ{flex:1;min-width:0;height:18px;padding:0;border:0;background:transparent;text-align:left;cursor:pointer;outline:none;font-family:inherit;font-size:13px;line-height:1.35;font-weight:500;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sel-grille{display:grid;gap:6px}
 .sel-heures{grid-template-columns:repeat(5,1fr)}
 .sel-minutes{grid-template-columns:repeat(6,1fr)}
 @media (max-width:600px){
   .fond-modale-visite{align-items:flex-end}
   .modale-visite{width:100% !important;max-width:100% !important;max-height:92vh !important;border-radius:24px 24px 0 0 !important;padding-bottom:calc(var(--pad-t,18px) + env(safe-area-inset-bottom,0px)) !important;animation:monteFeuille .22s ease both !important}
-  .visite-champ{height:24px;font-size:16px}
-  .modale-visite .sel-jour{height:42px !important;width:42px !important;font-size:16px !important}
+  .visite-champ{height:24px;font-size:15px}
+  .modale-visite .sel-jour{height:42px !important;width:42px !important;font-size:15px !important}
   .modale-visite .sel-nav{width:36px !important;height:36px !important}
-  .sel-heures button,.sel-minutes button{height:44px !important;border-radius:22px !important;font-size:15px !important}
+  .sel-heures button,.sel-minutes button{height:44px !important;border-radius:22px !important;font-size:14px !important}
   .sel-heures{grid-template-columns:repeat(5,1fr)}
 }
 @keyframes monteFeuille{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
-.sel-auj{border:0;cursor:pointer;outline:none;font-family:inherit;font-size:13px;font-weight:600;line-height:1;padding:9px 16px;border-radius:19px;background:color-mix(in srgb, #a9c4e8 45%, #e2ecf8);color:#2b5c98;box-shadow:inset 0 1px 1.5px var(--ombre-creux,rgba(40,60,90,.1)), 0 1px 2px var(--ombre-legere,rgba(60,80,120,.14))}
+.sel-auj{border:0;cursor:pointer;outline:none;font-family:inherit;font-size:12px;font-weight:600;line-height:1;padding:9px 16px;border-radius:19px;background:color-mix(in srgb, #a9c4e8 45%, #e2ecf8);color:#2b5c98;box-shadow:inset 0 1px 1.5px var(--ombre-creux,rgba(40,60,90,.1)), 0 1px 2px var(--ombre-legere,rgba(60,80,120,.14))}
+/* Mode nuit : boutons et champs sans couleur explicite héritent du texte blanc ; texte d'aide (placeholder) lisible sur fond sombre. */
+button, input, textarea, select{color:inherit}
+input::placeholder, textarea::placeholder{color:var(--couleur-placeholder,#757575);opacity:1}
 a{color:var(--color-accent);text-decoration:none}
 a:hover{color:var(--color-accent-400)}
 .verre{background:var(--fond-widget);color:var(--color-text);backdrop-filter:blur(34px) saturate(180%);-webkit-backdrop-filter:blur(34px) saturate(180%);box-shadow:var(--ombre-carte);border:1px solid var(--bord-widget,rgba(255,255,255,.55));border-top:1px solid var(--bord-widget-haut,rgba(255,255,255,.9));border-radius:24px}
-.vide{display:flex;align-items:center;justify-content:center;height:52px;font-size:11.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px}
+.vide{display:flex;align-items:center;justify-content:center;height:52px;font-size:10.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px}
 .fond-modale{position:fixed;inset:0;background:rgba(30,50,90,.28);display:flex;align-items:center;justify-content:center;z-index:50}
-.txt-ligne{flex:1;min-width:0;font-size:14px;line-height:1.35;font-weight:500;color:var(--color-text)}
-.titre-section{margin:0;color:var(--titre);letter-spacing:-.02em;font-size:16px;font-weight:600;text-transform:none;white-space:nowrap}
+.txt-ligne{flex:1;min-width:0;font-size:13px;line-height:1.35;font-weight:500;color:var(--color-text)}
+.titre-section{margin:0;color:var(--titre);letter-spacing:-.02em;font-size:15px;font-weight:600;text-transform:none;white-space:nowrap}
 .btn-icone-20{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:0;background:transparent;color:var(--color-neutral-500);border-radius:6px;cursor:pointer;padding:0}
-.btn-voir-plus{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;border:0;background:transparent;color:var(--color-neutral-500);font-family:inherit;font-size:11.5px;cursor:pointer;padding:9px 0 2px}
-.btn-google{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;border:0;background:#2f6fed;color:#ffffff;border-radius:10px;padding:11px 16px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:filter .15s ease;box-shadow:0 0 0 1px rgba(255,255,255,.4), 0 0 34px 6px #2f6fed}
+.btn-voir-plus{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;border:0;background:transparent;color:var(--color-neutral-500);font-family:inherit;font-size:10.5px;cursor:pointer;padding:9px 0 2px}
+.btn-google{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;border:0;background:#2f6fed;color:#ffffff;border-radius:10px;padding:11px 16px;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;transition:filter .15s ease;box-shadow:0 0 0 1px rgba(255,255,255,.4), 0 0 34px 6px #2f6fed}
 .btn-google:hover{filter:brightness(1.08)}
-.saisie-cle.saisie-info{font-size:14px;font-weight:500;letter-spacing:normal;line-height:1.35;color:var(--color-text);text-align:left}
-.saisie-cle.saisie-principale{font-size:14px;font-weight:500;line-height:1.35;letter-spacing:normal;color:var(--color-text);margin-top:0;text-align:left}
-.saisie-cle{width:100%;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;margin-top:1px;color:var(--titre);font-family:inherit;font-size:11.5px;font-weight:500;line-height:1.35;letter-spacing:-.01em;font-variant-numeric:tabular-nums;outline:none}
+.saisie-cle.saisie-info{font-size:13px;font-weight:500;letter-spacing:normal;line-height:1.35;color:var(--color-text);text-align:left}
+.saisie-cle.saisie-principale{font-size:13px;font-weight:500;line-height:1.35;letter-spacing:normal;color:var(--color-text);margin-top:0;text-align:left}
+.saisie-cle{width:100%;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;margin-top:1px;color:var(--titre);font-family:inherit;font-size:10.5px;font-weight:500;line-height:1.35;letter-spacing:-.01em;font-variant-numeric:tabular-nums;outline:none}
 .theme-sombre{--color-text:#f7fafe;--titre:#ffffff;--color-divider:rgba(255,255,255,.16);--color-neutral-400:#cbd6e4;--color-neutral-500:#becbdb;--color-neutral-600:#a4b5c7;--color-neutral-700:rgba(255,255,255,.39);--color-neutral-800:rgba(255,255,255,.25);--voile:rgba(255,255,255,.14);--voile-hover:rgba(255,255,255,.2);--color-accent-400:#ffb184;color:var(--color-text)}
 .saisie-cle:focus{outline:1px solid var(--color-neutral-700);outline-offset:3px;border-radius:6px}
 textarea[placeholder="Informations complémentaires"]{color:var(--texte-fort,#000)}
@@ -112,7 +115,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120"><rect width="120" height="120" fill="#122430"></rect><g fill="none" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M36 58 60 40l24 18"></path><path d="M42 58v22h36V58"></path></g></svg>
 </template>
 </helmet>
-<div style="height:100vh;display:flex;position:relative;overflow:hidden;color:var(--color-text);font-family:'Inter', system-ui, sans-serif;font-size:14px;{{ themeVars }}">
+<div style="height:100vh;display:flex;position:relative;overflow:hidden;color:var(--color-text);font-family:'Inter', system-ui, sans-serif;font-size:13px;{{ themeVars }}">
   <div aria-hidden="true" style="{{ ciel.fond }}"></div>
   <div aria-hidden="true" style="{{ ciel.voile }}"></div>
   <div aria-hidden="true" style="{{ ciel.nuages1 }}"></div>
@@ -133,7 +136,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
             <img src="{{ compteAvatar }}" alt="" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:cover;display:block">
           </sc-if>
           <sc-if value="{{ compteInitialeVisible }}" hint-placeholder-val="{{ false }}">
-            <span style="font-size:14px;font-weight:600">{{ compteInitiale }}</span>
+            <span style="font-size:13px;font-weight:600">{{ compteInitiale }}</span>
           </sc-if>
           <sc-if value="{{ !compteConnecte }}" hint-placeholder-val="{{ true }}">
             <i class="ph ph-user-circle" style="font-size:19px"></i>
@@ -144,17 +147,17 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
           <div class="theme-sombre" style="position:absolute;top:46px;right:0;z-index:50;width:280px;background:linear-gradient(165deg, rgba(12,22,44,.9), rgba(12,22,44,.84));backdrop-filter:blur(26px) saturate(150%);-webkit-backdrop-filter:blur(26px) saturate(150%);box-shadow:var(--ombre-carte);border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;animation:fadeUp .16s ease both">
             <sc-if value="{{ compteConnecte }}" hint-placeholder-val="{{ false }}">
               <div>
-                <div style="font-size:12.5px;font-weight:600;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteNom }}</div>
-                <div style="font-size:11.5px;color:var(--color-neutral-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteEmail }}</div>
+                <div style="font-size:11.5px;font-weight:600;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteNom }}</div>
+                <div style="font-size:10.5px;color:var(--color-neutral-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteEmail }}</div>
               </div>
-              <button onClick="{{ onCompteDeconnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-400);border-radius:10px;padding:7px 10px;font-family:inherit;font-size:12.5px;cursor:pointer">Se déconnecter</button>
+              <button onClick="{{ onCompteDeconnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-400);border-radius:10px;padding:7px 10px;font-family:inherit;font-size:11.5px;cursor:pointer">Se déconnecter</button>
             </sc-if>
             <sc-if value="{{ !compteConnecte }}" hint-placeholder-val="{{ true }}">
-              <div style="font-size:12.5px;color:var(--color-text)">Connectez-vous avec Google pour enregistrer vos données et les retrouver sur tous vos appareils.</div>
+              <div style="font-size:11.5px;color:var(--color-text)">Connectez-vous avec Google pour enregistrer vos données et les retrouver sur tous vos appareils.</div>
               <button onClick="{{ onCompteConnecter }}" class="btn-google" style="align-self:flex-start;width:auto"><i class="ph ph-google-logo" style="font-size:14px"></i>Se connecter avec Google</button>
             </sc-if>
             <sc-if value="{{ compteMessageVisible }}" hint-placeholder-val="{{ false }}">
-              <div style="font-size:11.5px;color:#ffd9c2;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4)">{{ compteMessage }}</div>
+              <div style="font-size:10.5px;color:#ffd9c2;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4)">{{ compteMessage }}</div>
             </sc-if>
           </div>
         </sc-if>
@@ -162,13 +165,10 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
     </header>
 
     <sc-if value="{{ dispoModule.visible }}" hint-placeholder-val="{{ false }}">
-      <sc-if value="{{ dispoModule.ouvert }}" hint-placeholder-val="{{ false }}">
-        <div onClick="{{ dispoModule.onFermer }}" style="position:fixed;inset:0;z-index:19"></div>
-      </sc-if>
       <div style="position:absolute;top:56px;right:10px;z-index:20">
         <button onClick="{{ nuit.onToggle }}" title="{{ nuit.aide }}" aria-label="{{ nuit.aide }}" aria-pressed="{{ nuit.actif }}" style="{{ nuit.boutonStyle }}"><i class="{{ nuit.icone }}" style="font-size:19px"></i></button>
         <div style="position:relative;margin-top:8px">
-  <button onClick="{{ dispoModule.onToggle }}" title="Modèles de disposition des widgets" aria-label="Modèles de disposition des widgets" aria-expanded="{{ dispoModule.ouvert }}" style="{{ dispoModule.boutonStyle }}"><i class="ph ph-arrows-out-cardinal" style="font-size:19px"></i></button>
+  <button onClick="{{ dispoModule.onToggle }}" title="Modifier la disposition des widgets (déplacer, redimensionner, modèles)" aria-label="Modifier la disposition des widgets" aria-pressed="{{ dispoModule.ouvert }}" style="{{ dispoModule.boutonStyle }}"><i class="ph ph-arrows-out-cardinal" style="font-size:19px"></i></button>
           <sc-if value="{{ dispoModule.ouvert }}" hint-placeholder-val="{{ false }}">
             <div style="{{ dispoModule.cadreStyle }}">
               <sc-for list="{{ dispoModule.boutons }}" as="b" hint-placeholder-count="4">
@@ -215,7 +215,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
                   <div style="{{ m.rowStyle }}" style-hover="filter:brightness(.97)">
                     <div onClick="{{ m.onOpen }}" onKeyDown="{{ m.onKeyDown }}" role="button" tabIndex="{{ 0 }}" title="Ouvrir la fiche mandat" style="min-width:0;flex:1;cursor:pointer;border-radius:10px;padding:2px 4px;margin:-2px -4px">
                       <div style="{{ m.titreStyle }}">{{ m.adresse }}</div>
-                      <div style="font-size:10.5px;font-weight:600;line-height:1.2;color:var(--color-neutral-500);margin-top:2px;font-variant-numeric:tabular-nums">{{ m.prixCommissionFmt }}</div>
+                      <div style="font-size:9.5px;font-weight:600;line-height:1.2;color:var(--color-neutral-500);margin-top:2px;font-variant-numeric:tabular-nums">{{ m.prixCommissionFmt }}</div>
                     </div>
                     <div style="flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px;min-width:0">
                       <span title="{{ m.statutAide }}" aria-label="{{ m.statutAide }}" style="{{ m.statutRondStyle }}"></span>
@@ -234,8 +234,8 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
               <sc-for list="{{ mandatsListe }}" as="m" hint-placeholder-count="4">
                 <div draggable="{{ true }}" onDragStart="{{ m.onDragStart }}" onDragEnd="{{ m.onDragEnd }}" onDragEnter="{{ m.onDragEnter }}" onDragOver="{{ m.onDragOver }}" onClick="{{ m.onOpen }}" onKeyDown="{{ m.onKeyDown }}" role="button" tabIndex="{{ 0 }}" style="{{ m.rowStyle }}" style-hover="filter:brightness(.97)">
                   <div style="min-width:0;flex:1">
-                    <div style="font-size:14px;font-weight:500;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;{{ m.policeAdresse }}">{{ m.adresse }}</div>
-                    <div style="font-size:10.5px;font-weight:600;line-height:1.2;color:var(--color-neutral-500);margin-top:2px;font-variant-numeric:tabular-nums">{{ m.prixSurfaceFmt }}</div>
+                    <div style="font-size:13px;font-weight:500;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;{{ m.policeAdresse }}">{{ m.adresse }}</div>
+                    <div style="font-size:9.5px;font-weight:600;line-height:1.2;color:var(--color-neutral-500);margin-top:2px;font-variant-numeric:tabular-nums">{{ m.prixSurfaceFmt }}</div>
                   </div>
                   <span title="{{ m.joursAide }}" style="{{ m.joursStyle }}">{{ m.joursLabel }}</span>
                 </div>
@@ -248,8 +248,8 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
           <section data-widget="salut" onPointerDown="{{ wSalut.onZone }}" style="{{ wSalut.style }}">
             <div onPointerDown="{{ wSalut.onMove }}" title="Déplacer le widget" style="{{ wSalut.handleStyle }}"></div>
             <div onPointerDown="{{ wSalut.onResize }}" title="Redimensionner" style="{{ wSalut.cornerStyle }}"></div>
-            <div style="font-size:46px;font-weight:400;letter-spacing:-.035em;line-height:1.08;padding-bottom:.2em;margin-bottom:-.2em;background:linear-gradient(100deg,var(--salut-1,#0f172a),var(--salut-1,#0f172a) 45%,var(--salut-2,rgba(15,23,42,.72)));-webkit-background-clip:text;background-clip:text;color:transparent">{{ salutation }}</div>
-            <div style="font-size:16px;font-weight:400;letter-spacing:-.01em;color:var(--color-neutral-500);margin-top:10px">{{ salutationSous }}</div>
+            <div style="font-size:45px;font-weight:400;letter-spacing:-.035em;line-height:1.08;padding-bottom:.2em;margin-bottom:-.2em;background:linear-gradient(100deg,var(--salut-1,#0f172a),var(--salut-1,#0f172a) 45%,var(--salut-2,rgba(15,23,42,.72)));-webkit-background-clip:text;background-clip:text;color:transparent">{{ salutation }}</div>
+            <div style="font-size:15px;font-weight:400;letter-spacing:-.01em;color:var(--color-neutral-500);margin-top:10px">{{ salutationSous }}</div>
           </section>
           <section class="verre" data-widget="yanport" onPointerDown="{{ wYanport.onZone }}" style="{{ wYanport.style }}">
             <div onPointerDown="{{ wYanport.onMove }}" title="Déplacer le widget" style="{{ wYanport.handleStyle }}"></div>
@@ -344,7 +344,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
                   <div onClick="{{ k.onEdit }}" onKeyDown="{{ k.onKeyDown }}" role="button" tabIndex="{{ 0 }}" style="min-width:0;flex:1;cursor:pointer;border-radius:10px;padding:2px 4px;margin:-2px -4px">
                     <div style="{{ k.titreStyle }}">{{ k.titre }}</div>
                     <sc-if value="{{ k.descriptionVisible }}" hint-placeholder-val="{{ false }}">
-                      <div style="font-size:11.5px;line-height:1.35;color:var(--color-neutral-500);margin-top:2px">{{ k.description }}</div>
+                      <div style="font-size:9.5px;line-height:1.35;color:var(--color-neutral-500);margin-top:2px">{{ k.description }}</div>
                     </sc-if>
                     <sc-if value="{{ k.mandatVisible }}" hint-placeholder-val="{{ false }}">
                       <button onClick="{{ k.onMandatOuvrir }}" title="Ouvrir la fiche mandat" style="{{ k.mandatStyle }}">{{ k.mandatLabel }}</button>
@@ -376,7 +376,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
                   <div onClick="{{ t.onEdit }}" onKeyDown="{{ t.onKeyDown }}" role="button" tabIndex="{{ 0 }}" style="min-width:0;flex:1;cursor:pointer;border-radius:10px;padding:2px 4px;margin:-2px -4px">
                     <div style="{{ t.titreStyle }}">{{ t.titre }}</div>
                     <sc-if value="{{ t.descriptionVisible }}" hint-placeholder-val="{{ false }}">
-                      <div style="font-size:11.5px;line-height:1.35;color:var(--color-neutral-500);margin-top:2px">{{ t.description }}</div>
+                      <div style="font-size:9.5px;line-height:1.35;color:var(--color-neutral-500);margin-top:2px">{{ t.description }}</div>
                     </sc-if>
                     <sc-if value="{{ t.mandatVisible }}" hint-placeholder-val="{{ false }}">
                       <button onClick="{{ t.onMandatOuvrir }}" title="Ouvrir la fiche mandat" style="{{ t.mandatStyle }}">{{ t.mandatLabel }}</button>
@@ -411,9 +411,10 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
               </sc-if>
             </div>
             <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:2px;margin-bottom:12px;pointer-events:none;text-align:center">
-              <span style="font-size:40px;font-weight:500;letter-spacing:-.02em;font-variant-numeric:tabular-nums">{{ rdv.heure }}</span>
-              <div style="font-size:16px;font-weight:500;max-width:100%">{{ rdv.titre }}</div>
-              <div style="font-size:14px;color:var(--color-neutral-500);max-width:100%">{{ rdv.lieu }}</div>
+              <span style="font-size:38px;font-weight:500;letter-spacing:-.02em;font-variant-numeric:tabular-nums">{{ rdv.heure }}</span>
+              <div style="font-size:12px;font-weight:500;color:var(--color-neutral-500);max-width:100%">{{ rdv.jour }}</div>
+              <div style="font-size:14px;font-weight:500;max-width:100%">{{ rdv.titre }}</div>
+              <div style="font-size:12px;color:var(--color-neutral-500);max-width:100%">{{ rdv.lieu }}</div>
             </div>
             <div style="{{ rdvCerclesStyle }}">
               <sc-for list="{{ rdvCercles }}" as="c" hint-placeholder-count="3">
@@ -423,7 +424,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
             <div style="height:1px;background:var(--color-divider);margin:12px 0"></div>
             <div style="display:flex;flex-direction:column;gap:6px">
               <sc-for list="{{ suiteAgenda }}" as="a" hint-placeholder-count="3">
-                <div style="display:flex;align-items:center;gap:10px;font-size:14px;opacity:.75">
+                <div style="display:flex;align-items:center;gap:10px;font-size:13px;opacity:.75">
                   <span style="width:38px;opacity:.7;font-variant-numeric:tabular-nums">{{ a.heure }}</span>
                   <span style="{{ a.barStyle }}"></span>
                   <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ a.titre }}</span>
@@ -446,7 +447,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
             <div style="display:grid;grid-template-columns:repeat(auto-fill,124px);gap:8px;justify-content:start;align-content:start">
               <sc-for list="{{ chiffres }}" as="c" hint-placeholder-count="4">
                 <div title="{{ c.aide }}" style="{{ c.carteStyle }}" style-hover="filter:brightness(.97)">
-                  <div style="min-width:0;flex:1;font-size:12.5px;line-height:16px;font-weight:500;color:var(--color-neutral-400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.label }}</div>
+                  <div style="min-width:0;flex:1;font-size:11.5px;line-height:16px;font-weight:500;color:var(--color-neutral-400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.label }}</div>
                   <span style="{{ c.valeurStyle }}">{{ c.valeur }}</span>
                 </div>
               </sc-for>
@@ -466,7 +467,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
                 <a href="{{ n.lien }}" onClick="{{ n.onLire }}" target="_blank" rel="noopener noreferrer" style="{{ ligneTacheStyle }};width:100%;min-height:52px;padding:6px 12px;color:var(--color-text);text-decoration:none" style-hover="filter:brightness(.97)">
                   <div style="min-width:0;flex:1">
                     <div style="{{ n.titreStyle }}">{{ n.titre }}</div>
-                    <div style="font-size:10.5px;font-weight:600;color:var(--color-neutral-500);margin-top:3px">{{ n.meta }}</div>
+                    <div style="font-size:8.5px;font-weight:600;color:var(--color-neutral-500);margin-top:3px">{{ n.meta }}</div>
                   </div>
                   <button onClick="{{ n.onMasquer }}" title="{{ n.rondAide }}" aria-label="{{ n.rondAide }}" style="{{ n.rondStyle }}"></button>
                 </a>
@@ -514,11 +515,11 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
             <sc-if value="{{ fiche.historiqueMandatOuvert }}" hint-placeholder-val="{{ false }}">
               <div style="flex:1;min-height:0;overflow-y:auto;padding:2px 6px 8px">
                 <sc-if value="{{ fiche.historiqueMandatVide }}" hint-placeholder-val="{{ false }}">
-                  <div style="font-size:14px;line-height:1.35;color:var(--color-neutral-600)">Aucun historique</div>
+                  <div style="font-size:13px;line-height:1.35;color:var(--color-neutral-600)">Aucun historique</div>
                 </sc-if>
                 <div style="display:flex;flex-direction:column;gap:10px">
                   <sc-for list="{{ fiche.historiqueMandat }}" as="h" hint-placeholder-count="3">
-                    <div style="font-size:14px;line-height:1.35;font-weight:500;color:var(--color-text)">{{ h.texte }}</div>
+                    <div style="font-size:13px;line-height:1.35;font-weight:500;color:var(--color-text)">{{ h.texte }}</div>
                   </sc-for>
                 </div>
               </div>
@@ -564,7 +565,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
                   <sc-if value="{{ i.avecLigne1 }}" hint-placeholder-val="{{ true }}">
                   <div style="{{ i.ligne1Style }}">
                   <sc-if value="{{ i.libelleAvant }}" hint-placeholder-val="{{ false }}">
-                    <span style="flex:none;font-size:14px;font-weight:400;line-height:1.35;color:var(--color-text);white-space:nowrap">{{ i.libelleTexte }}</span>
+                    <span style="flex:none;font-size:13px;font-weight:400;line-height:1.35;color:var(--color-text);white-space:nowrap">{{ i.libelleTexte }}</span>
                   </sc-if>
                   <sc-if value="{{ i.saisie }}" hint-placeholder-val="{{ true }}">
                     <input value="{{ i.valeur }}" onChange="{{ i.onChange }}" readonly="{{ i.lecseule }}" size="{{ i.taille }}" placeholder="{{ i.label }}" aria-label="{{ i.label }}" class="saisie-cle saisie-principale" style="flex:1;min-width:0;text-align:left;{{ i.stylePolice }}">
@@ -572,7 +573,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
                   </div>
                   </sc-if>
                   <sc-if value="{{ i.texteFixe }}" hint-placeholder-val="{{ false }}">
-                    <span style="flex:1;min-width:0;font-size:14px;font-weight:500;line-height:1.35;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left">{{ i.texteFixe }}</span>
+                    <span style="flex:1;min-width:0;font-size:13px;font-weight:500;line-height:1.35;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left">{{ i.texteFixe }}</span>
                   </sc-if>
                   <sc-if value="{{ i.avecDpe }}" hint-placeholder-val="{{ false }}">
                     <span onClick="{{ fiche.infosDpeGes.onCyclerDpe }}" title="DPE — cliquer pour modifier" style="{{ fiche.infosDpeGes.dpeRondStyle }}">{{ fiche.infosDpeGes.dpe }}</span>
@@ -591,8 +592,8 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
                   </sc-if>
                   <sc-if value="{{ i.avecSousLigne }}" hint-placeholder-val="{{ false }}">
                     <div style="grid-column:1;grid-row:2;display:flex;align-items:center;justify-content:flex-start;gap:4px;min-width:0">
-                      <span style="flex:none;font-family:inherit;font-size:11.5px;font-weight:400;letter-spacing:normal;line-height:1.35;display:block;margin:0;font-variant-numeric:normal;color:var(--color-neutral-500);white-space:nowrap">{{ i.sousLigne.libelle }}</span>
-                      <input value="{{ i.sousLigne.valeur }}" onChange="{{ i.sousLigne.onChange }}" aria-label="{{ i.sousLigne.libelle }}" class="saisie-cle saisie-info" style="flex:none;width:{{ i.sousLigneCh }}ch;max-width:100%;min-width:0;margin:0;padding:0;text-align:left;line-height:1.35;font-family:inherit;font-size:11.5px;font-weight:400;letter-spacing:normal;font-variant-numeric:normal;color:var(--color-neutral-500)">
+                      <span style="flex:none;font-family:inherit;font-size:10.5px;font-weight:400;letter-spacing:normal;line-height:1.35;display:block;margin:0;font-variant-numeric:normal;color:var(--color-neutral-500);white-space:nowrap">{{ i.sousLigne.libelle }}</span>
+                      <input value="{{ i.sousLigne.valeur }}" onChange="{{ i.sousLigne.onChange }}" aria-label="{{ i.sousLigne.libelle }}" class="saisie-cle saisie-info" style="flex:none;width:{{ i.sousLigneCh }}ch;max-width:100%;min-width:0;margin:0;padding:0;text-align:left;line-height:1.35;font-family:inherit;font-size:10.5px;font-weight:400;letter-spacing:normal;font-variant-numeric:normal;color:var(--color-neutral-500)">
                     </div>
                   </sc-if>
                 </label>
@@ -603,7 +604,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
             <div style="flex:1;min-height:0;overflow-y:auto;padding:2px 0 6px">
             <div style="height:6px;flex:none"></div>
             <div style="flex:none;height:1px;background:var(--color-divider);margin:0 0 8px"></div>
-            <textarea value="{{ infosFTexte }}" onChange="{{ onInfosF }}" placeholder="Informations complémentaires" spellcheck="false" style="position:relative;z-index:2;display:block;width:100%;box-sizing:border-box;flex:none;height:72px;resize:none;padding:2px 4px;border-radius:0;border:none;background:transparent;color:var(--texte-fort,#000);font-family:inherit;font-size:14px;font-weight:500;line-height:1.35;letter-spacing:normal;outline:none"></textarea>
+            <textarea value="{{ infosFTexte }}" onChange="{{ onInfosF }}" placeholder="Informations complémentaires" spellcheck="false" style="position:relative;z-index:2;display:block;width:100%;box-sizing:border-box;flex:none;height:72px;resize:none;padding:2px 4px;border-radius:0;border:none;background:transparent;color:var(--texte-fort,#000);font-family:inherit;font-size:13px;font-weight:500;line-height:1.35;letter-spacing:normal;outline:none"></textarea>
             </div>
           
             </sc-if>
@@ -657,7 +658,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
             </div>
             <sc-if value="{{ ficheArchivesOuvert }}" hint-placeholder-val="{{ false }}">
               <sc-if value="{{ ficheArchivesVide }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:11.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px;flex:none">Aucune tâche terminée pour ce mandat</div>
+                <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:10.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px;flex:none">Aucune tâche terminée pour ce mandat</div>
               </sc-if>
               <div style="flex:1;overflow-y:auto;min-height:0;display:flex;flex-direction:column;gap:8px">
                 <sc-for list="{{ ficheArchives }}" as="x" hint-placeholder-count="2">
@@ -674,7 +675,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
             </sc-if>
             <sc-if value="{{ !ficheArchivesOuvert }}" hint-placeholder-val="{{ true }}">
             <sc-if value="{{ ficheTachesVide }}" hint-placeholder-val="{{ false }}">
-              <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:11.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px;flex:none">Aucun élément lié à ce mandat</div>
+              <div style="display:flex;align-items:center;justify-content:center;height:52px;font-size:10.5px;color:var(--color-neutral-600);text-align:center;padding:0 12px;flex:none">Aucun élément lié à ce mandat</div>
             </sc-if>
             <div style="flex:1;overflow-y:auto;min-height:0;display:flex;flex-direction:column;gap:8px">
               <sc-for list="{{ ficheTaches }}" as="x" hint-placeholder-count="2">
@@ -709,7 +710,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
 
       <div style="{{ titreBandeauStyle }};flex:none;margin:0 calc(var(--pad-x, 20px) * -1) 14px">
         <h2 class="titre-section" style="min-width:0;overflow:hidden;text-overflow:ellipsis">Fiche PDF</h2>
-        <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11.5px;font-weight:500;color:var(--color-neutral-500)">{{ pdfNom }}</span>
+        <span style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10.5px;font-weight:500;color:var(--color-neutral-500)">{{ pdfNom }}</span>
         <div style="flex:1"></div>
         <a href="{{ pdfSrc }}" target="_blank" rel="noopener" title="Ouvrir dans un onglet" aria-label="Ouvrir dans un onglet" class="btn-icone-20" style="{{ titreRondStyle }};text-decoration:none"><i class="ph ph-arrow-square-out" style="font-size:10px"></i></a>
         <button onClick="{{ fermerPdf }}" title="Fermer" aria-label="Fermer" class="btn-icone-20" style="{{ titreRondStyle }}"><i class="ph ph-x" style="font-size:10px"></i></button>
@@ -717,7 +718,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
 
       <div style="flex:1;min-height:0;overflow:auto;padding:4px 0 6px;display:flex;flex-direction:column;align-items:center;gap:12px">
         <sc-if value="{{ pdfEnCours }}" hint-placeholder-val="{{ false }}">
-          <div style="padding:40px 0;font-size:14px;font-weight:500;color:var(--color-neutral-500)">Rendu des pages…</div>
+          <div style="padding:40px 0;font-size:13px;font-weight:500;color:var(--color-neutral-500)">Rendu des pages…</div>
         </sc-if>
         <sc-for list="{{ pdfPages }}" as="pg" hint-placeholder-count="1">
           <div style="{{ pg.cadreStyle }}">
@@ -755,7 +756,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
               <sc-if value="{{ i.avecLigne1 }}" hint-placeholder-val="{{ true }}">
               <div style="{{ i.ligne1Style }}">
               <sc-if value="{{ i.libelleAvant }}" hint-placeholder-val="{{ false }}">
-                <span style="flex:none;font-size:14px;font-weight:400;line-height:1.35;color:var(--color-text);white-space:nowrap">{{ i.libelleTexte }}</span>
+                <span style="flex:none;font-size:13px;font-weight:400;line-height:1.35;color:var(--color-text);white-space:nowrap">{{ i.libelleTexte }}</span>
               </sc-if>
               <sc-if value="{{ i.saisie }}" hint-placeholder-val="{{ true }}">
                 <input value="{{ i.valeur }}" onChange="{{ i.onChange }}" readonly="{{ i.lecseule }}" size="{{ i.taille }}" placeholder="{{ i.label }}" aria-label="{{ i.label }}" class="saisie-cle saisie-principale" style="flex:1;min-width:0;text-align:left;{{ i.stylePolice }}">
@@ -763,7 +764,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
               </div>
               </sc-if>
               <sc-if value="{{ i.texteFixe }}" hint-placeholder-val="{{ false }}">
-                <span style="flex:1;min-width:0;font-size:14px;font-weight:500;line-height:1.35;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left">{{ i.texteFixe }}</span>
+                <span style="flex:1;min-width:0;font-size:13px;font-weight:500;line-height:1.35;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left">{{ i.texteFixe }}</span>
               </sc-if>
               <sc-if value="{{ i.avecDpe }}" hint-placeholder-val="{{ false }}">
                 <span onClick="{{ nouveau.dpeGes.onCyclerDpe }}" title="DPE — cliquer pour modifier" style="{{ nouveau.dpeGes.dpeRondStyle }}">{{ nouveau.dpeGes.dpe }}</span>
@@ -782,8 +783,8 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
               </sc-if>
               <sc-if value="{{ i.avecSousLigne }}" hint-placeholder-val="{{ false }}">
                 <div style="grid-column:1;grid-row:2;display:flex;align-items:center;justify-content:flex-start;gap:4px;min-width:0">
-                  <span style="flex:none;font-family:inherit;font-size:11.5px;font-weight:400;letter-spacing:normal;line-height:1.35;display:block;margin:0;font-variant-numeric:normal;color:var(--color-neutral-500);white-space:nowrap">{{ i.sousLigne.libelle }}</span>
-                  <input value="{{ i.sousLigne.valeur }}" onChange="{{ i.sousLigne.onChange }}" aria-label="{{ i.sousLigne.libelle }}" class="saisie-cle saisie-info" style="flex:none;width:{{ i.sousLigneCh }}ch;max-width:100%;min-width:0;margin:0;padding:0;text-align:left;line-height:1.35;font-family:inherit;font-size:11.5px;font-weight:400;letter-spacing:normal;font-variant-numeric:normal;color:var(--color-neutral-500)">
+                  <span style="flex:none;font-family:inherit;font-size:10.5px;font-weight:400;letter-spacing:normal;line-height:1.35;display:block;margin:0;font-variant-numeric:normal;color:var(--color-neutral-500);white-space:nowrap">{{ i.sousLigne.libelle }}</span>
+                  <input value="{{ i.sousLigne.valeur }}" onChange="{{ i.sousLigne.onChange }}" aria-label="{{ i.sousLigne.libelle }}" class="saisie-cle saisie-info" style="flex:none;width:{{ i.sousLigneCh }}ch;max-width:100%;min-width:0;margin:0;padding:0;text-align:left;line-height:1.35;font-family:inherit;font-size:10.5px;font-weight:400;letter-spacing:normal;font-variant-numeric:normal;color:var(--color-neutral-500)">
                 </div>
               </sc-if>
             </label>
@@ -807,11 +808,11 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
         </div>
         <div style="max-height:min(340px,calc(100vh - 160px));overflow-y:auto;padding:2px 6px 14px">
           <sc-if value="{{ edition.historiqueVide }}" hint-placeholder-val="{{ false }}">
-            <div style="font-size:14px;line-height:1.35;color:var(--color-neutral-600)">Aucun historique</div>
+            <div style="font-size:13px;line-height:1.35;color:var(--color-neutral-600)">Aucun historique</div>
           </sc-if>
           <div style="display:flex;flex-direction:column;gap:10px">
             <sc-for list="{{ edition.historique }}" as="h" hint-placeholder-count="3">
-              <div style="font-size:14px;line-height:1.35;font-weight:500;color:var(--color-text)">{{ h.texte }}</div>
+              <div style="font-size:13px;line-height:1.35;font-weight:500;color:var(--color-text)">{{ h.texte }}</div>
             </sc-for>
           </div>
         </div>
@@ -829,7 +830,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
 
       <div style="display:flex;flex-direction:column;gap:8px">
         <label style="{{ ligneTacheStyle }};padding-right:12px;cursor:text">
-          <input value="{{ edition.titre }}" onChange="{{ edition.onTitre }}" placeholder="Titre" aria-label="Titre" style="flex:1;min-width:0;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;color:var(--color-text);font-family:inherit;font-size:14px;line-height:1.35;font-weight:500;letter-spacing:normal;outline:none">
+          <input value="{{ edition.titre }}" onChange="{{ edition.onTitre }}" placeholder="Titre" aria-label="Titre" style="flex:1;min-width:0;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;color:var(--color-text);font-family:inherit;font-size:13px;line-height:1.35;font-weight:500;letter-spacing:normal;outline:none">
         </label>
 
         <sc-if value="{{ edition.mandatOuvert }}" hint-placeholder-val="{{ false }}">
@@ -841,7 +842,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
           </sc-if>
           <sc-if value="{{ edition.mandatLibre }}" hint-placeholder-val="{{ true }}">
             <div data-liste-mandat="1" style="{{ ligneTacheStyle }}">
-              <button onClick="{{ edition.onMandatListe }}" title="Mandat associé" aria-label="Mandat associé" style="flex:1;min-width:0;height:18px;padding:0;border:0;background:transparent;text-align:left;cursor:pointer;outline:none;font-family:inherit;font-size:14px;line-height:1.35;font-weight:500;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ edition.mandatTexte }}</button>
+              <button onClick="{{ edition.onMandatListe }}" title="Mandat associé" aria-label="Mandat associé" style="flex:1;min-width:0;height:18px;padding:0;border:0;background:transparent;text-align:left;cursor:pointer;outline:none;font-family:inherit;font-size:13px;line-height:1.35;font-weight:500;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ edition.mandatTexte }}</button>
               <span style="{{ edition.rondRoseStyle }}"><i class="ph ph-house" style="font-size:12px"></i></span>
             </div>
             <sc-if value="{{ edition.mandatListeOuverte }}" hint-placeholder-val="{{ false }}">
@@ -855,24 +856,24 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
         </sc-if>
 
         <label style="{{ ligneTacheStyle }};padding:5px 12px;cursor:text">
-          <textarea ref="{{ edition.refDescription }}" rows="1" value="{{ edition.description }}" onChange="{{ edition.onDescription }}" placeholder="Description" aria-label="Description" style="display:block;flex:1;min-width:0;box-sizing:border-box;height:18px;min-height:18px;resize:none;overflow:hidden;background:transparent;border:none;padding:0;margin:0;color:var(--color-text);font-family:inherit;font-size:14px;line-height:1.35;font-weight:500;letter-spacing:normal;font-variant-numeric:normal;outline:none"></textarea>
+          <textarea ref="{{ edition.refDescription }}" rows="1" value="{{ edition.description }}" onChange="{{ edition.onDescription }}" placeholder="Description" aria-label="Description" style="display:block;flex:1;min-width:0;box-sizing:border-box;height:18px;min-height:18px;resize:none;overflow:hidden;background:transparent;border:none;padding:0;margin:0;color:var(--color-text);font-family:inherit;font-size:13px;line-height:1.35;font-weight:500;letter-spacing:normal;font-variant-numeric:normal;outline:none"></textarea>
         </label>
 
         <div style="{{ ligneTacheStyle }}">
-          <button onClick="{{ edition.onSelecteur }}" title="Échéance" aria-label="Échéance" style="flex:1;min-width:0;height:18px;padding:0;border:0;background:transparent;text-align:left;cursor:pointer;outline:none;font-family:inherit;font-size:14px;line-height:1.35;font-weight:500;color:var(--color-text)">{{ edition.echeanceTexte }}</button>
+          <button onClick="{{ edition.onSelecteur }}" title="Échéance" aria-label="Échéance" style="flex:1;min-width:0;height:18px;padding:0;border:0;background:transparent;text-align:left;cursor:pointer;outline:none;font-family:inherit;font-size:13px;line-height:1.35;font-weight:500;color:var(--color-text)">{{ edition.echeanceTexte }}</button>
           <span title="Échéance" style="{{ edition.echeanceStyle }}">{{ edition.echeanceLabel }}</span>
         </div>
 
         <sc-if value="{{ edition.selecteur.ouvert }}" hint-placeholder-val="{{ false }}">
           <div style="box-sizing:border-box;padding:12px 12px 10px;border-radius:22px;background:var(--surface-module,#e8ecf6);box-shadow:var(--relief)">
             <div style="display:flex;align-items:center;gap:6px;margin:0 2px 8px 6px">
-              <span style="flex:1;font-size:14px;font-weight:600;letter-spacing:-.01em;color:var(--titre)">{{ edition.selecteur.titreMois }}</span>
+              <span style="flex:1;font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--titre)">{{ edition.selecteur.titreMois }}</span>
               <button onClick="{{ edition.selecteur.onPrec }}" title="Mois précédent" aria-label="Mois précédent" class="btn-icone-20" style="width:28px;height:28px;border-radius:50%;background:var(--voile);color:var(--titre)"><i class="ph ph-caret-left" style="font-size:12px"></i></button>
               <button onClick="{{ edition.selecteur.onSuiv }}" title="Mois suivant" aria-label="Mois suivant" class="btn-icone-20" style="width:28px;height:28px;border-radius:50%;background:var(--voile);color:var(--titre)"><i class="ph ph-caret-right" style="font-size:12px"></i></button>
             </div>
             <div style="display:grid;grid-template-columns:repeat(7,1fr);row-gap:2px;text-align:center">
               <sc-for list="{{ edition.selecteur.semaine }}" as="j" hint-placeholder-count="7">
-                <span style="font-size:11.5px;font-weight:600;line-height:22px;color:var(--color-neutral-500)">{{ j.l }}</span>
+                <span style="font-size:10.5px;font-weight:600;line-height:22px;color:var(--color-neutral-500)">{{ j.l }}</span>
               </sc-for>
               <sc-for list="{{ edition.selecteur.jours }}" as="d" hint-placeholder-count="42">
                 <button onClick="{{ d.onClick }}" style="{{ d.style }}">{{ d.label }}</button>
@@ -881,13 +882,13 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
             <sc-if value="{{ edition.selecteur.avecHeure }}" hint-placeholder-val="{{ false }}">
               <div style="height:1px;background:var(--color-divider);margin:10px 4px"></div>
               <div style="display:flex;align-items:center;gap:8px;padding:0 4px">
-                <span style="flex:1;font-size:14px;font-weight:500;color:var(--titre)">Heure</span>
+                <span style="flex:1;font-size:13px;font-weight:500;color:var(--titre)">Heure</span>
                 <div ref="{{ edition.selecteur.refHeures }}" style="height:96px;width:58px;overflow-y:auto;scrollbar-width:none">
                   <sc-for list="{{ edition.selecteur.heures }}" as="h" hint-placeholder-count="24">
                     <button onClick="{{ h.onClick }}" style="{{ h.style }}">{{ h.label }}</button>
                   </sc-for>
                 </div>
-                <span style="font-size:14px;font-weight:600;color:var(--color-neutral-500)">:</span>
+                <span style="font-size:13px;font-weight:600;color:var(--color-neutral-500)">:</span>
                 <div ref="{{ edition.selecteur.refMinutes }}" style="height:96px;width:58px;overflow-y:auto;scrollbar-width:none">
                   <sc-for list="{{ edition.selecteur.minutes }}" as="m" hint-placeholder-count="12">
                     <button onClick="{{ m.onClick }}" style="{{ m.style }}">{{ m.label }}</button>
@@ -933,20 +934,20 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
 
       <div style="display:flex;flex-direction:column;gap:8px">
         <label style="{{ ligneTacheStyle }};padding-right:12px;cursor:text">
-          <input value="{{ visiteEdition.visiteur }}" onChange="{{ visiteEdition.onVisiteur }}" placeholder="Visiteur" aria-label="Visiteur" style="flex:1;min-width:0;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;color:var(--color-text);font-family:inherit;font-size:14px;line-height:1.35;font-weight:500;letter-spacing:normal;outline:none">
+          <input value="{{ visiteEdition.visiteur }}" onChange="{{ visiteEdition.onVisiteur }}" placeholder="Visiteur" aria-label="Visiteur" style="flex:1;min-width:0;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;color:var(--color-text);font-family:inherit;font-size:13px;line-height:1.35;font-weight:500;letter-spacing:normal;outline:none">
         </label>
 
         <label style="{{ ligneTacheStyle }};padding-right:12px;cursor:text">
-          <input type="email" value="{{ visiteEdition.email }}" onChange="{{ visiteEdition.onEmail }}" placeholder="Email" aria-label="Email" style="flex:1;min-width:0;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;color:var(--color-text);font-family:inherit;font-size:14px;line-height:1.35;font-weight:500;letter-spacing:normal;outline:none">
+          <input type="email" value="{{ visiteEdition.email }}" onChange="{{ visiteEdition.onEmail }}" placeholder="Email" aria-label="Email" style="flex:1;min-width:0;box-sizing:border-box;display:block;background:transparent;border:none;padding:0;color:var(--color-text);font-family:inherit;font-size:13px;line-height:1.35;font-weight:500;letter-spacing:normal;outline:none">
         </label>
 
         <div style="{{ ligneTacheStyle }}">
-          <span style="flex:1;min-width:0;font-size:14px;line-height:1.35;font-weight:500;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ visiteEdition.mandatLabel }}</span>
+          <span style="flex:1;min-width:0;font-size:13px;line-height:1.35;font-weight:500;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ visiteEdition.mandatLabel }}</span>
           <span title="Mandat" style="{{ visiteEdition.rondRoseStyle }}"><i class="ph ph-house" style="font-size:12px"></i></span>
         </div>
 
         <label style="{{ ligneTacheStyle }};padding:5px 12px;cursor:text;align-items:flex-start">
-          <textarea value="{{ visiteEdition.note }}" onChange="{{ visiteEdition.onNote }}" placeholder="Notes" aria-label="Notes" rows="3" style="display:block;flex:1;min-width:0;box-sizing:border-box;min-height:54px;resize:vertical;background:transparent;border:none;padding:0;margin:0;color:var(--color-text);font-family:inherit;font-size:14px;line-height:1.35;font-weight:500;letter-spacing:normal;outline:none"></textarea>
+          <textarea value="{{ visiteEdition.note }}" onChange="{{ visiteEdition.onNote }}" placeholder="Notes" aria-label="Notes" rows="3" style="display:block;flex:1;min-width:0;box-sizing:border-box;min-height:54px;resize:vertical;background:transparent;border:none;padding:0;margin:0;color:var(--color-text);font-family:inherit;font-size:13px;line-height:1.35;font-weight:500;letter-spacing:normal;outline:none"></textarea>
         </label>
 
         <div class="visite-quand-form">
@@ -964,13 +965,13 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
         <div style="box-sizing:border-box;padding:12px 12px 10px;border-radius:22px;background:var(--surface-module,#e8ecf6);box-shadow:var(--relief)">
           <sc-if value="{{ visiteEdition.selecteur.avecDate }}" hint-placeholder-val="{{ true }}">
           <div style="display:flex;align-items:center;gap:6px;margin:0 2px 8px 6px">
-            <span style="flex:1;font-size:14px;font-weight:600;letter-spacing:-.01em;color:var(--titre)">{{ visiteEdition.selecteur.titreMois }}</span>
+            <span style="flex:1;font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--titre)">{{ visiteEdition.selecteur.titreMois }}</span>
             <button onClick="{{ visiteEdition.selecteur.onPrec }}" title="Mois précédent" aria-label="Mois précédent" class="btn-icone-20 sel-nav" style="width:28px;height:28px;border-radius:50%;background:var(--voile);color:var(--titre)"><i class="ph ph-caret-left" style="font-size:12px"></i></button>
             <button onClick="{{ visiteEdition.selecteur.onSuiv }}" title="Mois suivant" aria-label="Mois suivant" class="btn-icone-20 sel-nav" style="width:28px;height:28px;border-radius:50%;background:var(--voile);color:var(--titre)"><i class="ph ph-caret-right" style="font-size:12px"></i></button>
           </div>
           <div style="display:grid;grid-template-columns:repeat(7,1fr);row-gap:2px;text-align:center">
             <sc-for list="{{ visiteEdition.selecteur.semaine }}" as="j" hint-placeholder-count="7">
-              <span style="font-size:11.5px;font-weight:600;line-height:22px;color:var(--color-neutral-500)">{{ j.l }}</span>
+              <span style="font-size:10.5px;font-weight:600;line-height:22px;color:var(--color-neutral-500)">{{ j.l }}</span>
             </sc-for>
             <sc-for list="{{ visiteEdition.selecteur.jours }}" as="d" hint-placeholder-count="42">
               <button class="sel-jour" onClick="{{ d.onClick }}" style="{{ d.style }}">{{ d.label }}</button>
@@ -978,13 +979,13 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
           </div>
           </sc-if>
           <sc-if value="{{ visiteEdition.selecteur.avecHeure }}" hint-placeholder-val="{{ false }}">
-            <div style="font-size:12px;font-weight:600;color:var(--color-neutral-500);margin:0 4px 6px">Heure</div>
+            <div style="font-size:11px;font-weight:600;color:var(--color-neutral-500);margin:0 4px 6px">Heure</div>
             <div class="sel-grille sel-heures">
               <sc-for list="{{ visiteEdition.selecteur.heures }}" as="h" hint-placeholder-count="15">
                 <button onClick="{{ h.onClick }}" style="{{ h.style }}">{{ h.label }}h</button>
               </sc-for>
             </div>
-            <div style="font-size:12px;font-weight:600;color:var(--color-neutral-500);margin:12px 4px 6px">Minutes</div>
+            <div style="font-size:11px;font-weight:600;color:var(--color-neutral-500);margin:12px 4px 6px">Minutes</div>
             <div class="sel-grille sel-minutes">
               <sc-for list="{{ visiteEdition.selecteur.minutes }}" as="m" hint-placeholder-count="12">
                 <button onClick="{{ m.onClick }}" style="{{ m.style }}">{{ m.label }}</button>
@@ -1014,15 +1015,15 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
     <div class="theme-sombre" onClick="{{ stop }}" style="width:480px;max-width:calc(100vw - 40px);background:rgba(16,20,32,.86);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);box-shadow:var(--ombre-carte);border:1px solid rgba(255,255,255,.13);border-radius:22px;padding:20px 22px 18px;animation:fadeUp .18s ease both">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
         <i class="ph ph-google-logo" style="font-size:14px;color:#ffffff"></i>
-        <h2 style="margin:0;color:#ffffff;letter-spacing:-.02em;font-size:16px;font-weight:600;text-transform:none">Agenda Google</h2>
+        <h2 style="margin:0;color:#ffffff;letter-spacing:-.02em;font-size:15px;font-weight:600;text-transform:none">Agenda Google</h2>
         <div style="flex:1"></div>
         <button onClick="{{ fermerGcalPanneau }}" title="Fermer" aria-label="Fermer" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid rgba(255,255,255,.2);background:transparent;color:var(--color-neutral-400);border-radius:10px;cursor:pointer"><i class="ph ph-x" style="font-size:12px"></i></button>
       </div>
       <div style="display:flex;flex-direction:column;gap:12px">
-        <div style="font-size:12.5px;color:var(--color-text)">{{ gcalIntro }}</div>
-        <button onClick="{{ onGcalConnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;align-self:flex-start;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.13);color:#ffffff;border-radius:10px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer"><i class="ph ph-google-logo" style="font-size:14px"></i>Se reconnecter avec Google</button>
+        <div style="font-size:11.5px;color:var(--color-text)">{{ gcalIntro }}</div>
+        <button onClick="{{ onGcalConnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;align-self:flex-start;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.13);color:#ffffff;border-radius:10px;padding:9px 14px;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer"><i class="ph ph-google-logo" style="font-size:14px"></i>Se reconnecter avec Google</button>
         <sc-if value="{{ gcalMessageVisible }}" hint-placeholder-val="{{ false }}">
-          <div style="font-size:11.5px;color:#ffd9c2;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4)">{{ gcalMessage }}</div>
+          <div style="font-size:10.5px;color:#ffd9c2;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4)">{{ gcalMessage }}</div>
         </sc-if>
       </div>
     </div>
@@ -1036,7 +1037,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
     <div style="position:absolute;left:50%;bottom:56px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:12px;width:340px;max-width:100%">
       <button onClick="{{ onCompteConnecter }}" aria-label="Se connecter avec Google" title="Se connecter avec Google" class="btn-icone-20" style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;flex:none;padding:0;box-sizing:border-box;border-radius:50%;border:0;background:rgba(120,138,176,.1);color:inherit;cursor:pointer;box-shadow:inset 0 1px 1.5px var(--ombre-creux,rgba(40,60,90,.06))"><i class="ph ph-google-logo" style="font-size:26px"></i></button>
       <sc-if value="{{ compteMessageVisible }}" hint-placeholder-val="{{ false }}">
-        <div style="font-size:11.5px;color:#9a4a12;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4);width:100%;box-sizing:border-box">{{ compteMessage }}</div>
+        <div style="font-size:10.5px;color:#9a4a12;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4);width:100%;box-sizing:border-box">{{ compteMessage }}</div>
       </sc-if>
     </div>
   </div>
@@ -1077,7 +1078,7 @@ const LETTRES_ENERGIE = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 const cercleEnergie = (l, ech) => {
   const bg = ech[String(l || '').toUpperCase()];
   const fond = bg || 'rgba(120,138,176,.1)';
-  return `display:flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;box-sizing:border-box;border-radius:50%;border:0;padding:0;font-size:12.5px;font-weight:400;line-height:1;cursor:pointer;outline:none;background:${fond};color:${bg ? (CLAIR_ENERGIE.includes(bg) ? `color-mix(in srgb, ${bg} 38%, #0b1220)` : `color-mix(in srgb, ${bg} 30%, #ffffff)`) : 'var(--color-neutral-500)'};box-shadow:inset 0 1px 1.5px var(--ombre-creux,rgba(40,60,90,.12)), 0 1px 2px var(--ombre-legere,rgba(60,80,120,.14))`;
+  return `display:flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;box-sizing:border-box;border-radius:50%;border:0;padding:0;font-size:11.5px;font-weight:400;line-height:1;cursor:pointer;outline:none;background:${fond};color:${bg ? (CLAIR_ENERGIE.includes(bg) ? `color-mix(in srgb, ${bg} 38%, #0b1220)` : `color-mix(in srgb, ${bg} 30%, #ffffff)`) : 'var(--color-neutral-500)'};box-shadow:inset 0 1px 1.5px var(--ombre-creux,rgba(40,60,90,.12)), 0 1px 2px var(--ombre-legere,rgba(60,80,120,.14))`;
 };
 const cyclerLettreEnergie = l => {
   const i = LETTRES_ENERGIE.indexOf(String(l || '').toUpperCase());
@@ -1173,7 +1174,7 @@ const joursMandat = m => {
   return {
     joursLabel: label,
     joursAide: n === 0 ? 'Mandat créé aujourd’hui' : `Mandat créé il y a ${n} jour${n > 1 ? 's' : ''}`,
-    joursStyle: `${base}${rondCouleur(t.bg, t.bd, t.fg)};font-size:${label.length > 4 ? 9 : 10.5}px`
+    joursStyle: `${base}${rondCouleur(t.bg, t.bd, t.fg)};font-size:${label.length > 4 ? 8 : 9.5}px`
   };
 };
 
@@ -1279,7 +1280,7 @@ const CLE_ACTUS_RESTAUREES = 'agentimmo.actusrestaurees.v1';
 const MIN_LARGEUR_WIDGET = { yanport: 206, missions: 300 };
 const STYLE_LIGNE_TACHE = 'box-sizing:border-box;border:5px solid var(--surface-module,#e8ecf6);border-radius:19px;background:var(--surface-module,#e8ecf6);box-shadow:0 7px 11px -6px var(--ombre-forte,rgba(110,124,152,.42)), 0 -3px 6px -3px var(--reflet-fort,rgba(255,255,255,.7))';
 // Police commune à tous les cercles (numéro, délai, pastille « 7/15 »)
-const FONTE_ROND = 'font-family:Inter,system-ui,sans-serif;font-size:10.5px;font-weight:600;letter-spacing:0;line-height:1;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased';
+const FONTE_ROND = 'font-family:Inter,system-ui,sans-serif;font-size:9.5px;font-weight:600;letter-spacing:0;line-height:1;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased';
 // Palettes des cercles colorés (fond, teinte, texte) : une seule définition pour tout le site.
 const PAL = {
   vert: ['#eef8f2', '#9fd3b4', '#2f7a52'], bleu: ['#e2ecf8', '#a9c4e8', '#2b5c98'], jaune: ['#fdf6dc', '#ecd27a', '#8a6a0a'],
@@ -1589,7 +1590,7 @@ function ligneGuideStyle(g) {
 }
 // Police d'une adresse : taille normale, puis réduite d'un cran à chaque seuil de longueur dépassé (échelle typographique
 // 14 / 12,5 / 11,5 / 10,5) pour que l'adresse tienne dans sa case sans être coupée trop tôt.
-function policeAdresse(adresse, tailles = [14, 12.5, 11.5, 10.5], s1 = 21, s2 = 27, s3 = 33) {
+function policeAdresse(adresse, tailles = [13, 11.5, 10.5, 9.5], s1 = 21, s2 = 27, s3 = 33) {
   const n = String(adresse || '').length;
   const t = n > s3 ? tailles[3] : n > s2 ? tailles[2] : n > s1 ? tailles[1] : null;
   return t ? `font-size:${t}px` : '';
@@ -1606,7 +1607,7 @@ function construireRangeesTete(tousInfos, opts = {}) {
       const sous = i.sousLigne ? (String(i.sousLigne.libelle || '').length + 1 + String(i.sousLigne.valeur || '').length) * 6.2 + 4 : 0;
       return Math.ceil(Math.max(principal, sous)) + 12 + 6 + 28 + 10;
     };
-    const segment = (i, k, n, egales, largeurCol) => { const stylePolice = i.maison ? policeAdresse(i.valeur) : ''; const largeurPx = !egales && k === 0 ? largeurCol : 0; return ({ ...i, segmentTeteStyle: `position:relative;${i.sousLigne ? 'display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;align-content:center;row-gap:2px;column-gap:6px' : 'display:flex;align-items:center;gap:6px'};box-sizing:border-box;height:38px;margin:-5px ${k === n - 1 ? -5 : 0}px -5px ${k === 0 ? -5 : 0}px;padding:0 ${k === n - 1 ? 6 : i.sousLigne ? 2 : 5}px 0 12px;cursor:${i.onClick ? 'pointer' : 'text'};align-self:flex-start;min-width:0;flex:1 1 0${k === 0 && largeurPx ? `;min-width:${largeurPx}px;max-width:54%` : ''}`,  stylePolice, sousLigneCh: i.sousLigne ? Math.max(2, String(i.sousLigne.valeur || '').length + 1) : 0, maisonStyleI: `${i.sousLigne ? 'grid-column:2;grid-row:1 / span 2;align-self:center;margin:-2px 3px -2px 0;' : ''}display:flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;${grisInfo}`, iconePrixStyleI: `${i.sousLigne ? 'grid-column:2;grid-row:1 / span 2;align-self:center;margin:-2px 3px -2px 0;' : ''}display:flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;${grisInfo}`, saisie: !i.texteFixe && !i.vide, avecLigne1: !!i.libelleAvant || (!i.texteFixe && !i.vide), ligne1Style: i.sousLigne ? 'grid-column:1;grid-row:1;display:flex;align-items:center;justify-content:flex-start;gap:4px;min-width:0' : 'display:contents', pastilleStyle: i.pastille ? `${i.sousLigne ? 'grid-column:2;grid-row:1 / span 2;align-self:center;' : ''}display:flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;${grisInfo};font-size:${String(i.pastille.valeur).length > 4 ? 8.3 : String(i.pastille.valeur).length > 3 ? 9 : 10.5}px;${i.sousLigne ? 'margin:-2px 3px -2px 0' : ''}` : '', taille: Math.max(6, String(i.valeur || i.label || '').length + 1), sousLigne: i.sousLigne || null, avecSousLigne: !!i.sousLigne, libelleAvant: !!i.libelleAvant, libelleTexte: i.libelleAvant ? i.label + ' :' : i.label, avecDpe: !!i.avecDpe, avecGes: !!i.avecGes, avecMaison: !!i.maison, avecIconePrix: !!i.iconePrix, avecPastille: !!i.pastille, pastilleValeur: i.pastille ? i.pastille.valeur : '', onPastille: i.pastille ? i.pastille.onChange : null }); };
+    const segment = (i, k, n, egales, largeurCol) => { const stylePolice = i.maison ? policeAdresse(i.valeur) : ''; const largeurPx = !egales && k === 0 ? largeurCol : 0; return ({ ...i, segmentTeteStyle: `position:relative;${i.sousLigne ? 'display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;align-content:center;row-gap:2px;column-gap:6px' : 'display:flex;align-items:center;gap:6px'};box-sizing:border-box;height:38px;margin:-5px ${k === n - 1 ? -5 : 0}px -5px ${k === 0 ? -5 : 0}px;padding:0 ${k === n - 1 ? 6 : i.sousLigne ? 2 : 5}px 0 12px;cursor:${i.onClick ? 'pointer' : 'text'};align-self:flex-start;min-width:0;flex:1 1 0${k === 0 && largeurPx ? `;min-width:${largeurPx}px;max-width:54%` : ''}`,  stylePolice, sousLigneCh: i.sousLigne ? Math.max(2, String(i.sousLigne.valeur || '').length + 1) : 0, maisonStyleI: `${i.sousLigne ? 'grid-column:2;grid-row:1 / span 2;align-self:center;margin:-2px 3px -2px 0;' : ''}display:flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;${grisInfo}`, iconePrixStyleI: `${i.sousLigne ? 'grid-column:2;grid-row:1 / span 2;align-self:center;margin:-2px 3px -2px 0;' : ''}display:flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;${grisInfo}`, saisie: !i.texteFixe && !i.vide, avecLigne1: !!i.libelleAvant || (!i.texteFixe && !i.vide), ligne1Style: i.sousLigne ? 'grid-column:1;grid-row:1;display:flex;align-items:center;justify-content:flex-start;gap:4px;min-width:0' : 'display:contents', pastilleStyle: i.pastille ? `${i.sousLigne ? 'grid-column:2;grid-row:1 / span 2;align-self:center;' : ''}display:flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;${grisInfo};font-size:${String(i.pastille.valeur).length > 4 ? 8 : String(i.pastille.valeur).length > 3 ? 8 : 9.5}px;${i.sousLigne ? 'margin:-2px 3px -2px 0' : ''}` : '', taille: Math.max(6, String(i.valeur || i.label || '').length + 1), sousLigne: i.sousLigne || null, avecSousLigne: !!i.sousLigne, libelleAvant: !!i.libelleAvant, libelleTexte: i.libelleAvant ? i.label + ' :' : i.label, avecDpe: !!i.avecDpe, avecGes: !!i.avecGes, avecMaison: !!i.maison, avecIconePrix: !!i.iconePrix, avecPastille: !!i.pastille, pastilleValeur: i.pastille ? i.pastille.valeur : '', onPastille: i.pastille ? i.pastille.onChange : null }); };
     const rang = groupe => tousInfos.filter(i => i.groupe === groupe).sort((a, b) => a.ordre - b.ordre);
     // Chaque rangée compte 4 parties de largeur égale (une partie vide complète la dernière rangée).
     const r1 = rang('principal'), r2 = rang('rangee2');
@@ -2096,7 +2097,7 @@ class Component extends DCLogic {
       jours.push({
         label: String(d.getDate()),
         onClick: () => this._choisirJourSelecteur(cible, id),
-        style: `display:block;height:30px;width:30px;margin:0 auto;padding:0;cursor:pointer;outline:none;${choisi ? rondCouleur(...PAL.bleu) + ';font-size:14px;font-weight:600' : `border:0;border-radius:50%;font-family:inherit;font-size:14px;font-weight:${aujourdhui ? 600 : 500};font-variant-numeric:tabular-nums;background:${aujourdhui ? 'var(--voile-hover)' : 'transparent'};color:${horsMois ? 'var(--color-neutral-600)' : 'var(--titre)'}`};transition:background-color .18s ease`
+        style: `display:block;height:30px;width:30px;margin:0 auto;padding:0;cursor:pointer;outline:none;${choisi ? rondCouleur(...PAL.bleu) + ';font-size:13px;font-weight:600' : `border:0;border-radius:50%;font-family:inherit;font-size:13px;font-weight:${aujourdhui ? 600 : 500};font-variant-numeric:tabular-nums;background:${aujourdhui ? 'var(--voile-hover)' : 'transparent'};color:${horsMois ? 'var(--color-neutral-600)' : 'var(--titre)'}`};transition:background-color .18s ease`
       });
     }
     const titre = new Date(Y, M - 1, 1).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
@@ -2105,7 +2106,7 @@ class Component extends DCLogic {
       items: valeurs.map(v => ({
         label: pad(v),
         onClick: () => choisir(v),
-        style: `height:34px;width:100%;padding:0;cursor:pointer;outline:none;font-variant-numeric:tabular-nums;transition:background-color .18s ease;${v === courant ? rondCouleur(...PAL.bleu) + ';border-radius:17px;font-size:14px;font-weight:600' : 'border:0;border-radius:17px;font-family:inherit;font-size:14px;font-weight:500;background:var(--voile);color:var(--titre)'}`
+        style: `height:34px;width:100%;padding:0;cursor:pointer;outline:none;font-variant-numeric:tabular-nums;transition:background-color .18s ease;${v === courant ? rondCouleur(...PAL.bleu) + ';border-radius:17px;font-size:13px;font-weight:600' : 'border:0;border-radius:17px;font-family:inherit;font-size:13px;font-weight:500;background:var(--voile);color:var(--titre)'}`
       })),
       ref: () => {}
     });
@@ -2870,6 +2871,7 @@ class Component extends DCLogic {
 
   // Largeur/hauteur réellement affichées d'un widget du dashboard (largeurs minimales imposées, Cold call au moins 160 px de haut).
   saisirWidget(id, ev, mode) {
+    if (!this.state.dispoOuverte) return; // déplacement/redimensionnement uniquement en mode édition de la disposition
     this._saisir({
       libre: 'libre', bouge: 'bougeId', guides: 'guidesL', echelle: '_echelle', largeurMin: 170,
       effectif: (k, r) => ({ ...r, w: Math.max(r.w, MIN_LARGEUR_WIDGET[k] || 0), h: k === 'yanport' ? Math.max(r.h, 160) : r.h })
@@ -2882,6 +2884,7 @@ class Component extends DCLogic {
   }
 
   saisirWidgetF(id, ev, mode) {
+    if (!this.state.dispoOuverte) return; // déplacement/redimensionnement uniquement en mode édition de la disposition
     this._saisir({ libre: 'libreF', bouge: 'bougeIdF', guides: 'guidesLF', echelle: '_echelleF', largeurMin: 190 }, id, ev, mode);
   }
 
@@ -3028,23 +3031,25 @@ class Component extends DCLogic {
     const occupe = t.etat === 'locate' || t.etat === 'calc';
     const ok = t.etat === 'ok' && t.adresse === adresse;
     const erreur = t.etat === 'erreur' && t.adresse === adresse;
-    const taille = txt => (txt.length > 5 ? 10.5 : txt.length > 4 ? 11.5 : txt.length > 3 ? 12.5 : 14);
+    const taille = txt => (txt.length > 5 ? 9.5 : txt.length > 4 ? 10.5 : txt.length > 3 ? 11.5 : 13);
     const rond = (couleurs, txt, cliquable) => `display:inline-flex;align-items:center;justify-content:center;flex:none;width:38px;height:38px;font-weight:600;white-space:nowrap;font-size:${taille(txt)}px;cursor:${cliquable ? 'pointer' : 'default'};${rondCouleur(...couleurs)}`;
     const { bleu: BLEU, vert: VERT, rouge: ROUGE } = PAL;
     // « dans 42 min » -> « 42 min » ; texte trop long (date, « en cours »…) -> icône, le texte complet reste en info-bulle.
     const court = String(dans).replace(/^dans\s+/, '');
     const delaiTexte = court.length <= 6 && /\d/.test(court) ? court : '';
     const cercles = [{ texte: delaiTexte, icone: delaiTexte ? '' : 'ph ph-calendar-blank', aide: dans, style: rond(BLEU, delaiTexte, false), onClick: null }];
-    if (adresse) {
+    {
+      // Toujours affichés : sans adresse (ni lieu dans l'agenda, ni mandat cité dans le titre), les cercles sont grisés et l'info-bulle l'explique.
+      const sansAdresse = !adresse;
       const calcul = () => { if (!occupe) this.calculerTrajet(); };
       const dureeTexte = ok ? duree(t.min) : '';
       const kmTexte = ok ? `${t.km.toFixed(1).replace('.', ',')} km` : '';
       cercles.push(
         { texte: dureeTexte, icone: ok ? '' : occupe ? 'ph ph-circle-notch' : erreur ? 'ph ph-warning' : 'ph ph-navigation-arrow',
-          aide: ok ? `Trajet en voiture jusqu'à ${adresse} — cliquer pour recalculer` : erreur ? t.message : occupe ? 'Calcul du trajet…' : 'Calculer le trajet depuis ma position',
-          style: rond(erreur ? ROUGE : BLEU, dureeTexte, true), onClick: calcul },
-        { texte: kmTexte, icone: ok ? '' : 'ph ph-map-pin', aide: ok ? `Distance : ${kmTexte}` : 'Distance jusqu\'au rendez-vous',
-          style: rond(VERT, kmTexte, true), onClick: calcul }
+          aide: sansAdresse ? 'Aucune adresse pour ce rendez-vous : renseignez le lieu dans l’agenda ou citez l’adresse d’un mandat dans le titre' : ok ? `Trajet en voiture jusqu'à ${adresse} — cliquer pour recalculer` : erreur ? t.message : occupe ? 'Calcul du trajet…' : 'Calculer le trajet depuis ma position',
+          style: rond(sansAdresse ? PAL.gris : erreur ? ROUGE : BLEU, dureeTexte, !sansAdresse), onClick: sansAdresse ? null : calcul },
+        { texte: kmTexte, icone: ok ? '' : 'ph ph-map-pin', aide: sansAdresse ? 'Aucune adresse pour ce rendez-vous' : ok ? `Distance : ${kmTexte}` : 'Distance jusqu\'au rendez-vous',
+          style: rond(sansAdresse ? PAL.gris : VERT, kmTexte, !sansAdresse), onClick: sansAdresse ? null : calcul }
       );
     }
     return cercles.map(c => ({ ...c, avecIcone: !!c.icone }));
@@ -3082,6 +3087,15 @@ class Component extends DCLogic {
       let autorise = false;
       try { autorise = localStorage.getItem(CLE_TRAJET) === '1'; } catch (e) {}
       if (autorise) this.calculerTrajet();
+      else if (!this._verifGeo && navigator.permissions && navigator.permissions.query) {
+        // Localisation déjà accordée à ce site (drapeau local absent, ex. autre adresse ou stockage vidé) : calcul automatique aussi.
+        this._verifGeo = true;
+        navigator.permissions.query({ name: 'geolocation' }).then(r => {
+          this._verifGeo = false;
+          const t2 = this.state.trajet || {};
+          if (r.state === 'granted' && this.state.vue === 'dash' && this._adresseRdv && (t2.etat === 'idle' || t2.etat === 'ok') && t2.adresse !== this._adresseRdv) this.calculerTrajet();
+        }).catch(() => { this._verifGeo = false; });
+      }
     }
     if (this.state.vue === 'fiche' && this.state.mandatId && (!prevEtat || prevEtat.vue !== 'fiche' || prevEtat.mandatId !== this.state.mandatId || prevEtat.fichiers !== this.state.fichiers)) this._completerPhotos(this.state.mandatId);
   }
@@ -3281,7 +3295,7 @@ class Component extends DCLogic {
         // (Priorités du jour) : trop d'informations secondaires dans la liste.
         mandatVisible: false,
         mandatLabel: m.adresse,
-        mandatStyle: 'display:block;width:100%;margin-top:4px;font-size:10.5px;font-weight:600;color:var(--color-neutral-400);cursor:default;background:none;border:0;padding:0;font-family:inherit;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis',
+        mandatStyle: 'display:block;width:100%;margin-top:4px;font-size:9.5px;font-weight:600;color:var(--color-neutral-400);cursor:default;background:none;border:0;padding:0;font-family:inherit;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis',
         onMandatOuvrir: ev => { ev.stopPropagation(); ev.preventDefault(); }
       };
     };
@@ -3324,7 +3338,7 @@ class Component extends DCLogic {
         onDragEnd: () => this.setState({ glissePriorite: null, surZone: null }),
         rowStyle: `display:flex;align-items:flex-start;gap:10px;padding:${num ? '0' : '0 0 0 12px'};${STYLE_LIGNE_TACHE};opacity:${this.state.glissePriorite === p.id ? .35 : 1};transition:all ${anim ? '.18s' : '0s'} ease`,
         numStyle: `flex:none;width:28px;height:28px;${rondCouleur(...PAL.bleu)};display:flex;align-items:center;justify-content:center`,
-        titreStyle: `font-size:14px;line-height:1.35;overflow-wrap:anywhere;${num ? 'font-weight:500;' : ''}${p.coche ? 'color:var(--color-neutral-500);' : ''}`,
+        titreStyle: `font-size:13px;line-height:1.35;overflow-wrap:anywhere;${num ? 'font-weight:500;' : ''}${p.coche ? 'color:var(--color-neutral-500);' : ''}`,
         tag: p.tag,
               };
     };
@@ -3358,7 +3372,7 @@ class Component extends DCLogic {
         rowStyle: `display:flex;align-items:center;gap:10px;height:38px;padding:0 0 0 12px;${STYLE_LIGNE_TACHE};cursor:pointer;opacity:${this.state.glisseMandat === m.id ? .35 : 1};transition:all ${anim ? '.18s' : '0s'} ease`,
         // Compteur de jours depuis la création (même cercle que le compteur du Cold call).
         ...joursMandat(m),
-        statutStyle: `font-size:10.5px;padding:2px 9px;border-radius:19px;display:inline-block;line-height:1.2;background:${c[1]};color:${c[0]}`
+        statutStyle: `font-size:9.5px;padding:2px 9px;border-radius:19px;display:inline-block;line-height:1.2;background:${c[1]};color:${c[0]}`
       };
     };
     // Widget "Mandats" de la page principale : ne montre que les mandats en
@@ -3384,7 +3398,7 @@ class Component extends DCLogic {
       return {
         ...base,
         rowStyle: `display:flex;align-items:center;gap:10px;height:38px;padding:0 0 0 12px;${STYLE_LIGNE_TACHE};transition:all ${anim ? '.18s' : '0s'} ease`,
-        titreStyle: 'font-size:14px;font-weight:500;line-height:1.2;color:var(--color-neutral-400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis',
+        titreStyle: 'font-size:13px;font-weight:500;line-height:1.2;color:var(--color-neutral-400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis',
         prixCommissionFmt: `${base.prixFmt} - ${EUR(Math.round((x.prix || 0) * (x.commission || 0) / 100))}`,
         statutAide: gagne ? 'Vendu' : 'Perdu',
         statutRondStyle: rondSansContour
@@ -3455,9 +3469,9 @@ class Component extends DCLogic {
           // Texte du statut à gauche (noir, graisse normale) ; la gorge de la barre, qui contient le remplissage,
           // ne commence qu'après lui. Même mise en page pour tous les statuts.
           pisteStyle: 'position:relative;flex:1;min-width:0;height:28px;display:flex;align-items:center;gap:0',
-          libelleStyle: 'position:static;flex:none;padding:0 12px 0 14px;font-size:14px;font-weight:400;letter-spacing:-.01em;color:var(--texte-fort,#000000);pointer-events:none;white-space:nowrap',
+          libelleStyle: 'position:static;flex:none;padding:0 12px 0 14px;font-size:13px;font-weight:400;letter-spacing:-.01em;color:var(--texte-fort,#000000);pointer-events:none;white-space:nowrap',
           gorgeStyle: `flex:1;min-width:0;${barreAvancement(0, 0).pisteStyle.replace('position:relative;flex:1;min-width:0;', '')}`,
-          pastilleStyle: `flex:none;width:28px;height:28px;display:flex;align-items:center;justify-content:center;${perdu ? rondCouleur(...PAL.rouge) : rondCouleur(...(PAL.vert))};font-size:10.5px;white-space:nowrap`
+          pastilleStyle: `flex:none;width:28px;height:28px;display:flex;align-items:center;justify-content:center;${perdu ? rondCouleur(...PAL.rouge) : rondCouleur(...(PAL.vert))};font-size:9.5px;white-space:nowrap`
         };
       })(),
       statutLabel: LABELS_MANDAT[m.avancement || 'rentre'] || 'Rentré',
@@ -3539,6 +3553,7 @@ class Component extends DCLogic {
           // Gorge des barres : creusée dans le module (bleu nuit), avec un liseré clair ; le remplissage garde le vert du site (comme le jour).
           '--gorge-fond:linear-gradient(180deg,#34446b 0%,#3a4b75 45%,#41527c 100%)', '--gorge-creux:rgba(10,16,38,.6)',
           '--barre-lueur:rgba(220,255,235,.3)', '--barre-creux:rgba(12,60,36,.5)', '--barre-creux2:rgba(12,60,36,.32)',
+          '--couleur-placeholder:rgba(255,255,255,.7)',
           '--lisere-clair:rgba(255,255,255,.22)'
         ] : []),
         dense === 'Compact' ? '--pad:12px 14px 10px;--pad-t:12px;--pad-x:14px' : '--pad:18px 20px 16px;--pad-t:18px;--pad-x:20px'
@@ -3587,7 +3602,7 @@ class Component extends DCLogic {
       })(),
       // Repères d'aide au placement, affichés uniquement pendant un glisser : deux axes pointillés (vertical et
       // horizontal) marquent le centre de l'écran, et des lignes s'ajoutent quand un bord ou un centre s'aligne.
-      guidesActifs: !compact && !!this.state.bougeId,
+      guidesActifs: !compact && (!!this.state.dispoOuverte || !!this.state.bougeId),
       // Google Maps : itinéraire depuis la position actuelle (origine laissée vide) jusqu'à l'adresse du prochain rendez-vous.
       rdvMaps: {
         visible: !!this._adresseRdv,
@@ -3620,7 +3635,7 @@ class Component extends DCLogic {
           sale,
           onToggle: () => this.setState(s => ({ dispoOuverte: !s.dispoOuverte })),
           onFermer: () => this.setState({ dispoOuverte: false }),
-          boutonStyle: `display:flex;position:relative;align-items:center;justify-content:center;width:38px;height:38px;padding:0;cursor:pointer;outline:none;font-size:14px;${rondCouleur(...PAL.gris)}`,
+          boutonStyle: `display:flex;position:relative;align-items:center;justify-content:center;width:38px;height:38px;padding:0;cursor:pointer;outline:none;font-size:13px;${rondCouleur(...(this.state.dispoOuverte ? PAL.bleu : PAL.gris))}`,
           cadreStyle: `${barreAvancement(0, 0).cadreStyle.replace('margin:0 0 16px', 'margin:0').replace('gap:6px', 'flex-direction:column;align-items:center;gap:10px')};position:absolute;top:46px;right:0;width:max-content`,
           boutons: [
             { avecIcone: true, texte: '', aide: !sel ? 'Choisissez d’abord un modèle (1, 2 ou 3)' : `Enregistrer la disposition actuelle dans le modèle ${sel}`, style: rond(GRIS, peutEnregistrer), onClick: () => this.enregistrerModele() },
@@ -3652,10 +3667,10 @@ class Component extends DCLogic {
             ? `${surface};position:absolute;left:${pos.x}px;top:${pos.y}px;width:${pos.w}px;height:${pos.h}px;overflow:auto;z-index:${bouge ? 20 : 1};transition:${bouge ? 'none' : 'left .18s ease,top .18s ease,width .18s ease,height .18s ease'}`
             : (compact ? `${surface};position:relative;width:100%;order:-1` : `${surface};position:relative;min-height:150px`),
           onMove: e => this.saisirWidget('salut', e, 'move'),
-          onZone: e => { if (this._zoneDeplacable(e)) this.saisirWidget('salut', e, 'move'); },
+          onZone: e => { if (this.state.dispoOuverte && this._zoneDeplacable(e)) this.saisirWidget('salut', e, 'move'); },
           onResize: e => this.saisirWidget('salut', e, 'size'),
-          handleStyle: compact ? 'display:none' : `position:absolute;top:0;left:0;right:0;height:46px;border-radius:24px 24px 0 0;background:transparent;cursor:${bouge ? 'grabbing' : 'grab'};touch-action:none;z-index:1`,
-          cornerStyle: compact ? 'display:none' : POIGNEE_REDIM
+          handleStyle: compact || !this.state.dispoOuverte ? 'display:none' : `position:absolute;top:0;left:0;right:0;height:46px;border-radius:24px 24px 0 0;background:transparent;cursor:${bouge ? 'grabbing' : 'grab'};touch-action:none;z-index:1`,
+          cornerStyle: compact || !this.state.dispoOuverte ? 'display:none' : POIGNEE_REDIM
         };
       })(),
       salutation: this.salut,
@@ -3683,9 +3698,9 @@ class Component extends DCLogic {
             ].join(';'),
             onResize: e => this.saisirWidget(id, e, 'size'),
             onMove: e => this.saisirWidget(id, e, 'move'),
-            onZone: e => { if (this._zoneDeplacable(e)) this.saisirWidget(id, e, 'move'); },
-            handleStyle: compact ? 'display:none' : `position:absolute;top:0;left:0;right:0;height:46px;border-radius:24px 24px 0 0;background:transparent;cursor:${bouge ? 'grabbing' : 'grab'};touch-action:none;z-index:1`,
-            cornerStyle: compact ? 'display:none' : POIGNEE_REDIM
+            onZone: e => { if (this.state.dispoOuverte && this._zoneDeplacable(e)) this.saisirWidget(id, e, 'move'); },
+            handleStyle: compact || !this.state.dispoOuverte ? 'display:none' : `position:absolute;top:0;left:0;right:0;height:46px;border-radius:24px 24px 0 0;background:transparent;cursor:${bouge ? 'grabbing' : 'grab'};touch-action:none;z-index:1`,
+            cornerStyle: compact || !this.state.dispoOuverte ? 'display:none' : POIGNEE_REDIM
           };
         }
         return sortie;
@@ -3725,12 +3740,12 @@ class Component extends DCLogic {
           const suivanteV = LABELS_VISITE[ETAPES_VISITE[(iEtapeV + 1) % ETAPES_VISITE.length]];
           return {
             titre: [v.visiteur || 'Visite', v.heure ? v.heure : ''].filter(Boolean).join(' · '),
-            titreStyle: `font-size:14px;line-height:1.35;overflow-wrap:anywhere;cursor:pointer`,
+            titreStyle: `font-size:13px;line-height:1.35;overflow-wrap:anywhere;cursor:pointer`,
             // Ligne strictement identique à celle d'une tâche (même style, même hauteur de 38 px, mêmes marges).
             rowStyle: `display:flex;align-items:flex-start;gap:10px;padding:0 0 0 12px;${STYLE_LIGNE_TACHE};opacity:${this.state.glisseVisite === v.id ? .35 : 1};transition:all ${anim ? '.18s' : '0s'} ease`,
             mandatVisible: !!m2 && !this.state.mandatId,
             mandatLabel: m2 ? m2.adresse : '',
-            mandatStyle: 'display:block;width:100%;margin-top:4px;font-size:10.5px;font-weight:600;color:var(--color-neutral-400);cursor:default;background:none;border:0;padding:0;font-family:inherit;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis',
+            mandatStyle: 'display:block;width:100%;margin-top:4px;font-size:9.5px;font-weight:600;color:var(--color-neutral-400);cursor:default;background:none;border:0;padding:0;font-family:inherit;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis',
             onMandatOuvrir: ev => { ev.stopPropagation(); ev.preventDefault(); },
             onEdit: () => this.ouvrirVisite(v),
             onKeyDown: activationClavier(() => this.ouvrirVisite(v)),
@@ -3776,7 +3791,7 @@ class Component extends DCLogic {
           return {
             titre: p.titre,
             rowStyle: cadre,
-            titreStyle: `font-size:14px;line-height:1.35;${fait ? 'color:var(--color-neutral-500)' : ''}`,
+            titreStyle: `font-size:13px;line-height:1.35;${fait ? 'color:var(--color-neutral-500)' : ''}`,
             ...(fait ? { echeanceLabel: '', echeanceStyle: 'display:none' } : ech(p.echeance)),
             terminerAide: p.statut === 'done' ? 'Rouvrir' : p.coche ? 'Envoyer dans les tâches terminées' : 'Cocher',
             terminerIcone: '',
@@ -3819,7 +3834,7 @@ class Component extends DCLogic {
           canvasFStyle: compact
             ? 'display:flex;flex-direction:column;gap:12px;min-width:0;width:100%'
             : `position:relative;width:${dispoL}px;height:${CADRE_HAUTEUR}px;transform:scale(${kF});transform-origin:top center;margin-bottom:${Math.round(CADRE_HAUTEUR * (kF - 1))}px`,
-          guidesActifsF: !compact && !!this.state.bougeIdF,
+          guidesActifsF: !compact && (!!this.state.dispoOuverte || !!this.state.bougeIdF),
           axeVerticalStyleF: `position:absolute;left:${Math.round(dispoL / 2)}px;top:0;width:0;height:${CADRE_HAUTEUR}px;border-left:${(this.state.guidesLF || []).some(g => g.axe && g.o === 'v') ? '1px solid rgba(43,92,152,.9)' : '1px dashed rgba(29,78,216,.5)'};pointer-events:none;z-index:6`,
           axeHorizontalStyleF: `position:absolute;left:0;top:${this._centreEcranY()}px;width:${dispoL}px;height:0;border-top:${(this.state.guidesLF || []).some(g => g.axe && g.o === 'h') ? '1px solid rgba(43,92,152,.9)' : '1px dashed rgba(29,78,216,.5)'};pointer-events:none;z-index:6`,
           lignesGuidesF: (!compact && this.state.bougeIdF ? (this.state.guidesLF || []).filter(g => !g.axe) : []).map(g => ({ style: ligneGuideStyle(g) }))
@@ -3837,10 +3852,10 @@ class Component extends DCLogic {
               'padding:var(--pad,18px 20px 16px)'
             ].filter(Boolean).join(';'),
             onMove: e => this.saisirWidgetF(id, e, 'move'),
-            onZone: e => { if (this._zoneDeplacable(e)) this.saisirWidgetF(id, e, 'move'); },
+            onZone: e => { if (this.state.dispoOuverte && this._zoneDeplacable(e)) this.saisirWidgetF(id, e, 'move'); },
             onResize: e => this.saisirWidgetF(id, e, 'size'),
-            handleStyle: compact ? 'display:none' : `position:absolute;top:0;left:0;right:0;height:40px;border-radius:24px 24px 0 0;background:transparent;cursor:${bouge ? 'grabbing' : 'grab'};touch-action:none;z-index:1`,
-            cornerStyle: compact ? 'display:none' : POIGNEE_REDIM
+            handleStyle: compact || !this.state.dispoOuverte ? 'display:none' : `position:absolute;top:0;left:0;right:0;height:40px;border-radius:24px 24px 0 0;background:transparent;cursor:${bouge ? 'grabbing' : 'grab'};touch-action:none;z-index:1`,
+            cornerStyle: compact || !this.state.dispoOuverte ? 'display:none' : POIGNEE_REDIM
           };
         }
         return sortie;
@@ -3909,7 +3924,7 @@ class Component extends DCLogic {
             label: o.label,
             icone: (e.mandat || '') === o.id ? 'ph ph-check' : '',
             onClick: () => this.setState(st => ({ edite: { ...st.edite, mandat: st.edite.mandat === o.id ? '' : o.id, mandatListe: false } })),
-            style: `${STYLE_LIGNE_TACHE};display:flex;align-items:center;gap:8px;width:100%;min-height:38px;padding:0 12px;cursor:pointer;outline:none;font-family:inherit;font-size:14px;line-height:1.35;font-weight:500;color:var(--color-text);text-align:left;transition:filter .15s ease;${(e.mandat || '') === o.id ? 'background:#e2ecf8;border-color:#e2ecf8;' : ''}`
+            style: `${STYLE_LIGNE_TACHE};display:flex;align-items:center;gap:8px;width:100%;min-height:38px;padding:0 12px;cursor:pointer;outline:none;font-family:inherit;font-size:13px;line-height:1.35;font-weight:500;color:var(--color-text);text-align:left;transition:filter .15s ease;${(e.mandat || '') === o.id ? 'background:#e2ecf8;border-color:#e2ecf8;' : ''}`
           })),
           onTitre: ev => this.champPriorite('titre', ev.target.value),
           // Le champ grandit vers le bas avec son texte (recalcul à chaque rendu).
@@ -4017,7 +4032,7 @@ class Component extends DCLogic {
         titre: p.titre,
         // Même ligne que « Autres tâches » (marge gauche de 12 px dans le rebord), texte estompé.
         rowStyle: `display:flex;align-items:flex-start;gap:10px;padding:0 0 0 12px;${STYLE_LIGNE_TACHE};transition:all ${anim ? '.18s' : '0s'} ease`,
-        titreStyle: 'font-size:14px;line-height:1.35;overflow-wrap:anywhere;cursor:pointer;color:var(--color-neutral-500)',
+        titreStyle: 'font-size:13px;line-height:1.35;overflow-wrap:anywhere;cursor:pointer;color:var(--color-neutral-500)',
         echeanceVisible: false
       })),
       titreMandats: this.state.mandatsHistoriqueOuvert ? 'Historique' : 'Mandats',
@@ -4195,13 +4210,13 @@ class Component extends DCLogic {
             Compromis: { bg: '#e2ecf8', bd: '#a9c4e8', fg: '#2b5c98' },
             Ventes: { bg: '#eef8f2', bd: '#9fd3b4', fg: '#2f7a52' },
             'K€': { bg: '#eef8f2', bd: '#9fd3b4', fg: '#2f7a52' }
-          })[c.label]; const n = String(c.valeur).length; return { ...c, carteStyle: `display:flex;align-items:center;gap:6px;padding:0 0 0 10px;height:38px;min-width:0;transition:filter .15s ease;${STYLE_LIGNE_TACHE}`, valeurStyle: `display:inline-flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;white-space:nowrap;${rondCouleur(t.bg, t.bd, t.fg)};font-size:${n > 5 ? 8.5 : n > 3 ? 9.5 : 10.5}px` }; }),
+          })[c.label]; const n = String(c.valeur).length; return { ...c, carteStyle: `display:flex;align-items:center;gap:6px;padding:0 0 0 10px;height:38px;min-width:0;transition:filter .15s ease;${STYLE_LIGNE_TACHE}`, valeurStyle: `display:inline-flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;white-space:nowrap;${rondCouleur(t.bg, t.bd, t.fg)};font-size:${n > 5 ? 8 : n > 3 ? 8.5 : 9.5}px` }; }),
           titreCold: 'Cold call',
           periodeColdLettre: periodeCold === 'semaine' ? 'M' : 'S',
           periodeColdAide: periodeCold === 'semaine' ? 'Voir le cold call du mois' : 'Voir le cold call de la semaine',
           onTogglePeriodeCold: () => this.setState(s => ({ periodeCold: (s.periodeCold || 'semaine') === 'semaine' ? 'mois' : 'semaine' })),
           chiffresCold: [periodeCold === 'mois' ? coldMois : coldSem].map(c => { // Série de jours ouvrés : vert au-delà de 1 jour, sinon #f0c98a
-          return { ...c, ...barreAvancement(c.pct, c.faits, 12), valeurStyle: `display:inline-flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;white-space:nowrap;${rondCouleur(...(PAL.vert))};font-size:${String(c.valeur).length > 4 ? 9.5 : 10.5}px`, deltaStyle: `display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:0;flex:none;width:28px;height:28px;padding:0;font-weight:600;font-size:10.5px;line-height:1;white-space:nowrap;${rondCouleur(...PAL.jaune)}`, flammeIconeStyle: `font-size:14px;margin-bottom:-1px;color:${serie > 1 ? '#e2571f' : '#e8874a'}` }; })
+          return { ...c, ...barreAvancement(c.pct, c.faits, 12), valeurStyle: `display:inline-flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;white-space:nowrap;${rondCouleur(...(PAL.vert))};font-size:${String(c.valeur).length > 4 ? 8.5 : 9.5}px`, deltaStyle: `display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:0;flex:none;width:28px;height:28px;padding:0;font-weight:600;font-size:9.5px;line-height:1;white-space:nowrap;${rondCouleur(...PAL.jaune)}`, flammeIconeStyle: `font-size:13px;margin-bottom:-1px;color:${serie > 1 ? '#e2571f' : '#e8874a'}` }; })
         };
       })(),
       ...(() => {
@@ -4225,7 +4240,7 @@ class Component extends DCLogic {
         }
         if (!evts || !evts.length) {
           return {
-            rdv: { heure: '10h30', dans: 'dans 42 min', titre: 'Visite — 45 rue Sainte-Catherine', lieu: 'M. et Mme Ledoux · 2ᵉ visite' },
+            rdv: { heure: '10h30', jour: 'Aujourd’hui', dans: 'dans 42 min', titre: 'Visite — 45 rue Sainte-Catherine', lieu: 'M. et Mme Ledoux · 2ᵉ visite' },
             rdvCercles: this._cerclesRdv('dans 42 min'),
             suiteAgenda: [
         { heure: '12h15', titre: 'Déjeuner notaire — étude Bergerot' },
@@ -4255,10 +4270,19 @@ class Component extends DCLogic {
           return m ? `${m.adresse}, ${/bordeaux/i.test(m.quartier || '') || !m.quartier ? 'Bordeaux' : m.quartier + ', Bordeaux'}` : '';
         })();
         const dansTexte = estAuj(p) ? (p.start.dateTime ? ecartTexte(dt(p)) : 'Aujourd’hui') : dt(p).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+        // Jour exact du rendez-vous : Aujourd'hui, Demain, sinon la date complète (ex. « 1 janvier 2027 »).
+        const jourRdv = (() => {
+          const d = dt(p);
+          const auj0 = new Date(); auj0.setHours(0, 0, 0, 0);
+          const d0 = new Date(d); d0.setHours(0, 0, 0, 0);
+          const ecartJ = Math.round((d0 - auj0) / 86400000);
+          return ecartJ === 0 ? 'Aujourd’hui' : ecartJ === 1 ? 'Demain' : d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+        })();
         return {
           rdvCercles: this._cerclesRdv(dansTexte),
           rdv: {
             heure: p.start.dateTime ? hFmt(dt(p)) : 'Journée',
+            jour: jourRdv,
             dans: dansTexte,
             titre: p.summary || 'Sans titre',
             lieu: p.location || ''
@@ -4336,7 +4360,7 @@ class Component extends DCLogic {
               onMasquer: ev => { ev.preventDefault(); ev.stopPropagation(); this.basculerActuLue(n.id); },
               rondStyle: this._terminerRondStyle(lu),
               rondAide: lu ? 'Retirer l’article' : 'Marquer comme lu',
-              titreStyle: `flex:1;min-width:0;font-size:12.5px;line-height:1.35;font-weight:400;text-wrap:pretty;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden`
+              titreStyle: `flex:1;min-width:0;font-size:10.5px;line-height:1.35;font-weight:400;text-wrap:pretty;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden`
             };
           });
       })()
