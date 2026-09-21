@@ -17,6 +17,7 @@
   import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
   import { getAuth, GoogleAuthProvider, signInWithCredential, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
   import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
+  import { getStorage, ref as refStorage, uploadString, getBlob, deleteObject, listAll } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-storage.js';
   const app = initializeApp({
     apiKey: 'AIzaSyBZK1xs0z_rzUtc-o8iqXN0dta-uKyqgnI',
     authDomain: 'ilo-saas.firebaseapp.com',
@@ -26,7 +27,8 @@
     appId: '1:360912316431:web:b4c0ff9e6a8ea982c59b7a'
   });
   window.__firebase = {
-    auth: getAuth(app), db: getFirestore(app),
+    auth: getAuth(app), db: getFirestore(app), storage: getStorage(app),
+    refStorage, uploadString, getBlob, deleteObject, listAll,
     GoogleAuthProvider, signInWithCredential, onAuthStateChanged, signOut, doc, getDoc, setDoc, serverTimestamp
   };
 </script>
@@ -187,6 +189,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
 </helmet>
 <div style="height:100vh;height:100dvh;display:flex;position:relative;overflow:hidden;color:var(--color-text);font-family:var(--police);font-size:13px;{{ themeVars }}">
   <div aria-hidden="true" style="{{ ciel.fond }}"></div>
+  <div aria-hidden="true" ref="{{ ciel.fondImageRef }}" style="{{ ciel.fondImage }}"></div>
   <div aria-hidden="true" style="{{ ciel.voile }}"></div>
   <div aria-hidden="true" style="{{ ciel.nuages1 }}"></div>
   <div aria-hidden="true" style="{{ ciel.nuages2 }}"></div>
@@ -1377,6 +1380,8 @@ const CLE_ACTUS_RESTAUREES = 'agentimmo.actusrestaurees.v1';
 // Largeurs minimales d'affichage (px) : en dessous, le titre / les cercles ne tiennent plus
 // Largeurs minimales (px) : en dessous, les cercles d'une pilule dépasseraient de leur cadre (Rendez-vous : 3 cercles ; Cold call : 4 cercles),
 // et les listes (Mandats, Actualités) ne seraient plus lisibles.
+// Voile de la couleur du fond posé sur un fond d'écran importé (jour et nuit) : adoucit l'image pour que les textes restent lisibles.
+const VOILE_FOND = 'color-mix(in srgb, var(--fond-page) 58%, transparent)';
 const MIN_LARGEUR_WIDGET = { yanport: 206, missions: 300, rdv: 190, pipeline: 220, news: 240 };
 // ══════ Styles partagés : lignes, cercles, jauges ══════
 const STYLE_LIGNE_TACHE = 'box-sizing:border-box;border:5px solid var(--surface-module,#e8ecf6);border-radius:19px;background:var(--surface-module,#e8ecf6);box-shadow:0 7px 11px -6px var(--ombre-forte,rgba(110,124,152,.42)), 0 -3px 6px -3px var(--reflet-fort,rgba(255,255,255,.7))';
@@ -1911,6 +1916,7 @@ class Component extends DCLogic {
       effacerFichier(id);
       return { mandatsSup, vue: 'dash', mandatId: null };
     });
+    this._supprimerFichiersCloud(id);
     this._planifierSyncCloud();
   }
 
@@ -1981,7 +1987,10 @@ class Component extends DCLogic {
     mandat.photo = !!paquet.photo;
     if (paquet.pdf || paquet.photo) {
       ecrireFichier(mandat.id, paquet)
-        .then(() => this.setState(s => ({ fichiers: { ...s.fichiers, [mandat.id]: paquet } })))
+        .then(() => {
+          this.setState(s => ({ fichiers: { ...s.fichiers, [mandat.id]: paquet } }));
+          setTimeout(() => this._envoyerFichiersCloud(mandat.id), 600); // le mandat est alors enregistré dans l'état
+        })
         .catch(() => this.setState(s => ({
           mandatsSup: s.mandatsSup.map(m => (m.id === mandat.id ? { ...m, pdf: false, photo: false } : m))
         })));
@@ -2053,7 +2062,7 @@ class Component extends DCLogic {
       visites: (() => { try { const o = JSON.parse(localStorage.getItem(CLE_V)); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } })(),
       mandatsSup: purge(lire(CLE_M, []).filter(sain))
     });
-    this.chargerFichiers();
+    this._fichiersPret = this.chargerFichiers();
   }
 
   // ══════ Mandats et visites : ordre, étapes, saisie ══════
@@ -2413,6 +2422,7 @@ class Component extends DCLogic {
 
   ecrireLibre(libre) {
     this._sauve = { ...this._sauve, libre: JSON.stringify(libre) };
+    this._planifierSyncCloud();
     return this._ecrireCarte(CLE_LIB, libre);
   }
 
@@ -2451,6 +2461,32 @@ class Component extends DCLogic {
     this.setState({ modeleSel: n, ...this._appliquerDisposition(m && m.libre ? m : this._dispositionParDefaut()) });
   }
 
+  // Fond d'écran importé : l'image est réduite (2400 px max) puis rangée dans IndexedDB (clé « fond-ecran »), sur cet appareil.
+  importerFond() {
+    const champ = document.createElement('input');
+    champ.type = 'file';
+    champ.accept = 'image/*';
+    champ.onchange = () => {
+      const fic = champ.files && champ.files[0];
+      if (!fic || !/^image\//.test(fic.type)) return;
+      const lecteur = new FileReader();
+      lecteur.onload = async () => {
+        const image = await compresser(lecteur.result, 2400);
+        if (!image) return;
+        const paquet = { image };
+        try { await ecrireFichier('fond-ecran', paquet); } catch (e) { return; }
+        this.setState(s => ({ fichiers: { ...s.fichiers, 'fond-ecran': paquet } }));
+      };
+      lecteur.readAsDataURL(fic);
+    };
+    champ.click();
+  }
+
+  retirerFond() {
+    effacerFichier('fond-ecran');
+    this.setState(s => { const { 'fond-ecran': _, ...reste } = s.fichiers; return { fichiers: reste }; });
+  }
+
   // Remet l'affichage par défaut, c'est-à-dire la version actuelle du modèle 1 (modèles enregistrés inchangés) ;
   // « Enregistrer » le range ensuite dans le modèle choisi.
   reinitialiserDisposition() {
@@ -2462,6 +2498,7 @@ class Component extends DCLogic {
     if (!n || !this.state.libre) return;
     const modeles = { ...(this.state.modeles || {}), [n]: { libre: this.state.libre, libreF: this.state.libreF || null } };
     try { localStorage.setItem('agentimmo.modeles.v1', JSON.stringify(modeles)); } catch (e) {}
+    this._planifierSyncCloud();
     this.ecrireLibre(this.state.libre);
     if (this.state.libreF) this.ecrireLibreF(this.state.libreF);
     // Animation : un anneau se remplit autour du bouton (1 s), puis une coche s'affiche brièvement.
@@ -2564,6 +2601,7 @@ class Component extends DCLogic {
       localStorage.setItem('agentimmo.prospection.v1', JSON.stringify({ active: true, date: jour }));
       localStorage.setItem('agentimmo.prospjournal.v1', JSON.stringify(journal));
     } catch (e) {}
+    this._planifierSyncCloud();
   }
 
   programmerMinuitProspection() {
@@ -2748,17 +2786,128 @@ class Component extends DCLogic {
         if (Array.isArray(d.mandatsSup)) maj.mandatsSup = d.mandatsSup;
         if (d.visites && typeof d.visites === 'object') maj.visites = d.visites;
         if (d.infosM && typeof d.infosM === 'object') maj.infosM = d.infosM;
+        // Disposition, modèles et journal Cold call : la version du cloud remplace la locale (le journal fusionne les deux, sans rien perdre).
+        if (d.libre && typeof d.libre === 'object') { const p = Object.fromEntries(Object.entries(d.libre).filter(([k]) => k in POS_INIT)); if (Object.keys(p).length) maj.libre = { ...POS_INIT, ...p }; }
+        if (d.libreF && typeof d.libreF === 'object') { const p = Object.fromEntries(Object.entries(d.libreF).filter(([k]) => k in POS_INIT_F)); if (Object.keys(p).length) maj.libreF = { ...POS_INIT_F, ...p }; }
+        if (d.modeles && typeof d.modeles === 'object') maj.modeles = d.modeles;
+        if (Array.isArray(d.prospJournal)) maj.prospJournal = Array.from(new Set([...(this.state.prospJournal || []), ...d.prospJournal.filter(x => typeof x === 'string')])).sort();
         this._cloudChargee = true;
         this.setState(maj);
+        if (maj.libre) { this._libreSane = maj.libre; this.ecrireLibre(maj.libre); }
+        if (maj.libreF) this.ecrireLibreF(maj.libreF);
+        if (maj.modeles) { try { localStorage.setItem('agentimmo.modeles.v1', JSON.stringify(maj.modeles)); } catch (e) {} }
+        if (maj.prospJournal) { try { localStorage.setItem('agentimmo.prospjournal.v1', JSON.stringify(maj.prospJournal)); } catch (e) {} }
         if (this._prioritesAMigrer) { this._prioritesAMigrer = false; this._sauvegarderCloud(); }
+        this._synchroniserFichiersCloud();
       } else {
         // premier appareil connecté : on envoie l'état local actuel comme base de départ
         this._cloudChargee = true;
         this._sauvegarderCloud();
+        this._synchroniserFichiersCloud();
       }
     } catch (e) {
       console.error('[cloud] échec chargement', e);
     }
+  }
+
+  // ══════ Stockage cloud des fichiers (photos et PDF des mandats) ══════
+  // Les fichiers d'un mandat restent dans IndexedDB (affichage instantané, hors ligne) et sont copiés dans Firebase Storage sous
+  // utilisateurs/{uid}/fichiers/{mandat}/ : « pdf », « photo », « photos-0 »… Le mandat porte un repère `cloud` (contenu envoyé + empreinte),
+  // synchronisé avec le reste des données : un autre appareil sait ainsi quels fichiers télécharger. Tout est silencieux et sans blocage :
+  // une erreur (réseau, règles, quota) est journalisée et l'application continue de fonctionner avec ses fichiers locaux.
+  _stockage() {
+    // Interrupteur : localStorage['agentimmo.stockage.off'] = '1' coupe toute la synchronisation des fichiers (essais, dépannage).
+    try { if (localStorage.getItem('agentimmo.stockage.off') === '1') return null; } catch (e) {}
+    const fb = this._initFirebase();
+    return fb && fb.storage && this.state.compteUtilisateur ? fb : null;
+  }
+
+  _empreinteFichiers(p) {
+    return [(p.pdf || '').length, (p.photo || '').length, ...(Array.isArray(p.photos) ? p.photos : []).map(x => (x || '').length)].join('|');
+  }
+
+  _marquerCloudMandat(id, cloud) {
+    this.setState(s => {
+      const mandatsSup = s.mandatsSup.map(m => (m.id === id ? { ...m, cloud } : m));
+      try { localStorage.setItem(CLE_M, JSON.stringify(mandatsSup)); } catch (e) {}
+      return { mandatsSup };
+    });
+    this._planifierSyncCloud();
+  }
+
+  async _envoyerFichiersCloud(id) {
+    const fb = this._stockage();
+    if (!fb || !this._cloudChargee) return;
+    const paq = this.state.fichiers[id];
+    const m = (this.state.mandatsSup || []).find(x => x.id === id);
+    if (!paq || !m) return;
+    const empreinte = this._empreinteFichiers(paq);
+    if (m.cloud && m.cloud.empreinte === empreinte) return; // déjà à jour
+    this._envoisEnCours = this._envoisEnCours || {};
+    if (this._envoisEnCours[id]) { this._envoiARelancer = { ...(this._envoiARelancer || {}), [id]: true }; return; }
+    this._envoisEnCours[id] = true;
+    try {
+      const base = `utilisateurs/${this.state.compteUtilisateur.uid}/fichiers/${id}/`;
+      const envoyer = (nom, val) => (val && String(val).startsWith('data:') ? fb.uploadString(fb.refStorage(fb.storage, base + nom), val, 'data_url') : null);
+      const photos = Array.isArray(paq.photos) ? paq.photos : [];
+      await Promise.all([envoyer('pdf', paq.pdf), envoyer('photo', paq.photo), ...photos.map((p, i) => envoyer('photos-' + i, p))].filter(Boolean));
+      this._marquerCloudMandat(id, { pdf: !!paq.pdf, photo: !!paq.photo, photos: photos.length, empreinte, le: Date.now() });
+    } catch (e) {
+      console.error('[stockage] échec envoi', id, e);
+    } finally {
+      this._envoisEnCours[id] = false;
+      if (this._envoiARelancer && this._envoiARelancer[id]) { this._envoiARelancer[id] = false; setTimeout(() => this._envoyerFichiersCloud(id), 500); }
+    }
+  }
+
+  // Télécharge les fichiers connus du cloud mais absents de cet appareil (nouvel appareil, cache vidé).
+  async _recupererFichiersCloud() {
+    const fb = this._stockage();
+    if (!fb) return;
+    const uid = this.state.compteUtilisateur.uid;
+    for (const m of this.state.mandatsSup || []) {
+      const c = m.cloud;
+      if (!c) continue;
+      const local = this.state.fichiers[m.id] || {};
+      const localPhotos = Array.isArray(local.photos) ? local.photos : [];
+      if (!((c.pdf && !local.pdf) || (c.photo && !local.photo) || ((c.photos || 0) > localPhotos.length))) continue;
+      try {
+        const lire = async nom => {
+          const blob = await fb.getBlob(fb.refStorage(fb.storage, `utilisateurs/${uid}/fichiers/${m.id}/${nom}`));
+          return await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(blob); });
+        };
+        const paquet = { ...local };
+        if (c.pdf && !local.pdf) paquet.pdf = await lire('pdf');
+        if (c.photo && !local.photo) paquet.photo = await lire('photo');
+        if ((c.photos || 0) > localPhotos.length) { const ph = []; for (let i = 0; i < c.photos; i++) ph.push(await lire('photos-' + i)); paquet.photos = ph; }
+        await ecrireFichier(m.id, paquet);
+        this.setState(s => ({
+          fichiers: { ...s.fichiers, [m.id]: paquet },
+          mandatsSup: s.mandatsSup.map(x => (x.id === m.id ? { ...x, pdf: !!paquet.pdf, photo: !!paquet.photo } : x))
+        }));
+      } catch (e) {
+        console.error('[stockage] échec téléchargement', m.id, e);
+      }
+    }
+  }
+
+  async _supprimerFichiersCloud(id) {
+    const fb = this._stockage();
+    if (!fb) return;
+    try {
+      const liste = await fb.listAll(fb.refStorage(fb.storage, `utilisateurs/${this.state.compteUtilisateur.uid}/fichiers/${id}`));
+      await Promise.all(liste.items.map(it => fb.deleteObject(it)));
+    } catch (e) {
+      console.error('[stockage] échec suppression', id, e);
+    }
+  }
+
+  // À la connexion : récupérer d'abord ce qui manque ici, puis envoyer ce que le cloud n'a pas encore.
+  async _synchroniserFichiersCloud() {
+    try { await this._fichiersPret; } catch (e) {}
+    await new Promise(r => setTimeout(r, 300)); // laisse l'état (mandats venant du cloud) se mettre à jour
+    await this._recupererFichiersCloud();
+    for (const m of this.state.mandatsSup || []) await this._envoyerFichiersCloud(m.id);
   }
 
   _planifierSyncCloud() {
@@ -2773,6 +2922,11 @@ class Component extends DCLogic {
     if (!fb || !utilisateur) return;
     const donnees = {};
     for (const champ of CHAMPS_CLOUD) donnees[champ] = this.state[champ];
+    // Disposition enregistrée (dashboard et fiche), modèles 1 et 2 et journal Cold call : petites données, stockées dans le même document.
+    const sv = this._sauve || {};
+    try { if (sv.libre) donnees.libre = JSON.parse(sv.libre); if (sv.libreF) donnees.libreF = JSON.parse(sv.libreF); } catch (e) {}
+    donnees.modeles = this.state.modeles || {};
+    donnees.prospJournal = this.state.prospJournal || [];
     // Firestore refuse toute valeur undefined, y compris imbriquée — on
     // passe par un aller-retour JSON qui les élimine (avant d'ajouter le
     // sentinel serverTimestamp, non sérialisable en JSON).
@@ -3010,6 +3164,7 @@ class Component extends DCLogic {
 
   ecrireLibreF(libre) {
     this._sauve = { ...this._sauve, libreF: JSON.stringify(libre) };
+    this._planifierSyncCloud();
     return this._ecrireCarte(CLE_LIBF, libre);
   }
 
@@ -3153,6 +3308,7 @@ class Component extends DCLogic {
       const suite = { ...actuel, photos, ...(!actuel.photo && photo ? { photo } : {}) };
       await ecrireFichier(id, suite);
       this.setState(s => ({ fichiers: { ...s.fichiers, [id]: suite } }));
+      setTimeout(() => this._envoyerFichiersCloud(id), 300);
     } catch (e) {
       // Échec (réseau, PDF illisible) : on n'enferme plus ce mandat dans « en cours », un nouvel essai aura lieu à la prochaine ouverture de la fiche.
       this._photosEnCours[id] = false;
@@ -3756,6 +3912,9 @@ class Component extends DCLogic {
         // calques décoratifs.
         return {
           fond: 'position:absolute;inset:0;background:var(--fond-page);z-index:0',
+          // Fond d'écran importé (menu de disposition, bouton +) : affiché en plein fond derrière les widgets ; l'image est posée par ref (pas dans le style) pour ne pas recopier des centaines de Ko à chaque rendu.
+          fondImage: (this.state.fichiers['fond-ecran'] || {}).image ? 'position:absolute;inset:0;z-index:0;pointer-events:none;background-size:cover;background-position:center;background-repeat:no-repeat' : 'display:none',
+          fondImageRef: node => { if (node) { const img = (this.state.fichiers['fond-ecran'] || {}).image; node.style.backgroundImage = img ? `linear-gradient(${VOILE_FOND}, ${VOILE_FOND}), url("${img}")` : 'none'; } },
           voile: 'display:none',
           nuages1: 'display:none',
           nuages2: 'display:none',
@@ -3825,7 +3984,9 @@ class Component extends DCLogic {
               aide: modeles[n] ? `Modèle ${n} — afficher cette disposition` : `Modèle ${n} : disposition par défaut — sélectionner pour y enregistrer la vôtre`,
               style: rond(sel === n ? BLEU : GRIS, true),
               onClick: () => this.choisirModele(n)
-            }))
+            })),
+            { icone: 'ph ph-plus', texte: '', aide: 'Importer un fond d’écran (image de votre ordinateur)', style: rond(GRIS, true), onClick: () => this.importerFond(), enCours: false },
+            ...((this.state.fichiers['fond-ecran'] || {}).image ? [{ icone: 'ph ph-x', texte: '', aide: 'Retirer le fond d’écran', style: rond(GRIS, true), onClick: () => this.retirerFond(), enCours: false }] : [])
           ].map(b => ({ ...b, avecIcone: !!b.icone }))
         };
       })(),
