@@ -144,6 +144,15 @@ input::placeholder, textarea::placeholder{color:var(--couleur-placeholder,#75757
 .ib-col:first-child .ib-c{margin-left:0;padding-left:0}
 .ib-col:last-child .ib-c{margin-right:0;padding-right:0}
 .ib-c{display:flex;align-items:center;gap:6px;min-height:28px;box-sizing:border-box;margin:0 -14px;padding:0 14px;border-bottom:1px solid var(--color-divider);cursor:text}
+/* Widget étroit (moins de 3 colonnes de 100 px) : les deux premières colonnes se partagent la largeur et la 3e colonne passe dessous, elle aussi sur deux colonnes (la dernière ligne seule occupe toute la largeur) */
+.ib-table{container-type:inline-size;container-name:ib}
+@container ib (max-width:355px){
+  .ib-col:nth-child(1),.ib-col:nth-child(2){flex:1 1 calc(50% - 14px)}
+  .ib-col:nth-child(3){flex:1 1 100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:28px}
+  .ib-col:nth-child(3) .ib-c:nth-child(odd){margin-left:0;padding-left:0}
+  .ib-col:nth-child(3) .ib-c:nth-child(even){margin-right:0;padding-right:0}
+  .ib-col:nth-child(3) .ib-c:last-child:nth-child(odd){grid-column:1 / -1;margin-right:0;padding-right:0}
+}
 .ib-l{flex:1;min-width:0;font-size:12px;line-height:1.35;color:var(--color-neutral-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ib-v{flex:none;font-size:13px;font-weight:500;line-height:1.35;color:var(--titre);text-align:right;width:auto;max-width:60%}
 .ib-lec{display:inline-block}
@@ -188,11 +197,13 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
   <main style="flex:1;min-width:0;display:flex;flex-direction:column;position:relative;z-index:1;overflow:hidden">
 
     <sc-if value="{{ vueFiche }}" hint-placeholder-val="{{ false }}">
-      <button onClick="{{ fermerFiche }}" title="Revenir au dashboard" aria-label="Revenir au dashboard" style="{{ nuit.boutonStyle }};position:absolute;top:10px;left:10px;z-index:20"><i class="ph ph-arrow-left" style="font-size:19px"></i></button>
+      <div style="position:absolute;top:10px;left:10px;z-index:20;display:flex;box-sizing:border-box;padding:5px;border-radius:999px;background:var(--cadre-barre,var(--surface-module,#e8ecf6));box-shadow:var(--relief)">
+        <button onClick="{{ fermerFiche }}" title="Revenir au dashboard" aria-label="Revenir au dashboard" style="{{ nuit.boutonStyle }}"><i class="ph ph-arrow-left" style="font-size:12px"></i></button>
+      </div>
     </sc-if>
-    <header style="position:absolute;top:10px;right:10px;z-index:20;display:flex;align-items:center;gap:16px">
-      <div style="position:relative">
-        <button onClick="{{ onCompteBouton }}" title="Compte et synchronisation" aria-label="Compte et synchronisation" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;padding:0;cursor:pointer;overflow:hidden;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-500)">
+    <header style="position:absolute;top:10px;right:10px;z-index:30;display:flex;flex-direction:column;align-items:center;gap:6px;box-sizing:border-box;padding:5px;border-radius:999px;background:var(--cadre-barre,var(--surface-module,#e8ecf6));box-shadow:var(--relief)">
+      <div style="position:relative;display:flex">
+        <button onClick="{{ onCompteBouton }}" title="Compte et synchronisation" aria-label="Compte et synchronisation" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;padding:0;cursor:pointer;overflow:hidden;border:0;background:transparent;color:var(--color-neutral-500);box-shadow:inset 0 1px 1.5px var(--ombre-creux,rgba(40,60,90,.1)), 0 1px 2px var(--ombre-legere,rgba(60,80,120,.14))">
           <sc-if value="{{ compteAvatarVisible }}" hint-placeholder-val="{{ false }}">
             <img src="{{ compteAvatar }}" alt="" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:cover;display:block">
           </sc-if>
@@ -205,17 +216,21 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
         </button>
         <sc-if value="{{ compteOuvert }}" hint-placeholder-val="{{ false }}">
           <div onClick="{{ fermerCompte }}" style="position:fixed;inset:0;z-index:49"></div>
-          <div class="verre" style="position:absolute;top:46px;right:0;z-index:50;width:280px;box-sizing:border-box;padding:14px 16px;display:flex;flex-direction:column;gap:12px;animation:fadeUp .16s ease both">
+          <div style="position:absolute;top:-5px;right:calc(100% + 13px);z-index:50;width:190px;display:flex;flex-direction:column;gap:6px;animation:fadeUp .16s ease both">
             <sc-if value="{{ compteConnecte }}" hint-placeholder-val="{{ false }}">
-              <div>
-                <div style="font-size:12px;font-weight:600;color:var(--titre);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteNom }}</div>
-                <div style="font-size:11px;color:var(--color-neutral-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteEmail }}</div>
+              <div style="{{ ligneTacheStyle }};height:38px;overflow:hidden">
+                <div style="flex:1;min-width:0;line-height:1.15">
+                  <div style="font-size:12px;font-weight:500;color:var(--color-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteNom }}</div>
+                  <div style="font-size:10px;color:var(--color-neutral-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ compteEmail }}</div>
+                </div>
+                <button onClick="{{ onCompteDeconnecter }}" title="Se déconnecter" aria-label="Se déconnecter" style="{{ compteBoutonStyle }}"><i class="ph ph-power" style="font-size:12px"></i></button>
               </div>
-              <button onClick="{{ onCompteDeconnecter }}" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--color-neutral-800);background:transparent;color:var(--color-neutral-400);border-radius:10px;padding:7px 10px;font-family:inherit;font-size:12px;cursor:pointer">Se déconnecter</button>
             </sc-if>
             <sc-if value="{{ !compteConnecte }}" hint-placeholder-val="{{ true }}">
-              <div style="font-size:12px;color:var(--color-text)">Connectez-vous avec Google pour enregistrer vos données et les retrouver sur tous vos appareils.</div>
-              <button onClick="{{ onCompteConnecter }}" class="btn-google" style="align-self:flex-start;width:auto"><i class="ph ph-google-logo" style="font-size:14px"></i>Se connecter avec Google</button>
+              <div style="{{ ligneTacheStyle }};height:38px;overflow:hidden" title="Connectez-vous avec Google pour enregistrer vos données et les retrouver sur tous vos appareils.">
+                <div style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px;color:var(--color-text)">Connectez-vous avec Google</div>
+                <button onClick="{{ onCompteConnecter }}" title="Se connecter avec Google" aria-label="Se connecter avec Google" style="{{ compteBoutonStyle }}"><i class="ph ph-google-logo" style="font-size:12px"></i></button>
+              </div>
             </sc-if>
             <sc-if value="{{ compteMessageVisible }}" hint-placeholder-val="{{ false }}">
               <div style="font-size:11px;color:#9a4a12;padding:8px 10px;border-radius:10px;background:rgba(236,110,44,.18);border:1px solid rgba(236,110,44,.4)">{{ compteMessage }}</div>
@@ -223,13 +238,11 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
           </div>
         </sc-if>
       </div>
-    </header>
-
     <sc-if value="{{ dispoModule.visible }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute;top:56px;right:10px;z-index:20">
-        <button onClick="{{ nuit.onToggle }}" title="{{ nuit.aide }}" aria-label="{{ nuit.aide }}" aria-pressed="{{ nuit.actif }}" style="{{ nuit.boutonStyle }}"><i class="{{ nuit.icone }}" style="font-size:19px"></i></button>
-        <div style="position:relative;margin-top:8px">
-  <button onClick="{{ dispoModule.onToggle }}" title="Modifier la disposition des widgets (déplacer, redimensionner, modèles)" aria-label="Modifier la disposition des widgets" aria-pressed="{{ dispoModule.ouvert }}" style="{{ dispoModule.boutonStyle }}"><i class="ph ph-arrows-out-cardinal" style="font-size:19px"></i></button>
+      <div style="display:contents">
+        <button onClick="{{ nuit.onToggle }}" title="{{ nuit.aide }}" aria-label="{{ nuit.aide }}" aria-pressed="{{ nuit.actif }}" style="{{ nuit.boutonStyle }}"><i class="{{ nuit.icone }}" style="font-size:12px"></i></button>
+        <div style="position:relative;display:flex">
+  <button onClick="{{ dispoModule.onToggle }}" title="Modifier la disposition des widgets (déplacer, redimensionner, modèles)" aria-label="Modifier la disposition des widgets" aria-pressed="{{ dispoModule.ouvert }}" style="{{ dispoModule.boutonStyle }}"><i class="ph ph-arrows-out-cardinal" style="font-size:12px"></i></button>
           <sc-if value="{{ dispoModule.ouvert }}" hint-placeholder-val="{{ false }}">
             <div style="{{ dispoModule.cadreStyle }}">
               <sc-for list="{{ dispoModule.boutons }}" as="b" hint-placeholder-count="4">
@@ -245,13 +258,13 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
         </div>
       </div>
     </sc-if>
+    </header>
 
     <sc-if value="{{ vueDashboard }}" hint-placeholder-val="{{ true }}">
     <div style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:2px 0 0;display:flex;justify-content:center;align-items:flex-start">
       <div data-canvas="1" style="{{ canvasStyle }}">
         <sc-if value="{{ guidesActifs }}" hint-placeholder-val="{{ false }}">
-          <div style="{{ axeVerticalStyle }}"></div>
-          <div style="{{ axeHorizontalStyle }}"></div>
+          <div style="{{ grilleStyle }}"></div>
           <sc-for list="{{ lignesGuides }}" as="g" hint-placeholder-count="0">
             <div style="{{ g.style }}"></div>
           </sc-for>
@@ -551,8 +564,7 @@ textarea[placeholder="Informations complémentaires"]::placeholder{color:var(--t
 
       <div data-canvas-f="1" style="{{ canvasFStyle }}">
         <sc-if value="{{ guidesActifsF }}" hint-placeholder-val="{{ false }}">
-          <div style="{{ axeVerticalStyleF }}"></div>
-          <div style="{{ axeHorizontalStyleF }}"></div>
+          <div style="{{ grilleStyle }}"></div>
           <sc-for list="{{ lignesGuidesF }}" as="g" hint-placeholder-count="0">
             <div style="{{ g.style }}"></div>
           </sc-for>
@@ -1345,7 +1357,8 @@ const POS_INIT = {
   news:     { x: 780, y: 448, w: 210, h: 115 }
 };
 // Widget Commission : taille minimale = rangée de 38 px + cadre du widget (marges de 20 px, bandeau de titre).
-const MIN_COMMISSION = { w: 240, h: 108 };
+// Tailles minimales des widgets de la fiche : Informations (300 px de large : tableau sur deux colonnes lisible) et Commissions (rangée de 38 px).
+const MIN_WIDGET_F = { infos: { w: 300, h: 0 }, commission: { w: 240, h: 108 } };
 const POS_INIT_F = {
   taches:   { x: 236, y: 0,   w: 518, h: 462 },
   infos:    { x: 236, y: 488, w: 660, h: 372 },
@@ -1362,7 +1375,9 @@ const CLE_ACTUS_RESTAUREES = 'agentimmo.actusrestaurees.v1';
 // dessous. Cercles (numéro, délai, case) : forme de la pastille « 7/15 » avec
 // leurs couleurs d'origine (fond, contour et texte propres à chaque état).
 // Largeurs minimales d'affichage (px) : en dessous, le titre / les cercles ne tiennent plus
-const MIN_LARGEUR_WIDGET = { yanport: 206, missions: 300 };
+// Largeurs minimales (px) : en dessous, les cercles d'une pilule dépasseraient de leur cadre (Rendez-vous : 3 cercles ; Cold call : 4 cercles),
+// et les listes (Mandats, Actualités) ne seraient plus lisibles.
+const MIN_LARGEUR_WIDGET = { yanport: 206, missions: 300, rdv: 190, pipeline: 220, news: 240 };
 // ══════ Styles partagés : lignes, cercles, jauges ══════
 const STYLE_LIGNE_TACHE = 'box-sizing:border-box;border:5px solid var(--surface-module,#e8ecf6);border-radius:19px;background:var(--surface-module,#e8ecf6);box-shadow:0 7px 11px -6px var(--ombre-forte,rgba(110,124,152,.42)), 0 -3px 6px -3px var(--reflet-fort,rgba(255,255,255,.7))';
 // Police commune à tous les cercles (numéro, délai, pastille « 7/15 »)
@@ -1682,9 +1697,8 @@ const barreAvancement = (pct, faites, minPx = 44) => {
 const STYLE_TITRE_ROND = `width:22px;height:22px;flex:none;padding:0;box-sizing:border-box;border-radius:50%;border:0;background:rgba(120,138,176,.1);color:inherit;box-shadow:inset 0 1px 1.5px var(--ombre-creux,rgba(40,60,90,.06));${FONTE_ROND}`;
 // Ligne d'alignement affichée pendant un déplacement : fine, en bleu du site, avec un léger halo.
 function ligneGuideStyle(g) {
-  const base = g.esp
-    ? 'position:absolute;pointer-events:none;z-index:6;background:rgba(161,92,7,.85);box-shadow:0 0 6px rgba(240,201,138,.7);border-radius:1px'
-    : 'position:absolute;pointer-events:none;z-index:6;background:rgba(43,92,152,.7);box-shadow:0 0 6px rgba(43,92,152,.35);border-radius:1px';
+  // Tous les traits d'assistance (alignements, espacements égaux et leurs repères) : même bleu, même épaisseur (1 px) que le quadrillage, sans halo.
+  const base = 'position:absolute;pointer-events:none;z-index:6;background:rgba(43,92,152,.85)';
   return g.o === 'v'
     ? `${base};left:${g.p}px;top:${g.a}px;width:1px;height:${Math.max(1, g.b - g.a)}px`
     : `${base};left:${g.a}px;top:${g.p}px;width:${Math.max(1, g.b - g.a)}px;height:1px`;
@@ -1697,7 +1711,7 @@ function policeAdresse(adresse, tailles = [13, 12, 11, 10], s1 = 21, s2 = 27, s3
   return t ? `font-size:${t}px` : '';
 }
 // ══════ Modèle de disposition par défaut ══════
-// Disposition de base (« par défaut ») : c'est celle de tous les modèles 1, 2 et 3 tant qu'ils n'ont pas été modifiés
+// Disposition de base (« par défaut ») : c'est celle de tous les modèles 1 et 2 tant qu'ils n'ont pas été modifiés
 // et enregistrés, et celle que rétablit le bouton « Réinitialiser ». Un navigateur qui n'a aucune disposition enregistrée
 // la reçoit au premier chargement ; une disposition déjà enregistrée n'est jamais remplacée.
 const MODELE_1_DEFAUT = {
@@ -1815,7 +1829,7 @@ class Component extends DCLogic {
     trajet: { etat: 'idle' },
     // Trois modèles de disposition des widgets (dashboard + fiche mandat), enregistrés dans le navigateur.
     modeles: (() => { try { const o = JSON.parse(localStorage.getItem('agentimmo.modeles.v1')); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } })(),
-    modeleSel: (() => { try { return Number(localStorage.getItem('agentimmo.modele.actif.v1')) || null; } catch (e) { return null; } })(),
+    modeleSel: (() => { try { const n = Number(localStorage.getItem('agentimmo.modele.actif.v1')); return n === 1 || n === 2 ? n : null; } catch (e) { return null; } })(),
     dispoOuverte: false,
     enregEtat: null,
     modeNuit: (() => { try { return localStorage.getItem('agentimmo.nuit.v1') === '1'; } catch (e) { return false; } })()
@@ -2410,7 +2424,7 @@ class Component extends DCLogic {
       || (sv.libreF !== undefined && !!this.state.libreF && JSON.stringify(this.state.libreF) !== sv.libreF);
   }
 
-  // Un clic sur 1, 2 ou 3 sélectionne le modèle et, s'il contient une disposition, l'affiche aussitôt (les
+  // Un clic sur 1 ou 2 sélectionne le modèle et, s'il contient une disposition, l'affiche aussitôt (les
   // déplacements non enregistrés sont remplacés). Un modèle vide est simplement sélectionné : on organise les
   // widgets puis « Enregistrer » les y range ; sur un modèle rempli, on l'ajuste puis « Enregistrer » le met à jour.
   // Affiche une disposition (dashboard + fiche) et l'écrit comme disposition courante.
@@ -2424,16 +2438,23 @@ class Component extends DCLogic {
     return { libre, ...(libreF ? { libreF } : {}) };
   }
 
+  // Disposition par défaut : la version actuelle (enregistrée) du modèle 1 ; à défaut, celle livrée avec l'application.
+  _dispositionParDefaut() {
+    const m1 = (this.state.modeles || {})[1];
+    return m1 && m1.libre ? m1 : MODELE_1_DEFAUT;
+  }
+
   // Un modèle non enregistré vaut la disposition par défaut : le choisir l'affiche.
   choisirModele(n) {
     const m = (this.state.modeles || {})[n];
     try { localStorage.setItem('agentimmo.modele.actif.v1', String(n)); } catch (e) {}
-    this.setState({ modeleSel: n, ...this._appliquerDisposition(m && m.libre ? m : MODELE_1_DEFAUT) });
+    this.setState({ modeleSel: n, ...this._appliquerDisposition(m && m.libre ? m : this._dispositionParDefaut()) });
   }
 
-  // Remet l'affichage par défaut (modèles enregistrés inchangés) ; « Enregistrer » le range ensuite dans le modèle choisi.
+  // Remet l'affichage par défaut, c'est-à-dire la version actuelle du modèle 1 (modèles enregistrés inchangés) ;
+  // « Enregistrer » le range ensuite dans le modèle choisi.
   reinitialiserDisposition() {
-    this.setState(this._appliquerDisposition(MODELE_1_DEFAUT));
+    this.setState(this._appliquerDisposition(this._dispositionParDefaut()));
   }
 
   enregistrerModele() {
@@ -2803,8 +2824,8 @@ class Component extends DCLogic {
     autres.forEach(o => { xs.push(o.x, o.x + o.w, o.x + o.w / 2); ys.push(o.y, o.y + o.h, o.y + o.h / 2); });
     // Axes de la cible (centre de l'écran) : le centre du widget s'y aimante en priorité, sur la position exacte où
     // l'axe est dessiné, avant tout alignement avec le centre d'un autre widget (qui pourrait en être à quelques px).
-    const axeX = limite ? Math.round(limite.l / 2) : null;
-    const axeY = limite ? Math.round(limite.cy !== undefined ? limite.cy : limite.h / 2) : null;
+    // Plus d'axes au centre de l'écran (ni tracé, ni aimant) : le fond quadrillé les remplace.
+    const axeX = null, axeY = null;
     if (limite) { xs.push(0, limite.l); ys.push(0, limite.h); }
     const proche = (valeurs, cibles) => {
       let meilleur = null;
@@ -2982,6 +3003,7 @@ class Component extends DCLogic {
     if (!this.state.dispoOuverte) return; // déplacement/redimensionnement uniquement en mode édition de la disposition
     this._saisir({
       libre: 'libre', bouge: 'bougeId', guides: 'guidesL', echelle: '_echelle', largeurMin: 170,
+      mini: k => ({ w: Math.max(170, MIN_LARGEUR_WIDGET[k] || 0), h: 90 }),
       effectif: (k, r) => ({ ...r, w: Math.max(r.w, MIN_LARGEUR_WIDGET[k] || 0), h: k === 'yanport' ? Math.max(r.h, 160) : r.h })
     }, id, ev, mode);
   }
@@ -2995,8 +3017,8 @@ class Component extends DCLogic {
     if (!this.state.dispoOuverte) return; // déplacement/redimensionnement uniquement en mode édition de la disposition
     this._saisir({
       libre: 'libreF', bouge: 'bougeIdF', guides: 'guidesLF', echelle: '_echelleF', largeurMin: 190,
-      mini: k => k === 'commission' ? MIN_COMMISSION : { w: 190, h: 90 },
-      effectif: (k, r) => k === 'commission' ? { ...r, w: Math.max(r.w, MIN_COMMISSION.w), h: Math.max(r.h, MIN_COMMISSION.h) } : r
+      mini: k => ({ w: Math.max(190, (MIN_WIDGET_F[k] || {}).w || 0), h: Math.max(90, (MIN_WIDGET_F[k] || {}).h || 0) }),
+      effectif: (k, r) => MIN_WIDGET_F[k] ? { ...r, w: Math.max(r.w, MIN_WIDGET_F[k].w), h: Math.max(r.h, MIN_WIDGET_F[k].h) } : r
     }, id, ev, mode);
   }
 
@@ -3754,6 +3776,8 @@ class Component extends DCLogic {
       })(),
       // Repères d'aide au placement, affichés uniquement pendant un glisser : deux axes pointillés (vertical et
       // horizontal) marquent le centre de l'écran, et des lignes s'ajoutent quand un bord ou un centre s'aligne.
+      // Fond quadrillé affiché derrière les widgets pendant la disposition / le déplacement : ses cases sont celles de la grille d'aimantation (GRILLE_DISPO).
+      grilleStyle: `position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(to right, rgba(100,135,190,.16) 1px, transparent 1px),linear-gradient(to bottom, rgba(100,135,190,.16) 1px, transparent 1px);background-size:${GRILLE_DISPO}px ${GRILLE_DISPO}px`,
       guidesActifs: !compact && (!!this.state.dispoOuverte || !!this.state.bougeId),
       // Google Maps : itinéraire depuis la position actuelle (origine laissée vide) jusqu'à l'adresse du prochain rendez-vous.
       rdvMaps: {
@@ -3766,7 +3790,7 @@ class Component extends DCLogic {
           actif,
           icone: actif ? 'ph ph-sun' : 'ph ph-moon',
           aide: actif ? 'Revenir au mode jour' : 'Activer le mode nuit',
-          boutonStyle: `display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;cursor:pointer;outline:none;${rondCouleur(...PAL.gris)}`,
+          boutonStyle: `display:flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;cursor:pointer;outline:none;${rondCouleur(...PAL.gris)}`,
           onToggle: () => this.setState(s => {
             const modeNuit = !s.modeNuit;
             try { localStorage.setItem('agentimmo.nuit.v1', modeNuit ? '1' : '0'); } catch (e) {}
@@ -3787,16 +3811,16 @@ class Component extends DCLogic {
           sale,
           onToggle: () => this.setState(s => {
             // Entrée en mode édition sans modèle choisi : le modèle 1 est présélectionné, pour que « Enregistrer » fonctionne toujours.
-            if (!s.dispoOuverte && ![1, 2, 3].includes(s.modeleSel)) { try { localStorage.setItem('agentimmo.modele.actif.v1', '1'); } catch (e) {} return { dispoOuverte: true, modeleSel: 1 }; }
+            if (!s.dispoOuverte && ![1, 2].includes(s.modeleSel)) { try { localStorage.setItem('agentimmo.modele.actif.v1', '1'); } catch (e) {} return { dispoOuverte: true, modeleSel: 1 }; }
             return { dispoOuverte: !s.dispoOuverte };
           }),
           onFermer: () => this.setState({ dispoOuverte: false }),
-          boutonStyle: `display:flex;position:relative;align-items:center;justify-content:center;width:38px;height:38px;padding:0;cursor:pointer;outline:none;font-size:13px;${rondCouleur(...(this.state.dispoOuverte ? PAL.bleu : PAL.gris))}`,
-          cadreStyle: `${barreAvancement(0, 0).cadreStyle.replace('margin:0 0 16px', 'margin:0').replace('gap:6px', 'flex-direction:column;align-items:center;gap:10px')};position:absolute;top:46px;right:0;width:max-content`,
+          boutonStyle: `display:flex;position:relative;align-items:center;justify-content:center;width:28px;height:28px;padding:0;cursor:pointer;outline:none;font-size:13px;${rondCouleur(...(this.state.dispoOuverte ? PAL.bleu : PAL.gris))}`,
+          cadreStyle: `${barreAvancement(0, 0).cadreStyle.replace('margin:0 0 16px', 'margin:0').replace('gap:6px', 'flex-direction:column;align-items:center;gap:10px')};position:absolute;top:43px;right:-5px;width:max-content`,
           boutons: [
-            { icone: 'ph ph-arrow-counter-clockwise', texte: '', aide: 'Réinitialiser : remettre l’affichage par défaut', style: rond(GRIS, true), onClick: () => this.reinitialiserDisposition(), enCours: false },
-            { icone: this.state.enregEtat === 'ok' ? 'ph ph-check' : 'ph ph-floppy-disk', texte: '', aide: !sel ? 'Choisissez d’abord un modèle (1, 2 ou 3)' : `Enregistrer la disposition actuelle dans le modèle ${sel}`, style: rond(this.state.enregEtat === 'ok' ? PAL.vert : GRIS, peutEnregistrer), onClick: () => this.enregistrerModele(), enCours: this.state.enregEtat === 'cours' },
-            ...[1, 2, 3].map(n => ({
+            { icone: 'ph ph-arrow-counter-clockwise', texte: '', aide: 'Réinitialiser : remettre la disposition du modèle 1', style: rond(GRIS, true), onClick: () => this.reinitialiserDisposition(), enCours: false },
+            { icone: this.state.enregEtat === 'ok' ? 'ph ph-check' : 'ph ph-floppy-disk', texte: '', aide: !sel ? 'Choisissez d’abord un modèle (1 ou 2)' : `Enregistrer la disposition actuelle dans le modèle ${sel}`, style: rond(this.state.enregEtat === 'ok' ? PAL.vert : GRIS, peutEnregistrer), onClick: () => this.enregistrerModele(), enCours: this.state.enregEtat === 'cours' },
+            ...[1, 2].map(n => ({
               icone: '', texte: String(n), enCours: false,
               aide: modeles[n] ? `Modèle ${n} — afficher cette disposition` : `Modèle ${n} : disposition par défaut — sélectionner pour y enregistrer la vôtre`,
               style: rond(sel === n ? BLEU : GRIS, true),
@@ -3805,8 +3829,6 @@ class Component extends DCLogic {
           ].map(b => ({ ...b, avecIcone: !!b.icone }))
         };
       })(),
-      axeVerticalStyle: `position:absolute;left:${Math.round((this._dispoL || 0) / 2)}px;top:0;width:0;height:${CADRE_HAUTEUR}px;border-left:${(this.state.guidesL || []).some(g => g.axe && g.o === 'v') ? '1px solid rgba(43,92,152,.9)' : '1px dashed rgba(29,78,216,.5)'};pointer-events:none;z-index:6`,
-      axeHorizontalStyle: `position:absolute;left:0;top:${this._centreEcranY()}px;width:${this._dispoL || 0}px;height:0;border-top:${(this.state.guidesL || []).some(g => g.axe && g.o === 'h') ? '1px solid rgba(43,92,152,.9)' : '1px dashed rgba(29,78,216,.5)'};pointer-events:none;z-index:6`,
       // Lignes d'alignement dynamiques (bords/centres communs avec un autre widget), pendant un glisser.
       lignesGuides: (!compact && this.state.bougeId ? (this.state.guidesL || []).filter(g => !g.axe) : []).map(g => ({ style: ligneGuideStyle(g) })),
       wSalut: (() => {
@@ -3992,13 +4014,11 @@ class Component extends DCLogic {
             ? 'display:flex;flex-direction:column;gap:12px;min-width:0;width:100%'
             : `position:relative;flex:none;width:${dispoL}px;height:${CADRE_HAUTEUR}px;transform:scale(${kF});transform-origin:top center;margin-bottom:${Math.round(CADRE_HAUTEUR * (kF - 1))}px`,
           guidesActifsF: !compact && (!!this.state.dispoOuverte || !!this.state.bougeIdF),
-          axeVerticalStyleF: `position:absolute;left:${Math.round(dispoL / 2)}px;top:0;width:0;height:${CADRE_HAUTEUR}px;border-left:${(this.state.guidesLF || []).some(g => g.axe && g.o === 'v') ? '1px solid rgba(43,92,152,.9)' : '1px dashed rgba(29,78,216,.5)'};pointer-events:none;z-index:6`,
-          axeHorizontalStyleF: `position:absolute;left:0;top:${this._centreEcranY()}px;width:${dispoL}px;height:0;border-top:${(this.state.guidesLF || []).some(g => g.axe && g.o === 'h') ? '1px solid rgba(43,92,152,.9)' : '1px dashed rgba(29,78,216,.5)'};pointer-events:none;z-index:6`,
           lignesGuidesF: (!compact && this.state.bougeIdF ? (this.state.guidesLF || []).filter(g => !g.axe) : []).map(g => ({ style: ligneGuideStyle(g) }))
         };
         for (const id of ['infos', 'visites', 'taches', 'commission']) {
           const nom = 'wf' + id[0].toUpperCase() + id.slice(1);
-          const pos = libre && { ...libre[id], x: libre[id].x + this._decalX(), ...(id === 'commission' ? { w: Math.max(libre[id].w, MIN_COMMISSION.w), h: Math.max(libre[id].h, MIN_COMMISSION.h) } : {}) };
+          const pos = libre && { ...libre[id], x: libre[id].x + this._decalX(), ...(MIN_WIDGET_F[id] ? { w: Math.max(libre[id].w, MIN_WIDGET_F[id].w), h: Math.max(libre[id].h, MIN_WIDGET_F[id].h) } : {}) };
           const bouge = this.state.bougeIdF === id;
           sortie[nom] = {
             style: [
@@ -4130,6 +4150,8 @@ class Component extends DCLogic {
           compteEmail: (c && c.email) || '',
           onCompteConnecter: () => this.connecterCompte(),
           onCompteDeconnecter: () => this.deconnecterCompte(),
+          // Pastille bleue à droite de la carte du compte : se déconnecter / se connecter.
+          compteBoutonStyle: `display:flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;padding:0;cursor:pointer;outline:none;${rondCouleur(...PAL.bleu)}`,
           compteMessage: this.state.compteMessage || '',
           compteMessageVisible: !!this.state.compteMessage
         };
@@ -4182,7 +4204,8 @@ class Component extends DCLogic {
       yanportStyle: `display:inline-flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;text-decoration:none;${rondCouleur(...PAL.bleu)}`,
       coldCadreStyle: barreAvancement(0, 0).cadreStyle.replace('margin:0 0 16px', 'margin:0 0 12px') + ';max-width:100%',
       rdvCerclesStyle: barreAvancement(0, 0).cadreStyle.replace('margin:0 0 16px', 'margin:0 auto 12px').replace('gap:6px', 'gap:12px;justify-content:center') + ';width:fit-content;max-width:100%',
-      coldBoutonsStyle: barreAvancement(0, 0).cadreStyle.replace('margin:0 0 16px', 'margin:0').replace('gap:6px', 'gap:12px;justify-content:flex-end') + ';max-width:100%',
+      // Le cadre épouse ses cercles (largeur = contenu) : ses bouts arrondis restent concentriques au premier et au dernier cercle, alignés à droite comme la barre au-dessus.
+      coldBoutonsStyle: barreAvancement(0, 0).cadreStyle.replace('margin:0 0 16px', 'margin:0').replace('gap:6px', 'gap:12px') + ';width:fit-content;margin-left:auto;max-width:100%',
       // Cercles du bandeau : fond à peine plus foncé que le bandeau lui-même
       titreRondStyle: STYLE_TITRE_ROND,
       stop: e => e.stopPropagation(),
